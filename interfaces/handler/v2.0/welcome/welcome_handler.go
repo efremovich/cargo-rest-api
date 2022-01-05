@@ -1,0 +1,21 @@
+package welcomev2point00
+
+import (
+	"cargo-rest-api/pkg/response"
+
+	"github.com/gin-gonic/gin"
+)
+
+// WelcomeHandler is a struct.
+type WelcomeHandler struct {
+}
+
+// NewWelcomeHandler will initialize welcome handler.
+func NewWelcomeHandler() *WelcomeHandler {
+	return &WelcomeHandler{}
+}
+
+// Index will handle request.
+func (s *WelcomeHandler) Index(c *gin.Context) {
+	response.NewSuccess(c, nil, "PONG v2.0").JSON()
+}
