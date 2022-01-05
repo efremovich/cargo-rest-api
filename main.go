@@ -20,11 +20,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// @title cargo-rest-api API Example
+// @title cargo-rest-api
 // @version 1.0
 // @description This is a sample of RESTful api made by cargo-rest-api
 // @contact.name Aleksand Efremov
-// @contact.url https://github.com/trisna-ashari/cargo-rest-api
+// @contact.url https://github.com/efremovich/cargo-rest-api
 // @contact.email sasha.fima@gmail.com
 // @license.name MIT
 

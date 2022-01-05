@@ -3,8 +3,8 @@ FROM golang:alpine as builder
 
 # ENV GO111MODULE=on
 
-# Add Maintainer info
-LABEL maintainer="Trisna Novi Ashari <trisna.x2@gmail.com>"
+# Add Maintainer ino
+LABEL maintainer="Efremov Aleksandr <sasha.fima@gmail.com>"
 
 # Install git.
 # Git is required for fetching the dependencies.

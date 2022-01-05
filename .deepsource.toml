@@ -5,4 +5,4 @@ name = "go"
 enabled = true
 
   [analyzers.meta]
-  import_paths = ["github.com/trisna-ashari/cargo-rest-api"]
+  import_paths = ["github.com/efremovich/cargo-rest-api"]

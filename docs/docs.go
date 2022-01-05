@@ -19,7 +19,7 @@ var doc = `{
         "title": "{{.Title}}",
         "contact": {
             "name": "Aleksand Efremov",
-            "url": "https://github.com/trisna-ashari/cargo-rest-api",
+            "url": "https://github.com/efremovich/cargo-rest-api",
             "email": "sasha.fima@gmail.com"
         },
         "license": {

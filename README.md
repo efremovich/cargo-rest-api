@@ -1,9 +1,9 @@
 # Docs
 Golang RESTful API boilerplate with modern architectures.
 
-## [cargo-rest-api](https://github.com/trisna-ashari/cargo-rest-api)
+## [cargo-rest-api](https://github.com/efremovich/cargo-rest-api)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/bxcodec/faker/blob/master/LICENSE)
-[![Go Report](https://goreportcard.com/badge/github.com/trisna-ashari/cargo-rest-api)](https://goreportcard.com/report/github.com/trisna-ashari/cargo-rest-api)
+[![Go Report](https://goreportcard.com/badge/github.com/efremovich/cargo-rest-api)](https://goreportcard.com/report/github.com/efremovich/cargo-rest-api)
 
 ## Table of Contents
 - [Getting Started](#getting-started)
@@ -39,7 +39,7 @@ Golang RESTful API boilerplate with modern architectures.
 Download this project:
 
 ```shell script
-git clone https://github.com/trisna-ashari/cargo-rest-api
+git clone https://github.com/efremovich/cargo-rest-api
 ```
 
 Download project dependencies:
@@ -48,7 +48,7 @@ go mod download
 ```
 
 Before run this project, you should set configs with yours.
-Create & configure your `.env` based on: [.env.example](https://github.com/trisna-ashari/cargo-rest-api/blob/master/.env.example)
+Create & configure your `.env` based on: [.env.example](https://github.com/efremovich/cargo-rest-api/blob/master/.env.example)
 
 Create app secret (private and public key):
 ```shell script
@@ -71,7 +71,7 @@ Fast run with:
 ```shell script
 go run main.go
 
-# running on default port 8888
+# running on default port 8228
 ```
 
 or Enable hot reload with [Air](https://github.com/cosmtrek/air):
@@ -158,7 +158,7 @@ On api response's `headers`, its also included additional headers:
 
 #### Basic response
 ```shell script
-curl http://localhost:8888/ping
+curl http://localhost:8228/ping
 ```
 will return:
 ```json
@@ -276,7 +276,7 @@ Internationalization made easy with this skeleton. [go-i18n](https://github.com/
 . . .
 ```
 
-`YAML` file was choosen because `nested declaration` can be done easily instead of `TOML`, `JSON`, etc. For more example please check this [language example](https://github.com/trisna-ashari/cargo-rest-api/tree/master/languages).
+`YAML` file was choosen because `nested declaration` can be done easily instead of `TOML`, `JSON`, etc. For more example please check this [language example](https://github.com/efremovich/cargo-rest-api/tree/master/languages).
 
 ### Logger
 Yes, `logger` is very useful in development process. This skeleton has built in logger to watch any request are coming to your rest API. It was configurable :).
@@ -296,7 +296,7 @@ Absolutely yes, just run:
 go test -p 1 ./... -cover -coverprofile=coverage.out 
 ```
 
-or using the [Makefile](https://github.com/trisna-ashari/cargo-rest-api/blob/master/Makefile):
+or using the [Makefile](https://github.com/efremovich/cargo-rest-api/blob/master/Makefile):
 ```
 make unit test
 make integration test
@@ -312,11 +312,11 @@ make integration test
 
 ## License
 
-MIT License. See [LICENSE](https://github.com/trisna-ashari/cargo-rest-api/blob/master/LICENSE) for details.
+MIT License. See [LICENSE](https://github.com/efremovich/cargo-rest-api/blob/master/LICENSE) for details.
 
 ## Copyright
 
-Copyright (c) 2020 Trisna Novi Ashari.
+Copyright (c) 2020 Efremov Aleksandr.
 
 ## Donation
 

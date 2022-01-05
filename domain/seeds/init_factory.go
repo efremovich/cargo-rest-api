@@ -96,9 +96,9 @@ var (
 		SupportEmails:    "support_one@example.com,support_two@example.com",
 		DeveloperEmails:  "dev@example.com",
 		Logo:             "",
-		HomePageURL:      "https://github.com/trisna-ashari/cargo-rest-api",
-		TosURL:           "https://github.com/trisna-ashari/cargo-rest-api",
-		PrivacyPolicyURL: "https://github.com/trisna-ashari/cargo-rest-api",
+		HomePageURL:      "https://github.com/efremovich/cargo-rest-api",
+		TosURL:           "https://github.com/efremovich/cargo-rest-api",
+		PrivacyPolicyURL: "https://github.com/efremovich/cargo-rest-api",
 		Domains:          "http://localhost:8181",
 		Scopes:           "read write",
 	}
