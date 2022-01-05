@@ -48,9 +48,9 @@ const (
 
 // Success message for country.
 const (
-	CountrySuccessfullyGetCountryList   = "api.msg.success.tour.successfully_get_country_list"
-	CountrySuccessfullyGetCountryDetail = "api.msg.success.tour.successfully_get_country_detail"
-	CountrySuccessfullyCreateCountry    = "api.msg.success.tour.successfully_create_country"
-	CountrySuccessfullyUpdateCountry    = "api.msg.success.tour.successfully_update_country"
-	CountrySuccessfullyDeleteCountry    = "api.msg.success.tour.successfully_delete_country"
+	CountrySuccessfullyGetCountryList   = "api.msg.success.country.successfully_get_country_list"
+	CountrySuccessfullyGetCountryDetail = "api.msg.success.country.successfully_get_country_detail"
+	CountrySuccessfullyCreateCountry    = "api.msg.success.country.successfully_create_country"
+	CountrySuccessfullyUpdateCountry    = "api.msg.success.country.successfully_update_country"
+	CountrySuccessfullyDeleteCountry    = "api.msg.success.country.successfully_delete_country"
 )
