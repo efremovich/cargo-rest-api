@@ -5,8 +5,8 @@ services:
     build: .
     ports:
       - 8888:8888
-#    env_file:
-#      - .env
+    env_file:
+     - .env
     environment:
       - APP_ENV=${APP_ENV}
       - APP_PORT=${APP_PORT}
@@ -45,7 +45,7 @@ services:
       - network_service
 
   mysql_container:
-    image: mysql:5.6
+    image: mysql:latest
     container_name: mysql_service
     ports:
       - 3306:3306
@@ -94,7 +94,8 @@ services:
       ADMINER_DEFAULT_SERVER: mysql_container
     ports:
       - 8080:8080
-
+    networks:
+      - network_service
 volumes:
   api:
 

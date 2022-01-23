@@ -29,7 +29,7 @@ definitions:
         type: string
       meta: {}
     type: object
-host: localhost:8228
+host: localhost:8888
 info:
   contact:
     email: sasha.fima@gmail.com
@@ -1213,16 +1213,16 @@ securityDefinitions:
     name: Authorization
     type: apiKey
   Oauth2AccessCode:
-    authorizationUrl: http://localhost:8228/oauth/authorize
+    authorizationUrl: http://localhost:8888/oauth/authorize
     flow: accessCode
     scopes:
       all: ' Grants all access'
-    tokenUrl: http://localhost:8228/oauth/token
+    tokenUrl: http://localhost:8888/oauth/token
     type: oauth2
   Oauth2Password:
     flow: password
     scopes:
       all: ' Grants all access'
-    tokenUrl: http://localhost:8228/oauth/token
+    tokenUrl: http://localhost:8888/oauth/token
     type: oauth2
 swagger: "2.0"

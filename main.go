@@ -39,16 +39,16 @@ import (
 // @name api_key
 
 // @securityDefinitions.oauth2.password Oauth2Password
-// @tokenUrl http://localhost:8228/oauth/token
+// @tokenUrl http://localhost:8888/oauth/token
 // @scope.all Grants all access
 
 // @securityDefinitions.oauth2.accessCode Oauth2AccessCode
-// @tokenUrl http://localhost:8228/oauth/token
-// @redirectUrl http://localhost:8228/oauth2/callback
-// @authorizationUrl http://localhost:8228/oauth/authorize
+// @tokenUrl http://localhost:8888/oauth/token
+// @redirectUrl http://localhost:8888/oauth2/callback
+// @authorizationUrl http://localhost:8888/oauth/authorize
 // @scope.all Grants all access
 
-// @host localhost:8228
+// @host localhost:8888
 // @schemes http
 // main init the cargo-rest-api.
 func main() {

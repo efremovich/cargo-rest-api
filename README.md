@@ -71,7 +71,7 @@ Fast run with:
 ```shell script
 go run main.go
 
-# running on default port 8228
+# running on default port 8888
 ```
 
 or Enable hot reload with [Air](https://github.com/cosmtrek/air):
@@ -158,7 +158,7 @@ On api response's `headers`, its also included additional headers:
 
 #### Basic response
 ```shell script
-curl http://localhost:8228/ping
+curl http://localhost:8888/ping
 ```
 will return:
 ```json

@@ -1870,8 +1870,8 @@ var doc = `{
         "Oauth2AccessCode": {
             "type": "oauth2",
             "flow": "accessCode",
-            "authorizationUrl": "http://localhost:8228/oauth/authorize",
-            "tokenUrl": "http://localhost:8228/oauth/token",
+            "authorizationUrl": "http://localhost:8888/oauth/authorize",
+            "tokenUrl": "http://localhost:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
@@ -1879,7 +1879,7 @@ var doc = `{
         "Oauth2Password": {
             "type": "oauth2",
             "flow": "password",
-            "tokenUrl": "http://localhost:8228/oauth/token",
+            "tokenUrl": "http://localhost:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
@@ -1899,7 +1899,7 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
-	Host:        "localhost:8228",
+	Host:        "localhost:8888",
 	BasePath:    "",
 	Schemes:     []string{"http"},
 	Title:       "cargo-rest-api API Example",

@@ -16,7 +16,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8228",
+    "host": "localhost:8888",
     "paths": {
         "/api/ping": {
             "get": {
@@ -1858,8 +1858,8 @@
         "Oauth2AccessCode": {
             "type": "oauth2",
             "flow": "accessCode",
-            "authorizationUrl": "http://localhost:8228/oauth/authorize",
-            "tokenUrl": "http://localhost:8228/oauth/token",
+            "authorizationUrl": "http://localhost:8888/oauth/authorize",
+            "tokenUrl": "http://localhost:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
@@ -1867,7 +1867,7 @@
         "Oauth2Password": {
             "type": "oauth2",
             "flow": "password",
-            "tokenUrl": "http://localhost:8228/oauth/token",
+            "tokenUrl": "http://localhost:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }

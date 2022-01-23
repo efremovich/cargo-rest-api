@@ -34,7 +34,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app/
 
 # Copy the Pre-built binary file from the previous stage. Observe we also copied the .env file
-RUN mkdir -m languages
+RUN mkdir languages
 COPY --from=builder /app/main .
 COPY --from=builder /app/.env .
 COPY --from=builder /app/languages ./languages/
