@@ -116,7 +116,7 @@ func New() *Config {
 			DBUser:     getEnv("DB_USER", "root"),
 			DBName:     getEnv("DB_NAME", "go_rest_skeleton"),
 			DBPassword: getEnv("DB_PASSWORD", ""),
-			DBTimeZone: getEnv("APP_TIMEZONE", "Asia/Jakarta"),
+			DBTimeZone: getEnv("APP_TIMEZONE", "Europe/Moscow"),
 			DBLog:      getEnvAsBool("ENABLE_LOGGER", true),
 		},
 		DBTestConfig: DBTestConfig{
@@ -126,7 +126,7 @@ func New() *Config {
 			DBUser:     getEnv("TEST_DB_USER", "root"),
 			DBName:     getEnv("TEST_DB_NAME", "go_rest_skeleton_test"),
 			DBPassword: getEnv("TEST_DB_PASSWORD", ""),
-			DBTimeZone: getEnv("APP_TIMEZONE", "Asia/Jakarta"),
+			DBTimeZone: getEnv("APP_TIMEZONE", "Europe/Moscow"),
 			DBLog:      getEnvAsBool("ENABLE_LOGGER", true),
 		},
 		RedisConfig: RedisConfig{
@@ -173,7 +173,7 @@ func New() *Config {
 		},
 		AppEnvironment:  getEnv("APP_ENV", "local"),
 		AppLanguage:     getEnv("APP_LANG", "en"),
-		AppTimezone:     getEnv("APP_TIMEZONE", "Asia/Jakarta"),
+		AppTimezone:     getEnv("APP_TIMEZONE", "Europe/Moscow"),
 		EnableCors:      getEnvAsBool("ENABLE_CORS", true),
 		EnableLogger:    getEnvAsBool("ENABLE_LOGGER", true),
 		EnableRequestID: getEnvAsBool("ENABLE_REQUEST_ID", true),

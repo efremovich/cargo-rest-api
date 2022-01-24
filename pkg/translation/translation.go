@@ -31,7 +31,7 @@ func NewTranslation(
 	messageType string,
 	messageString string,
 	messageData map[string]interface{}) (string, string) {
-	bundle := i18n.NewBundle(language.Indonesian)
+	bundle := i18n.NewBundle(language.Russian)
 	bundle.RegisterUnmarshalFunc("yaml", yaml.Unmarshal)
 	accept := c.GetHeader("Accept-Language")
 	translation := translationMessage{Message: messageString, Language: "en", Type: messageType}

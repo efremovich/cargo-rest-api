@@ -37,7 +37,7 @@ func NewUsers(us application.UserAppInterface, ss application.StorageAppInterfac
 // @Tags users
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -119,7 +119,7 @@ func (s *Users) SaveUser(c *gin.Context) {
 // @Tags users
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -225,7 +225,7 @@ func (s *Users) UpdateUser(c *gin.Context) {
 // @Description Delete an existing user.
 // @Tags users
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -262,7 +262,7 @@ func (s *Users) DeleteUser(c *gin.Context) {
 // @Description Get list of existing users.
 // @Tags users
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -299,7 +299,7 @@ func (s *Users) GetUsers(c *gin.Context) {
 // @Description Get detail of existing user.
 // @Tags users
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -343,7 +343,7 @@ func (s *Users) GetUser(c *gin.Context) {
 // @Tags users
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth

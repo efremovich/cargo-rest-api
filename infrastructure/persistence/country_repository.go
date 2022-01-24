@@ -9,54 +9,54 @@ import (
 	"gorm.io/gorm"
 )
 
-// CountryRepo is a struct to store db connection.
-type CountryRepo struct {
+// SityRepo is a struct to store db connection.
+type SityRepo struct {
 	db *gorm.DB
 }
 
-// NewCountryRepository will initialize Tour repository.
-func NewCountryRepository(db *gorm.DB) *CountryRepo {
-	return &CountryRepo{db}
+// NewSityRepository will initialize Tour repository.
+func NewSityRepository(db *gorm.DB) *SityRepo {
+	return &SityRepo{db}
 }
 
-// CountryRepo implements the repository.countryRepository interface.
-var _ repository.CountryRepository = &CountryRepo{}
+// SityRepo implements the repository.sityRepository interface.
+var _ repository.SityRepository = &SityRepo{}
 
-// SaveCountry will create a new country.
-func (r CountryRepo) SaveCountry(Country *entity.Country) (*entity.Country, map[string]string, error) {
+// SaveSity will create a new sity.
+func (r SityRepo) SaveSity(Sity *entity.Sity) (*entity.Sity, map[string]string, error) {
 	errDesc := map[string]string{}
-	err := r.db.Create(&Country).Error
+	err := r.db.Create(&Sity).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}
-	return Country, nil, nil
+	return Sity, nil, nil
 }
 
-func (r CountryRepo) UpdateCountry(uuid string, tour *entity.Country) (*entity.Country, map[string]string, error) {
+func (r SityRepo) UpdateSity(uuid string, tour *entity.Sity) (*entity.Sity, map[string]string, error) {
 	panic("implement me")
 }
 
-func (r CountryRepo) DeleteCountry(uuid string) error {
+func (r SityRepo) DeleteSity(uuid string) error {
 	panic("implement me")
 }
 
-func (r CountryRepo) GetCountry(uuid string) (*entity.Country, error) {
-	var country entity.Country
-	err := r.db.Where("uuid = ?", uuid).Take(&country).Error
+func (r SityRepo) GetSity(uuid string) (*entity.Sity, error) {
+	var sity entity.Sity
+	err := r.db.Where("uuid = ?", uuid).Take(&sity).Error
 	if err != nil {
 		return nil, err
 	}
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, exception.ErrorTextRoleNotFound
 	}
-	return &country, nil
+	return &sity, nil
 }
 
-func (r CountryRepo) GetCountries(p *repository.Parameters) ([]entity.Country, interface{}, error) {
+func (r SityRepo) GetSities(p *repository.Parameters) ([]entity.Sity, interface{}, error) {
 	var total int64
-	var countries []entity.Country
-	errTotal := r.db.Where(p.QueryKey, p.QueryValue...).Find(&countries).Count(&total).Error
-	errList := r.db.Where(p.QueryKey, p.QueryValue...).Limit(p.Limit).Offset(p.Offset).Find(&countries).Error
+	var sities []entity.Sity
+	errTotal := r.db.Where(p.QueryKey, p.QueryValue...).Find(&sities).Count(&total).Error
+	errList := r.db.Where(p.QueryKey, p.QueryValue...).Limit(p.Limit).Offset(p.Offset).Find(&sities).Error
 	if errTotal != nil {
 		return nil, nil, errTotal
 	}
@@ -67,5 +67,5 @@ func (r CountryRepo) GetCountries(p *repository.Parameters) ([]entity.Country, i
 		return nil, nil, errList
 	}
 	meta := repository.NewMeta(p, total)
-	return countries, meta, nil
+	return sities, meta, nil
 }

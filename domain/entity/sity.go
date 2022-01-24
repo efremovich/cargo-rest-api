@@ -10,8 +10,8 @@ import (
 	"github.com/google/uuid"
 )
 
-// Country represent schema of table countries.
-type Country struct {
+// Sity represent schema of table sities.
+type Sity struct {
 	UUID      string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
 	Name      string    `gorm:"size:100;not null;" json:"name" form:"name"`
 	Latitude  string    `gorm:"size:100;" json:"latitude" form:"latitude"`
@@ -21,54 +21,54 @@ type Country struct {
 	DeletedAt gorm.DeletedAt
 }
 
-// CountryFaker represent content when generate fake data of country.
-type CountryFaker struct {
+// SityFaker represent content when generate fake data of sity.
+type SityFaker struct {
 	UUID      string `faker:"uuid_hyphenated"`
 	Name      string `faker:"name"`
 	Latitude  string `faker:"latitude"`
 	Longitude string `faker:"longitude"`
 }
 
-// Countries represent multiple Country.
-type Countries []Country
+// Sities represent multiple Sity.
+type Sities []Sity
 
-// DetailCountry represent format of detail Country.
-type DetailCountry struct {
-	CountryFieldsForDetail
+// DetailSity represent format of detail Sity.
+type DetailSity struct {
+	SityFieldsForDetail
 	Role []interface{} `json:"roles,omitempty"`
 }
 
-// DetailCountryList represent format of DetailCountry for Country list.
-type DetailCountryList struct {
-	CountryFieldsForDetail
-	CountryFieldsForList
+// DetailSityList represent format of DetailSity for Sity list.
+type DetailSityList struct {
+	SityFieldsForDetail
+	SityFieldsForList
 }
 
-// CountryFieldsForDetail represent fields of detail Country.
-type CountryFieldsForDetail struct {
+// SityFieldsForDetail represent fields of detail Sity.
+type SityFieldsForDetail struct {
 	UUID      string      `json:"uuid"`
 	Name      string      `json:"name"`
 	Latitude  interface{} `json:"latitude"`
 	Longitude interface{} `json:"longitude"`
 }
 
-// CountryFieldsForList represent fields of detail Country for Country list.
-type CountryFieldsForList struct {
+// SityFieldsForList represent fields of detail Sity for Sity list.
+type SityFieldsForList struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
 // TableName return name of table.
-func (u *Country) TableName() string {
-	return "countries"
+func (u *Sity) TableName() string {
+	return "sities"
 }
 
 // FilterableFields return fields.
-func (u *Country) FilterableFields() []interface{} {
+func (u *Sity) FilterableFields() []interface{} {
 	return []interface{}{"uuid", "name", "latitude", "longitude"}
 }
 
-// Prepare will prepare submitted data of country.
-func (u *Country) Prepare() {
+// Prepare will prepare submitted data of sity.
+func (u *Sity) Prepare() {
 	u.Name = html.EscapeString(strings.TrimSpace(u.Name))
 	u.Latitude = html.EscapeString(strings.TrimSpace(u.Latitude))
 	u.Longitude = html.EscapeString(strings.TrimSpace(u.Longitude))
@@ -77,7 +77,7 @@ func (u *Country) Prepare() {
 }
 
 // BeforeCreate handle uuid generation and password hashing.
-func (u *Country) BeforeCreate(tx *gorm.DB) error {
+func (u *Sity) BeforeCreate(tx *gorm.DB) error {
 	generateUUID := uuid.New()
 	if u.UUID == "" {
 		u.UUID = generateUUID.String()
@@ -85,19 +85,19 @@ func (u *Country) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-// DetailCountries will return formatted country detail of multiple country.
-func (countries Countries) DetailCountries() []interface{} {
-	result := make([]interface{}, len(countries))
-	for index, country := range countries {
-		result[index] = country.DetailCountryList()
+// DetailSities will return formatted sity detail of multiple sity.
+func (sities Sities) DetailSities() []interface{} {
+	result := make([]interface{}, len(sities))
+	for index, sity := range sities {
+		result[index] = sity.DetailSityList()
 	}
 	return result
 }
 
-// DetailCountry will return formatted country detail of country.
-func (u *Country) DetailCountry() interface{} {
-	return &DetailCountry{
-		CountryFieldsForDetail: CountryFieldsForDetail{
+// DetailSity will return formatted sity detail of sity.
+func (u *Sity) DetailSity() interface{} {
+	return &DetailSity{
+		SityFieldsForDetail: SityFieldsForDetail{
 			UUID:      u.UUID,
 			Name:      u.Name,
 			Latitude:  u.Latitude,
@@ -106,16 +106,16 @@ func (u *Country) DetailCountry() interface{} {
 	}
 }
 
-// DetailCountryList will return formatted country detail of country for country list.
-func (u *Country) DetailCountryList() interface{} {
-	return &DetailCountryList{
-		CountryFieldsForDetail: CountryFieldsForDetail{
+// DetailSityList will return formatted sity detail of sity for sity list.
+func (u *Sity) DetailSityList() interface{} {
+	return &DetailSityList{
+		SityFieldsForDetail: SityFieldsForDetail{
 			UUID:      u.UUID,
 			Name:      u.Name,
 			Latitude:  u.Latitude,
 			Longitude: u.Longitude,
 		},
-		CountryFieldsForList: CountryFieldsForList{
+		SityFieldsForList: SityFieldsForList{
 			CreatedAt: u.CreatedAt,
 		},
 	}

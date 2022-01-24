@@ -121,11 +121,11 @@ var (
 	ErrorTextStorageUploadInvalidFileType = errors.New("api.msg.error.storage.file.invalid_file_type")
 )
 
-// Errors for country.
+// Errors for sity.
 var (
-	// ErrorTextRoleNotFound is an error representing country not found in database.
-	ErrorTextCountryNotFound = errors.New("api.msg.error.country.not_found")
+	// ErrorTextRoleNotFound is an error representing sity not found in database.
+	ErrorTextSityNotFound = errors.New("api.msg.error.sity.not_found")
 
 	// ErrorTextRoleInvalidUUID is an error representing UUID not found in database.
-	ErrorTextCountryInvalidUUID = errors.New("api.msg.error.country.invalid_uuid")
+	ErrorTextSityInvalidUUID = errors.New("api.msg.error.sity.invalid_uuid")
 )

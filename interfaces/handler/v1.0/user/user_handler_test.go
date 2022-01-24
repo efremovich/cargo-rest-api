@@ -244,19 +244,21 @@ func TestGetUsers_Success(t *testing.T) {
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
 	v1.GET("/users", userHandler.GetUsers)
-	userApp.GetUsersFn = func(params *repository.Parameters) ([]entity.User, interface{}, error) {
-		users := []entity.User{
-			{
-				UUID:  UUID,
-				Name:  "Example 1",
-				Email: "example1@test.com",
-			},
-			{
-				UUID:  UUID,
-				Name:  "Example 2",
-				Email: "example2@test.com",
-			},
+	userApp.GetUsersFn = func(params *repository.Parameters) ([]*entity.User, *repository.Meta, error) {
+		user1 := entity.User{
+			UUID:  UUID,
+			Name:  "Example 1",
+			Email: "example1@test.com",
 		}
+		user2 := entity.User{
+			UUID:  UUID,
+			Name:  "Example 2",
+			Email: "example2@test.com",
+		}
+		users := []*entity.User{}
+		users = append(users, &user1)
+		users = append(users, &user2)
+
 		meta := repository.NewMeta(params, int64(len(users)))
 		return users, meta, nil
 	}

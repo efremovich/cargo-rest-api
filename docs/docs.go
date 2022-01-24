@@ -88,10 +88,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -108,456 +108,6 @@ var doc = `{
                         "description": "Bad Request",
                         "schema": {
                             "type": "string"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/external/countries": {
-            "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Get list of existing countries.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "countries"
-                ],
-                "summary": "Get countries",
-                "parameters": [
-                    {
-                        "enum": [
-                            "en",
-                            "id"
-                        ],
-                        "type": "string",
-                        "default": "id",
-                        "description": "Language code",
-                        "name": "Accept-Language",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Request id",
-                        "name": "Set-Request-Id",
-                        "in": "header"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.successOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Create a new country.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "countries"
-                ],
-                "summary": "Create a new country",
-                "parameters": [
-                    {
-                        "enum": [
-                            "en",
-                            "id"
-                        ],
-                        "type": "string",
-                        "default": "id",
-                        "description": "Language code",
-                        "name": "Accept-Language",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Request id",
-                        "name": "Set-Request-Id",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country name",
-                        "name": "name",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country latitude",
-                        "name": "latitude",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country longitude",
-                        "name": "longitude",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/response.successOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/external/countries/uuid": {
-            "put": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Update an existing country.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "countries"
-                ],
-                "summary": "Update country",
-                "parameters": [
-                    {
-                        "enum": [
-                            "en",
-                            "id"
-                        ],
-                        "type": "string",
-                        "default": "id",
-                        "description": "Language code",
-                        "name": "Accept-Language",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Request id",
-                        "name": "Set-Request-Id",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country UUID",
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country name",
-                        "name": "name",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country latitude",
-                        "name": "latitude",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country longitude",
-                        "name": "longitude",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.successOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/external/countries/{uuid}": {
-            "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Get detail of existing country.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "countries"
-                ],
-                "summary": "Get country",
-                "parameters": [
-                    {
-                        "enum": [
-                            "en",
-                            "id"
-                        ],
-                        "type": "string",
-                        "default": "id",
-                        "description": "Language code",
-                        "name": "Accept-Language",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Request id",
-                        "name": "Set-Request-Id",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country UUID",
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.successOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Delete an existing country.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "countries"
-                ],
-                "summary": "Delete country",
-                "parameters": [
-                    {
-                        "enum": [
-                            "en",
-                            "id"
-                        ],
-                        "type": "string",
-                        "default": "id",
-                        "description": "Language code",
-                        "name": "Accept-Language",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Request id",
-                        "name": "Set-Request-Id",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Country UUID",
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.successOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
                         }
                     },
                     "404": {
@@ -592,10 +142,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -680,10 +230,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -746,10 +296,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -813,10 +363,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -899,10 +449,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -971,10 +521,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1057,10 +607,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1131,10 +681,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1197,10 +747,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1247,6 +797,456 @@ var doc = `{
                 }
             }
         },
+        "/api/v1/external/sities": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get list of existing sities.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sities"
+                ],
+                "summary": "Get sities",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Create a new sity.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sities"
+                ],
+                "summary": "Create a new sity",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity latitude",
+                        "name": "latitude",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity longitude",
+                        "name": "longitude",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/sities/uuid": {
+            "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Update an existing sity.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sities"
+                ],
+                "summary": "Update sity",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity latitude",
+                        "name": "latitude",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity longitude",
+                        "name": "longitude",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/sities/{uuid}": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get detail of existing sity.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sities"
+                ],
+                "summary": "Get sity",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Delete an existing sity.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sities"
+                ],
+                "summary": "Delete sity",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/external/users": {
             "get": {
                 "security": [
@@ -1269,10 +1269,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1347,10 +1347,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1455,10 +1455,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1567,10 +1567,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1649,10 +1649,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1736,10 +1736,10 @@ var doc = `{
                     {
                         "enum": [
                             "en",
-                            "id"
+                            "ru"
                         ],
                         "type": "string",
-                        "default": "id",
+                        "default": "en",
                         "description": "Language code",
                         "name": "Accept-Language",
                         "in": "header"
@@ -1902,7 +1902,7 @@ var SwaggerInfo = swaggerInfo{
 	Host:        "localhost:8888",
 	BasePath:    "",
 	Schemes:     []string{"http"},
-	Title:       "cargo-rest-api API Example",
+	Title:       "cargo-rest-api",
 	Description: "This is a sample of RESTful api made by cargo-rest-api",
 }
 

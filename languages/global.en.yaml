@@ -24,7 +24,7 @@ api:
         must_be_time: "Must Be A Valid Time Format: yyyy-mm-dd hh:mm:ss"
         must_be_uuid: "Must Be A Valid UUID"
         must_be_email: "Must Be A Valid Email"
-        must_be_phone: "Must Be A Valid Phone Number With Country Code"
+        must_be_phone: "Must Be A Valid Phone Number With Sity Code"
         must_be_url: "Must Be A Valid URL"
         must_be_in: "Must Be On Of {{.Options}}"
         must_be_length_between: "The Length Must Be Between {{.Min}} And {{.Max}}"
@@ -66,6 +66,7 @@ api:
     success:
       common:
         ok: "OK"
+      ping: "PONG"
       dev:
         successfully_generate_rsa_key: "Successfully Generate RSA Key For Application Key"
       auth:

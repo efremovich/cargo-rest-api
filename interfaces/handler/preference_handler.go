@@ -36,7 +36,7 @@ func NewPreference(
 // @Description Get current user preference using Authorization Header.
 // @Tags preference
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -69,7 +69,7 @@ func (up *Preference) GerPreference(c *gin.Context) {
 // @Tags preference
 // @Accept json
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Param preference body entity.DetailUserPreference true "User preference"
 // @Security BasicAuth
@@ -126,7 +126,7 @@ func (up *Preference) UpdatePreference(c *gin.Context) {
 // @Description Reset current user preference to default using Authorization Header.
 // @Tags preference
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth

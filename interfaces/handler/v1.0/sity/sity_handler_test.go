@@ -1,4 +1,4 @@
-package countryv1point00
+package sityv1point00
 
 import (
 	"bytes"
@@ -24,13 +24,13 @@ import (
 )
 
 // TestSaveUser_Success Test.
-func TestSaveCountry_Success(t *testing.T) {
-	var countryData entity.Country
-	var countryApp mock.UserAppInterface
-	userHandler := NewCountry(&countryApp)
+func TestSaveSity_Success(t *testing.T) {
+	var sityData entity.Sity
+	var sityApp mock.UserAppInterface
+	userHandler := NewSity(&sityApp)
 	userJSON := `{
 		"name": "Москва",
-    "longty"
+    	"longt"
 		"phone": "+6285725833220",
 		"password": "password"
 	}`
@@ -42,7 +42,7 @@ func TestSaveCountry_Success(t *testing.T) {
 	v1 := r.Group("/api/v1/external/")
 	v1.POST("/users", userHandler.SaveUser)
 
-	countryApp.SaveUserFn = func(user *entity.User) (*entity.User, map[string]string, error) {
+	sityApp.SaveUserFn = func(user *entity.User) (*entity.User, map[string]string, error) {
 		return &entity.User{
 			UUID:  UUID,
 			Name:  "Example",
@@ -61,13 +61,13 @@ func TestSaveCountry_Success(t *testing.T) {
 	response := encoder.ResponseDecoder(w.Body)
 	data, _ := json.Marshal(response["data"])
 
-	_ = json.Unmarshal(data, &countryData)
+	_ = json.Unmarshal(data, &sityData)
 
 	assert.Equal(t, w.Code, http.StatusCreated)
-	assert.EqualValues(t, countryData.UUID, UUID)
-	assert.EqualValues(t, countryData.Name, "Example")
-	assert.EqualValues(t, countryData.Email, "example@test.com")
-	assert.EqualValues(t, countryData.Phone, "+6285725833220")
+	assert.EqualValues(t, sityData.UUID, UUID)
+	assert.EqualValues(t, sityData.Name, "Example")
+	assert.EqualValues(t, sityData.Email, "example@test.com")
+	assert.EqualValues(t, sityData.Phone, "+6285725833220")
 }
 
 func TestSaveUser_InvalidData(t *testing.T) {
@@ -133,7 +133,7 @@ func TestSaveUser_InvalidData(t *testing.T) {
 
 // TestUpdateUser_Success Test.
 func TestUpdateUser_Success(t *testing.T) {
-	var countryData entity.User
+	var sityData entity.User
 	var userApp mock.UserAppInterface
 	var storageApp mock.StorageAppInterface
 	userHandler := NewUsers(&userApp, &storageApp)
@@ -170,18 +170,18 @@ func TestUpdateUser_Success(t *testing.T) {
 	response := encoder.ResponseDecoder(w.Body)
 	data, _ := json.Marshal(response["data"])
 
-	_ = json.Unmarshal(data, &countryData)
+	_ = json.Unmarshal(data, &sityData)
 
 	assert.Equal(t, w.Code, http.StatusOK)
-	assert.EqualValues(t, countryData.UUID, UUID)
-	assert.EqualValues(t, countryData.Name, "Example")
-	assert.EqualValues(t, countryData.Email, "example@test.com")
-	assert.EqualValues(t, countryData.Phone, "+6285725833220")
+	assert.EqualValues(t, sityData.UUID, UUID)
+	assert.EqualValues(t, sityData.Name, "Example")
+	assert.EqualValues(t, sityData.Email, "example@test.com")
+	assert.EqualValues(t, sityData.Phone, "+6285725833220")
 }
 
 // TestGetUser_Success Test.
 func TestGetUser_Success(t *testing.T) {
-	var countryData entity.User
+	var sityData entity.User
 	var userApp mock.UserAppInterface
 	var storageApp mock.StorageAppInterface
 
@@ -221,12 +221,12 @@ func TestGetUser_Success(t *testing.T) {
 	response := encoder.ResponseDecoder(w.Body)
 	data, _ := json.Marshal(response["data"])
 
-	_ = json.Unmarshal(data, &countryData)
+	_ = json.Unmarshal(data, &sityData)
 
 	assert.Equal(t, w.Code, http.StatusOK)
-	assert.EqualValues(t, countryData.UUID, UUID)
-	assert.EqualValues(t, countryData.Name, "Example")
-	assert.EqualValues(t, countryData.Email, "example@test.com")
+	assert.EqualValues(t, sityData.UUID, UUID)
+	assert.EqualValues(t, sityData.Name, "Example")
+	assert.EqualValues(t, sityData.Email, "example@test.com")
 }
 
 // TestGetUsers_Success Test.
@@ -235,7 +235,7 @@ func TestGetUsers_Success(t *testing.T) {
 	var storageApp mock.StorageAppInterface
 	var usersData []entity.User
 	var metaData repository.Meta
-	userHandler := NewCountries(&userApp, &storageApp)
+	userHandler := NewSities(&userApp, &storageApp)
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)

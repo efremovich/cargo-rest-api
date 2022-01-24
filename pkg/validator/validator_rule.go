@@ -342,7 +342,7 @@ func (vr *ValidationRules) IsEmail() *ValidationRules {
 	return vr
 }
 
-// IsPhone is a function to set the rule that current field value must be valid phone number with country code.
+// IsPhone is a function to set the rule that current field value must be valid phone number with sity code.
 func (vr *ValidationRules) IsPhone() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
 		Rule:    is.E164.Error("api.msg.error.validation.must_be_phone"),

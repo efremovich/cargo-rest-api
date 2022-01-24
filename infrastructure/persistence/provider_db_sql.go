@@ -33,7 +33,7 @@ type Repositories struct {
 	User               repository.UserRepository
 	UserForgotPassword repository.UserForgotPasswordRepository
 	UserPreference     repository.UserPreferenceRepository
-	Country            repository.CountryRepository
+	Sity               repository.SityRepository
 	DB                 *gorm.DB
 }
 
@@ -114,7 +114,7 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		User:               NewUserRepository(db),
 		UserForgotPassword: NewUserForgotPasswordRepository(db),
 		UserPreference:     NewUserPreferenceRepository(db),
-		Country:            NewCountryRepository(db),
+		Sity:               NewSityRepository(db),
 		DB:                 db,
 	}, nil
 }

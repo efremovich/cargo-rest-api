@@ -103,7 +103,7 @@ func (r *Router) Init() *gin.Engine {
 	oauthServerRoutes(e, r, rg)
 	oauthClientRoutes(e, r, rg)
 	roleRoutes(e, r, rg)
-	countryRoutes(e, r, rg)
+	sityRoutes(e, r, rg)
 	userRoutes(e, r, rg)
 	welcomeRoutes(e)
 	graphqlRoute(e, r, rg)

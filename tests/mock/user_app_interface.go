@@ -10,12 +10,13 @@ type UserAppInterface struct {
 	SaveUserFn                  func(*entity.User) (*entity.User, map[string]string, error)
 	UpdateUserFn                func(string, *entity.User) (*entity.User, map[string]string, error)
 	DeleteUserFn                func(UUID string) error
-	GetUsersFn                  func(params *repository.Parameters) ([]entity.User, interface{}, error)
+	GetUsersFn                  func(params *repository.Parameters) ([]*entity.User, *repository.Meta, error)
 	GetUserFn                   func(UUID string) (*entity.User, error)
 	GetUserRolesFn              func(UUID string) ([]entity.UserRole, error)
 	GetUserWithRolesFn          func(UUID string) (*entity.User, error)
 	GetUserByEmailFn            func(*entity.User) (*entity.User, map[string]string, error)
 	GetUserByEmailAndPasswordFn func(*entity.User) (*entity.User, map[string]string, error)
+	GetUserByPhoneFn            func(*entity.User) (*entity.User, map[string]string, error)
 	UpdateUserAvatarFn          func(string, *entity.User) (*entity.User, map[string]string, error)
 }
 
@@ -35,7 +36,7 @@ func (u *UserAppInterface) DeleteUser(uuid string) error {
 }
 
 // GetUsers calls the GetUsersFn.
-func (u *UserAppInterface) GetUsers(params *repository.Parameters) ([]entity.User, interface{}, error) {
+func (u *UserAppInterface) GetUsers(params *repository.Parameters) ([]*entity.User, *repository.Meta, error) {
 	return u.GetUsersFn(params)
 }
 
@@ -57,6 +58,11 @@ func (u *UserAppInterface) GetUserWithRoles(uuid string) (*entity.User, error) {
 // GetUserByEmail calls the GetUserByEmailFn.
 func (u *UserAppInterface) GetUserByEmail(user *entity.User) (*entity.User, map[string]string, error) {
 	return u.GetUserByEmailFn(user)
+}
+
+// GetUserByPhone calls the GetUserByPhoneFn.
+func (u *UserAppInterface) GetUserByPhone(user *entity.User) (*entity.User, map[string]string, error) {
+	return u.GetUserByPhoneFn(user)
 }
 
 // GetUserByEmailAndPassword calls the GetUserByEmailAndPasswordFn.

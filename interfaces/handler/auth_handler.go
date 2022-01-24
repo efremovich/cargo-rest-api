@@ -46,7 +46,7 @@ func NewAuthenticate(
 // @Description Get current user profile using Authorization Header.
 // @Tags authentication
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
@@ -75,7 +75,7 @@ func (au *Authenticate) Profile(c *gin.Context) {
 // @Tags authentication
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Param email formData string true "User email"
 // @Param password formData string true "User password"
@@ -135,7 +135,7 @@ func (au *Authenticate) Login(c *gin.Context) {
 // @Tags authentication
 // @Produce json
 // @Security JWTAuth
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
@@ -166,7 +166,7 @@ func (au *Authenticate) Logout(c *gin.Context) {
 // @Tags authentication
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param refresh_token formData string true "Refresh token from /login"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
@@ -256,7 +256,7 @@ func (au *Authenticate) Refresh(c *gin.Context) {
 // @Tags authentication
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param email formData string true "Email address"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
@@ -308,7 +308,7 @@ func (au *Authenticate) ForgotPassword(c *gin.Context) {
 // @Tags authentication
 // @Accept mpfd
 // @Produce json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param token formData string true "Token from forgot password request"
 // @Param new_password formData string true "New password"
 // @Param confirm_password formData string true "Confirm password"

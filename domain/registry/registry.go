@@ -29,7 +29,7 @@ func CollectEntities() []entities {
 		{Entity: entity.UserLogin{}},
 		{Entity: entity.UserPreference{}},
 		{Entity: entity.UserRole{}},
-		{Entity: entity.Country{}},
+		{Entity: entity.Sity{}},
 	}
 }
 
@@ -51,7 +51,7 @@ func CollectTableNames() []table {
 	var userLogin entity.UserLogin
 	var userPreference entity.UserPreference
 	var userRole entity.UserRole
-	var country entity.Country
+	var sity entity.Sity
 
 	return []table{
 		{Name: application.TableName()},
@@ -71,6 +71,6 @@ func CollectTableNames() []table {
 		{Name: userLogin.TableName()},
 		{Name: userPreference.TableName()},
 		{Name: userRole.TableName()},
-		{Name: country.TableName()},
+		{Name: sity.TableName()},
 	}
 }

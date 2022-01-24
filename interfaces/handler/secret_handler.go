@@ -23,7 +23,7 @@ func NewSecretHandler() *SecretHandler {
 // @Tags development
 // @Accept  json
 // @Produce  json
-// @Param Accept-Language header string false "Language code" Enums(en, id) default(id)
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Success 200 {object} response.successOutput
 // @Failure 400 {string} response.errorOutput
 // @Failure 404 {object} response.errorOutput

@@ -1,5 +1,11 @@
 package success
 
+// Ping success message
+
+const (
+	PingSuccessfull = "api.msg.success.ping"
+)
+
 // Common success message.
 const (
 	DevSuccessfullyGenerateRSAKey = "api.msg.success.dev.successfully_generate_rsa_key"
@@ -46,11 +52,11 @@ const (
 	UserSuccessfullyResetUserPreference  = "api.msg.success.user.successfully_reset_user_preference"
 )
 
-// Success message for country.
+// Success message for sity.
 const (
-	CountrySuccessfullyGetCountryList   = "api.msg.success.country.successfully_get_country_list"
-	CountrySuccessfullyGetCountryDetail = "api.msg.success.country.successfully_get_country_detail"
-	CountrySuccessfullyCreateCountry    = "api.msg.success.country.successfully_create_country"
-	CountrySuccessfullyUpdateCountry    = "api.msg.success.country.successfully_update_country"
-	CountrySuccessfullyDeleteCountry    = "api.msg.success.country.successfully_delete_country"
+	SitySuccessfullyGetSityList   = "api.msg.success.sity.successfully_get_sity_list"
+	SitySuccessfullyGetSityDetail = "api.msg.success.sity.successfully_get_sity_detail"
+	SitySuccessfullyCreateSity    = "api.msg.success.sity.successfully_create_sity"
+	SitySuccessfullyUpdateSity    = "api.msg.success.sity.successfully_update_sity"
+	SitySuccessfullyDeleteSity    = "api.msg.success.sity.successfully_delete_sity"
 )

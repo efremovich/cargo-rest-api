@@ -2,6 +2,7 @@ package handler
 
 import (
 	"cargo-rest-api/config"
+	"cargo-rest-api/infrastructure/message/success"
 	"cargo-rest-api/infrastructure/persistence"
 	"cargo-rest-api/pkg/response"
 	"net/http"
@@ -56,5 +57,5 @@ func (p *PingHandler) Ping(c *gin.Context) {
 		pingData.Redis = "OK"
 	}
 
-	response.NewSuccess(c, pingData, "PONG").JSON()
+	response.NewSuccess(c, pingData, success.PingSuccessfull).JSON()
 }

@@ -38,7 +38,7 @@ info:
   description: This is a sample of RESTful api made by cargo-rest-api
   license:
     name: MIT
-  title: cargo-rest-api API Example
+  title: cargo-rest-api
   version: "1.0"
 paths:
   /api/ping:
@@ -75,11 +75,11 @@ paths:
       description: Retrieve base64 encoded string of private key and public key through
         rest api.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -105,309 +105,17 @@ paths:
       summary: Generate a secret
       tags:
       - development
-  /api/v1/external/countries:
-    get:
-      description: Get list of existing countries.
-      parameters:
-      - default: id
-        description: Language code
-        enum:
-        - en
-        - id
-        in: header
-        name: Accept-Language
-        type: string
-      - description: Request id
-        in: header
-        name: Set-Request-Id
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.successOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
-      summary: Get countries
-      tags:
-      - countries
-    post:
-      consumes:
-      - application/json
-      description: Create a new country.
-      parameters:
-      - default: id
-        description: Language code
-        enum:
-        - en
-        - id
-        in: header
-        name: Accept-Language
-        type: string
-      - description: Request id
-        in: header
-        name: Set-Request-Id
-        type: string
-      - description: Country name
-        in: formData
-        name: name
-        required: true
-        type: string
-      - description: Country latitude
-        in: formData
-        name: latitude
-        required: true
-        type: string
-      - description: Country longitude
-        in: formData
-        name: longitude
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/response.successOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
-      summary: Create a new country
-      tags:
-      - countries
-  /api/v1/external/countries/{uuid}:
-    delete:
-      description: Delete an existing country.
-      parameters:
-      - default: id
-        description: Language code
-        enum:
-        - en
-        - id
-        in: header
-        name: Accept-Language
-        type: string
-      - description: Request id
-        in: header
-        name: Set-Request-Id
-        type: string
-      - description: Country UUID
-        in: path
-        name: uuid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.successOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
-      summary: Delete country
-      tags:
-      - countries
-    get:
-      description: Get detail of existing country.
-      parameters:
-      - default: id
-        description: Language code
-        enum:
-        - en
-        - id
-        in: header
-        name: Accept-Language
-        type: string
-      - description: Request id
-        in: header
-        name: Set-Request-Id
-        type: string
-      - description: Country UUID
-        in: path
-        name: uuid
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.successOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
-      summary: Get country
-      tags:
-      - countries
-  /api/v1/external/countries/uuid:
-    put:
-      consumes:
-      - application/json
-      description: Update an existing country.
-      parameters:
-      - default: id
-        description: Language code
-        enum:
-        - en
-        - id
-        in: header
-        name: Accept-Language
-        type: string
-      - description: Request id
-        in: header
-        name: Set-Request-Id
-        type: string
-      - description: Country UUID
-        in: path
-        name: uuid
-        required: true
-        type: string
-      - description: Country name
-        in: formData
-        name: name
-        required: true
-        type: string
-      - description: Country latitude
-        in: formData
-        name: latitude
-        required: true
-        type: string
-      - description: Country longitude
-        in: formData
-        name: longitude
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.successOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
-      summary: Update country
-      tags:
-      - countries
   /api/v1/external/login:
     post:
       consumes:
       - multipart/form-data
       description: Login by email and password.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -459,11 +167,11 @@ paths:
     post:
       description: Logout using Authorization Header.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -505,11 +213,11 @@ paths:
       - multipart/form-data
       description: Retrieve an email contain link to reset password.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -550,11 +258,11 @@ paths:
       - multipart/form-data
       description: Set a new password.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -603,11 +311,11 @@ paths:
     get:
       description: Get current user preference using Authorization Header.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -649,11 +357,11 @@ paths:
       - application/json
       description: Update current user preference using Authorization Header.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -704,11 +412,11 @@ paths:
     post:
       description: Reset current user preference to default using Authorization Header.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -749,11 +457,11 @@ paths:
     get:
       description: Get current user profile using Authorization Header.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -797,11 +505,11 @@ paths:
       - multipart/form-data
       description: Retrieve a new access_token using refresh token.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -836,15 +544,307 @@ paths:
       summary: Authentication refresh
       tags:
       - authentication
+  /api/v1/external/sities:
+    get:
+      description: Get list of existing sities.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get sities
+      tags:
+      - sities
+    post:
+      consumes:
+      - application/json
+      description: Create a new sity.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Sity name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Sity latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: Sity longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new sity
+      tags:
+      - sities
+  /api/v1/external/sities/{uuid}:
+    delete:
+      description: Delete an existing sity.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Sity UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete sity
+      tags:
+      - sities
+    get:
+      description: Get detail of existing sity.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Sity UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get sity
+      tags:
+      - sities
+  /api/v1/external/sities/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing sity.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Sity UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: Sity name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Sity latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: Sity longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update sity
+      tags:
+      - sities
   /api/v1/external/users:
     get:
       description: Get list of existing users.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -890,11 +890,11 @@ paths:
       - multipart/form-data
       description: Create a new user.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -959,11 +959,11 @@ paths:
     delete:
       description: Delete an existing user.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -1012,11 +1012,11 @@ paths:
     get:
       description: Get detail of existing user.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -1068,11 +1068,11 @@ paths:
       - multipart/form-data
       description: Update user avatar of existing user.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
@@ -1129,11 +1129,11 @@ paths:
       - multipart/form-data
       description: Update an existing user.
       parameters:
-      - default: id
+      - default: en
         description: Language code
         enum:
         - en
-        - id
+        - ru
         in: header
         name: Accept-Language
         type: string
