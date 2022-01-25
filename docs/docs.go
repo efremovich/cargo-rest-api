@@ -1255,6 +1255,9 @@ var doc = `{
                     },
                     {
                         "JWTAuth": []
+                    },
+                    {
+                        "ApiKeyAuth": []
                     }
                 ],
                 "description": "Get list of existing users.",
@@ -1903,7 +1906,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "",
 	Schemes:     []string{"http"},
 	Title:       "cargo-rest-api",
-	Description: "This is a sample of RESTful api made by cargo-rest-api",
+	Description: "Enter your bearer token in the format **Bearer &lt;token>**",
 }
 
 type s struct{}

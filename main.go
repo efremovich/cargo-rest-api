@@ -33,6 +33,7 @@ import (
 // @securityDefinitions.apikey JWTAuth
 // @in header
 // @name Authorization
+// @description Enter your bearer token in the format **Bearer &lt;token>**
 
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header

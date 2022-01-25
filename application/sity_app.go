@@ -17,7 +17,7 @@ type SityAppInterface interface {
 	SaveSity(*entity.Sity) (*entity.Sity, map[string]string, error)
 	UpdateSity(UUID string, sity *entity.Sity) (*entity.Sity, map[string]string, error)
 	DeleteSity(UUID string) error
-	GetSities(p *repository.Parameters) ([]entity.Sity, interface{}, error)
+	GetSities(p *repository.Parameters) ([]entity.Sity, *repository.Meta, error)
 	GetSity(UUID string) (*entity.Sity, error)
 }
 
@@ -33,7 +33,7 @@ func (t sityApp) DeleteSity(UUID string) error {
 	return t.tr.DeleteSity(UUID)
 }
 
-func (t sityApp) GetSities(p *repository.Parameters) ([]entity.Sity, interface{}, error) {
+func (t sityApp) GetSities(p *repository.Parameters) ([]entity.Sity, *repository.Meta, error) {
 	return t.tr.GetSities(p)
 }
 

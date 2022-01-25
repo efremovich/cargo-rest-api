@@ -4,7 +4,7 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample of RESTful api made by cargo-rest-api",
+        "description": "Enter your bearer token in the format **Bearer \u0026lt;token\u003e**",
         "title": "cargo-rest-api",
         "contact": {
             "name": "Aleksand Efremov",
@@ -1243,6 +1243,9 @@
                     },
                     {
                         "JWTAuth": []
+                    },
+                    {
+                        "ApiKeyAuth": []
                     }
                 ],
                 "description": "Get list of existing users.",

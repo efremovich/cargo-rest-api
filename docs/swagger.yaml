@@ -35,7 +35,7 @@ info:
     email: sasha.fima@gmail.com
     name: Aleksand Efremov
     url: https://github.com/efremovich/cargo-rest-api
-  description: This is a sample of RESTful api made by cargo-rest-api
+  description: Enter your bearer token in the format **Bearer &lt;token>**
   license:
     name: MIT
   title: cargo-rest-api
@@ -882,6 +882,7 @@ paths:
       security:
       - BasicAuth: []
       - JWTAuth: []
+      - ApiKeyAuth: []
       summary: Get users
       tags:
       - users

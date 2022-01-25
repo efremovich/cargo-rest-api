@@ -111,6 +111,12 @@ var (
 		Referrers:       "http://localhost:8181",
 		Callbacks:       "http://localhost:8181/oauth2/callback",
 	}
+	sities = []*entity.Sity{
+		{UUID: uuid.New().String(), Name: "Волгоград", Region: "Волгоградская область", Latitude: "48.7194", Longitude: "44.5018"},
+		{UUID: uuid.New().String(), Name: "Елань", Region: "Волгоградская область", Latitude: "50.5656", Longitude: "43.4416"},
+		{UUID: uuid.New().String(), Name: "Сочи", Region: "Краснодарский край", Latitude: "43.3557", Longitude: "39.4332"},
+		{UUID: uuid.New().String(), Name: "Краснодар", Region: "Краснодарский край", Latitude: "45.0241", Longitude: "38.5833"},
+	}
 )
 
 func newInitFactory() *InitFactory {
@@ -251,6 +257,20 @@ func (is *InitFactory) generateApplicationOauthClientSeeder() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generateSities() *InitFactory {
+	for _, st := range sities {
+		sity := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial sities",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createSity(db, sity)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -263,6 +283,7 @@ func initFactory() []Seed {
 	initialSeeds.generateApplicationApiKeySeeder()
 	initialSeeds.generateApplicationOauthSeeder()
 	initialSeeds.generateApplicationOauthClientSeeder()
+	initialSeeds.generateSities()
 
 	return initialSeeds.seeders
 }

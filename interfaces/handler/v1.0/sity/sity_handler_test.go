@@ -26,8 +26,8 @@ import (
 // TestSaveUser_Success Test.
 func TestSaveSity_Success(t *testing.T) {
 	var sityData entity.Sity
-	var sityApp mock.UserAppInterface
-	userHandler := NewSity(&sityApp)
+	var sityApp mock.SityAppInterface
+	sityHandler := NewSities(&sityApp)
 	userJSON := `{
 		"name": "Москва",
     	"longt"
@@ -40,7 +40,7 @@ func TestSaveSity_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/users", userHandler.SaveUser)
+	v1.POST("/users", sityHandler.SaveUser)
 
 	sityApp.SaveUserFn = func(user *entity.User) (*entity.User, map[string]string, error) {
 		return &entity.User{

@@ -266,6 +266,7 @@ func (s *Users) DeleteUser(c *gin.Context) {
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
+// @Security ApiKeyAuth
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput

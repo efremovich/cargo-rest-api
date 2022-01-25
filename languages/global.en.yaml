@@ -92,6 +92,12 @@ api:
         successfully_get_user_preference: "Successfully Get Preference"
         successfully_update_user_preference: "Successfully Update Preference"
         successfully_reset_user_preference: "Successfully Reset Preference"
+      sity:
+        successfully_get_sity_list: "Successfully Get Sity list"
+        successfully_get_sity_detail: "Successfully Get Sity Detail"
+        successfully_create_sity: "Successfully Create Sity"
+        successfully_update_siyt: "Successfully Update Sity"
+        successfully_delete_sity: "Successfully Delete Sity"
 attributes:
   name: "Name"
   email: "Email"

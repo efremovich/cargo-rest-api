@@ -14,6 +14,7 @@ import (
 type Sity struct {
 	UUID      string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
 	Name      string    `gorm:"size:100;not null;" json:"name" form:"name"`
+	Region    string    `gorm:"size:100;" json:"region" form:"region"`
 	Latitude  string    `gorm:"size:100;" json:"latitude" form:"latitude"`
 	Longitude string    `gorm:"size:100;" json:"longitude" form:"longitude"`
 	CreatedAt time.Time `json:"created_at"`
@@ -25,6 +26,7 @@ type Sity struct {
 type SityFaker struct {
 	UUID      string `faker:"uuid_hyphenated"`
 	Name      string `faker:"name"`
+	Region    string `faker:"region"`
 	Latitude  string `faker:"latitude"`
 	Longitude string `faker:"longitude"`
 }
@@ -35,7 +37,6 @@ type Sities []Sity
 // DetailSity represent format of detail Sity.
 type DetailSity struct {
 	SityFieldsForDetail
-	Role []interface{} `json:"roles,omitempty"`
 }
 
 // DetailSityList represent format of DetailSity for Sity list.
@@ -46,10 +47,11 @@ type DetailSityList struct {
 
 // SityFieldsForDetail represent fields of detail Sity.
 type SityFieldsForDetail struct {
-	UUID      string      `json:"uuid"`
-	Name      string      `json:"name"`
-	Latitude  interface{} `json:"latitude"`
-	Longitude interface{} `json:"longitude"`
+	UUID      string `json:"uuid"`
+	Name      string `json:"name"`
+	Region    string `json:"region"`
+	Latitude  string `json:"latitude"`
+	Longitude string `json:"longitude"`
 }
 
 // SityFieldsForList represent fields of detail Sity for Sity list.
@@ -64,12 +66,13 @@ func (u *Sity) TableName() string {
 
 // FilterableFields return fields.
 func (u *Sity) FilterableFields() []interface{} {
-	return []interface{}{"uuid", "name", "latitude", "longitude"}
+	return []interface{}{"uuid", "name", "region", "latitude", "longitude"}
 }
 
 // Prepare will prepare submitted data of sity.
 func (u *Sity) Prepare() {
 	u.Name = html.EscapeString(strings.TrimSpace(u.Name))
+	u.Region = html.EscapeString(strings.TrimSpace(u.Region))
 	u.Latitude = html.EscapeString(strings.TrimSpace(u.Latitude))
 	u.Longitude = html.EscapeString(strings.TrimSpace(u.Longitude))
 	u.CreatedAt = time.Now()
@@ -100,6 +103,7 @@ func (u *Sity) DetailSity() interface{} {
 		SityFieldsForDetail: SityFieldsForDetail{
 			UUID:      u.UUID,
 			Name:      u.Name,
+			Region:    u.Region,
 			Latitude:  u.Latitude,
 			Longitude: u.Longitude,
 		},
@@ -112,6 +116,7 @@ func (u *Sity) DetailSityList() interface{} {
 		SityFieldsForDetail: SityFieldsForDetail{
 			UUID:      u.UUID,
 			Name:      u.Name,
+			Region:    u.Region,
 			Latitude:  u.Latitude,
 			Longitude: u.Longitude,
 		},
