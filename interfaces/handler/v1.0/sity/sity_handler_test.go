@@ -23,16 +23,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// TestSaveUser_Success Test.
+// TestSaveSity_Success Test.
 func TestSaveSity_Success(t *testing.T) {
 	var sityData entity.Sity
 	var sityApp mock.SityAppInterface
 	sityHandler := NewSities(&sityApp)
-	userJSON := `{
-		"name": "Москва",
-    	"longt"
-		"phone": "+6285725833220",
-		"password": "password"
+	sityJSON := `{
+		"name": "Самарканд",
+    	"region":"Самардкандская область",
+		"latitude":"74.54",
+		"longitude":"55.444",
 	}`
 	UUID := uuid.New().String()
 
@@ -40,19 +40,20 @@ func TestSaveSity_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/users", sityHandler.SaveUser)
+	v1.POST("/sities", sityHandler.SaveSities)
 
-	sityApp.SaveUserFn = func(user *entity.User) (*entity.User, map[string]string, error) {
-		return &entity.User{
-			UUID:  UUID,
-			Name:  "Example",
-			Email: "example@test.com",
-			Phone: "+6285725833220",
+	sityApp.SaveSityFn = func(sity *entity.Sity) (*entity.Sity, map[string]string, error) {
+		return &entity.Sity{
+			UUID:      UUID,
+			Name:      "Самарканд",
+			Region:    "Самаркандская область",
+			Latitude:  "74.54",
+			Longitude: "55.444",
 		}, nil, nil
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/users", bytes.NewBufferString(userJSON))
+	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/sities", bytes.NewBufferString(sityJSON))
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -65,55 +66,39 @@ func TestSaveSity_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, sityData.UUID, UUID)
-	assert.EqualValues(t, sityData.Name, "Example")
-	assert.EqualValues(t, sityData.Email, "example@test.com")
-	assert.EqualValues(t, sityData.Phone, "+6285725833220")
+	assert.EqualValues(t, sityData.Name, "Самарканд")
+	assert.EqualValues(t, sityData.Region, "Самаркандаскя область")
+	assert.EqualValues(t, sityData.Latitude, "55.444")
+	assert.EqualValues(t, sityData.Longitude, "74.54")
 }
 
-func TestSaveUser_InvalidData(t *testing.T) {
+func TestSaveSity_InvalidData(t *testing.T) {
 	samples := []struct {
 		inputJSON  string
 		statusCode int
 	}{
 		{
-			inputJSON:  `{"name": "", "email": "example@test.com","password": "password"}`,
+			inputJSON:  `{"name": "","region": ""}`,
 			statusCode: 422,
 		},
 		{
-			inputJSON:  `{"name": "victor", "email": "example@test.com","password": "password"}`,
-			statusCode: 422,
-		},
-		{
-			inputJSON:  `{"name": "victor", "email": "","password": "password"}`,
-			statusCode: 422,
-		},
-		{
-			inputJSON:  `{"name": "victor", "email": "example@test.com","password": ""}`,
-			statusCode: 422,
-		},
-		{
-			inputJSON:  `{"email": "example@test","password": ""}`,
-			statusCode: 422,
-		},
-		{
-			inputJSON:  `{"name": 1234, "email": "example@test.com","password": "password"}`,
+			inputJSON:  `{"name": "", "region": "область"}`,
 			statusCode: 422,
 		},
 	}
 
 	for _, v := range samples {
-		var userApp mock.UserAppInterface
-		var storageApp mock.StorageAppInterface
-		userHandler := NewUsers(&userApp, &storageApp)
+		var sityApp mock.SityAppInterface
+		sityHandler := NewSities(&sityApp)
 
 		gin.SetMode(gin.TestMode)
 		w := httptest.NewRecorder()
 		c, r := gin.CreateTestContext(w)
 		v1 := r.Group("/api/v1/external/")
-		v1.POST("/users", userHandler.SaveUser)
+		v1.POST("/sities", sityHandler.SaveSities)
 
 		var err error
-		c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/users", bytes.NewBufferString(v.inputJSON))
+		c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/sities", bytes.NewBufferString(v.inputJSON))
 		if err != nil {
 			t.Errorf("this is the error: %v\n", err)
 		}
@@ -131,17 +116,16 @@ func TestSaveUser_InvalidData(t *testing.T) {
 	}
 }
 
-// TestUpdateUser_Success Test.
-func TestUpdateUser_Success(t *testing.T) {
-	var sityData entity.User
-	var userApp mock.UserAppInterface
-	var storageApp mock.StorageAppInterface
-	userHandler := NewUsers(&userApp, &storageApp)
-	userJSON := `{
-		"name": "Example",
-		"email": "example@test.com",
-		"phone": "+6285725833220",
-		"password": "password"
+// TestUpdateSity_Success Test.
+func TestUpdateSity_Success(t *testing.T) {
+	var sityData entity.Sity
+	var sityApp mock.SityAppInterface
+	sityHandler := NewSities(&sityApp)
+	sityJSON := `{
+		"name": "Самарканд",
+    	"region":"Самардкандская область",
+		"latitude":"74.54",
+		"longitude":"55.444",
 	}`
 	UUID := uuid.New().String()
 
@@ -149,19 +133,20 @@ func TestUpdateUser_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.PUT("/users/:uuid", userHandler.UpdateUser)
+	v1.PUT("/sities/:uuid", sityHandler.UpdateSities)
 
-	userApp.UpdateUserFn = func(UUID string, user *entity.User) (*entity.User, map[string]string, error) {
-		return &entity.User{
-			UUID:  UUID,
-			Name:  "Example",
-			Email: "example@test.com",
-			Phone: "+6285725833220",
+	sityApp.UpdateSityFn = func(UUID string, sity *entity.Sity) (*entity.Sity, map[string]string, error) {
+		return &entity.Sity{
+			UUID:      UUID,
+			Name:      "Самарканд",
+			Region:    "Самаркандская область",
+			Latitude:  "74.54",
+			Longitude: "55.444",
 		}, nil, nil
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodPut, "/api/v1/external/users/"+UUID, bytes.NewBufferString(userJSON))
+	c.Request, err = http.NewRequest(http.MethodPut, "/api/v1/external/sities/"+UUID, bytes.NewBufferString(sityJSON))
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -174,45 +159,42 @@ func TestUpdateUser_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, sityData.UUID, UUID)
-	assert.EqualValues(t, sityData.Name, "Example")
-	assert.EqualValues(t, sityData.Email, "example@test.com")
-	assert.EqualValues(t, sityData.Phone, "+6285725833220")
+	assert.EqualValues(t, sityData.Name, "Самарканд")
+	assert.EqualValues(t, sityData.Region, "Самаркандаскя область")
+	assert.EqualValues(t, sityData.Latitude, "74.54")
+	assert.EqualValues(t, sityData.Longitude, "55.444")
 }
 
-// TestGetUser_Success Test.
-func TestGetUser_Success(t *testing.T) {
-	var sityData entity.User
-	var userApp mock.UserAppInterface
-	var storageApp mock.StorageAppInterface
+// TestGetSity_Success Test.
+func TestGetSity_Success(t *testing.T) {
+	var sityData entity.Sity
+	var sityApp mock.SityAppInterface
 
 	if err := godotenv.Load(fmt.Sprintf("%s/.env", util.RootDir())); err != nil {
 		log.Println("no .env file provided")
 	}
 
-	userHandler := NewUsers(&userApp, &storageApp)
+	sityHandler := NewSities(&sityApp)
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.GET("/users/:uuid", userHandler.GetUser)
+	v1.GET("/sities/:uuid", sityHandler.GetSity)
 
-	userApp.GetUserFn = func(string) (*entity.User, error) {
-		return &entity.User{
-			UUID:       UUID,
-			Name:       "Example",
-			Email:      "example@test.com",
-			AvatarUUID: UUID,
+	sityApp.GetSityFn = func(string) (*entity.Sity, error) {
+		return &entity.Sity{
+			UUID:      UUID,
+			Name:      "Самарканд",
+			Region:    "Самаркандская область",
+			Latitude:  "74.54",
+			Longitude: "55.444",
 		}, nil
 	}
 
-	storageApp.GetFileFn = func(string) (interface{}, error) {
-		return UUID, nil
-	}
-
 	var err error
-	c.Request, err = http.NewRequest(http.MethodGet, "/api/v1/external/users/"+UUID, nil)
+	c.Request, err = http.NewRequest(http.MethodGet, "/api/v1/external/sities/"+UUID, nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -225,43 +207,48 @@ func TestGetUser_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, sityData.UUID, UUID)
-	assert.EqualValues(t, sityData.Name, "Example")
-	assert.EqualValues(t, sityData.Email, "example@test.com")
+	assert.EqualValues(t, sityData.Name, "Самарканд")
+	assert.EqualValues(t, sityData.Region, "Самаркандская область")
+	assert.EqualValues(t, sityData.Latitude, "74.54")
+	assert.EqualValues(t, sityData.Longitude, "55.444")
 }
 
-// TestGetUsers_Success Test.
-func TestGetUsers_Success(t *testing.T) {
-	var userApp mock.UserAppInterface
-	var storageApp mock.StorageAppInterface
-	var usersData []entity.User
+// TestGetSities_Success Test.
+func TestGetSities_Success(t *testing.T) {
+	var sityApp mock.SityAppInterface
+	var sitiesData []entity.Sity
 	var metaData repository.Meta
-	userHandler := NewSities(&userApp, &storageApp)
+	sityHandler := NewSities(&sityApp)
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.GET("/users", userHandler.GetUsers)
-	userApp.GetUsersFn = func(params *repository.Parameters) ([]entity.User, interface{}, error) {
-		users := []entity.User{
+	v1.GET("/sities", sityHandler.GetSities)
+	sityApp.GetSitiesFn = func(params *repository.Parameters) ([]*entity.Sity, *repository.Meta, error) {
+		sities := []*entity.Sity{
 			{
-				UUID:  UUID,
-				Name:  "Example 1",
-				Email: "example1@test.com",
+				UUID:      UUID,
+				Name:      "Самара",
+				Region:    "Самарская область",
+				Latitude:  "33.44",
+				Longitude: "65.568",
 			},
 			{
-				UUID:  UUID,
-				Name:  "Example 2",
-				Email: "example2@test.com",
+				UUID:      UUID,
+				Name:      "Тверь",
+				Region:    "Тверская область",
+				Latitude:  "23.5488",
+				Longitude: "35.456",
 			},
 		}
-		meta := repository.NewMeta(params, int64(len(users)))
-		return users, meta, nil
+		meta := repository.NewMeta(params, int64(len(sities)))
+		return sities, meta, nil
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodGet, "/api/v1/external/users", nil)
+	c.Request, err = http.NewRequest(http.MethodGet, "/api/v1/external/sities", nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -271,35 +258,34 @@ func TestGetUsers_Success(t *testing.T) {
 	data, _ := json.Marshal(response["data"])
 	meta, _ := json.Marshal(response["meta"])
 
-	_ = json.Unmarshal(data, &usersData)
+	_ = json.Unmarshal(data, &sitiesData)
 	_ = json.Unmarshal(meta, &metaData)
 
 	assert.Equal(t, w.Code, http.StatusOK)
-	assert.EqualValues(t, 2, len(usersData))
+	assert.EqualValues(t, 2, len(sitiesData))
 	assert.EqualValues(t, 1, metaData.Page)
 	assert.EqualValues(t, 5, metaData.PerPage)
 	assert.EqualValues(t, 2, metaData.Total)
 }
 
-// TestDeleteUser_Success Test.
-func TestDeleteUser_Success(t *testing.T) {
-	var userApp mock.UserAppInterface
-	var storageApp mock.StorageAppInterface
-	userHandler := NewUsers(&userApp, &storageApp)
+// TestDeleteSity_Success Test.
+func TestDeleteSity_Success(t *testing.T) {
+	var sityApp mock.SityAppInterface
+	sityHandler := NewSities(&sityApp)
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.DELETE("/users/:uuid", userHandler.DeleteUser)
+	v1.DELETE("/sities/:uuid", sityHandler.DeleteSity)
 
-	userApp.DeleteUserFn = func(UUID string) error {
+	sityApp.DeleteSityFn = func(UUID string) error {
 		return nil
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodDelete, "/api/v1/external/users/"+UUID, nil)
+	c.Request, err = http.NewRequest(http.MethodDelete, "/api/v1/external/sities/"+UUID, nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -308,25 +294,24 @@ func TestDeleteUser_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusOK)
 }
 
-// TestDeleteUser_Failed_UserNotFound Test.
-func TestDeleteUser_Failed_UserNotFound(t *testing.T) {
-	var userApp mock.UserAppInterface
-	var storageApp mock.StorageAppInterface
-	userHandler := NewUsers(&userApp, &storageApp)
+// TestDeleteSity_Failed_SityNotFound Test.
+func TestDeleteSity_Failed_SityNotFound(t *testing.T) {
+	var sityApp mock.SityAppInterface
+	sityHandler := NewSities(&sityApp)
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.DELETE("/users/:uuid", userHandler.DeleteUser)
+	v1.DELETE("/sities/:uuid", sityHandler.DeleteSity)
 
-	userApp.DeleteUserFn = func(UUID string) error {
-		return exception.ErrorTextUserNotFound
+	sityApp.DeleteSityFn = func(UUID string) error {
+		return exception.ErrorTextSityNotFound
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/users/"+UUID, nil)
+	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/sities/"+UUID, nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}

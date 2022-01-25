@@ -15,12 +15,14 @@ func All() []Seed {
 func prepare() []Seed {
 	roleFactories := roleFactory()
 	userFactories := userFactory()
+	sityFactories := sityFactory()
 
 	var (
 		allFactories []Seed
 	)
 	allFactories = append(allFactories, roleFactories...)
 	allFactories = append(allFactories, userFactories...)
+	allFactories = append(allFactories, sityFactories...)
 
 	return allFactories
 }

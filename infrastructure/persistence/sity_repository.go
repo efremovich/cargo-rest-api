@@ -52,9 +52,9 @@ func (r SityRepo) GetSity(uuid string) (*entity.Sity, error) {
 	return &sity, nil
 }
 
-func (r SityRepo) GetSities(p *repository.Parameters) ([]entity.Sity, interface{}, error) {
+func (r SityRepo) GetSities(p *repository.Parameters) ([]*entity.Sity, *repository.Meta, error) {
 	var total int64
-	var sities []entity.Sity
+	var sities []*entity.Sity
 	errTotal := r.db.Where(p.QueryKey, p.QueryValue...).Find(&sities).Count(&total).Error
 	errList := r.db.Where(p.QueryKey, p.QueryValue...).Limit(p.Limit).Offset(p.Offset).Find(&sities).Error
 	if errTotal != nil {

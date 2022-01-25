@@ -28,7 +28,7 @@ func NewSities(us application.SityAppInterface) *Sities {
 // @Summary Create a new sity
 // @Description Create a new sity.
 // @Tags sities
-// @Accept json
+// @Accept mpfd
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"

@@ -884,7 +884,7 @@ var doc = `{
                 ],
                 "description": "Create a new sity.",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"

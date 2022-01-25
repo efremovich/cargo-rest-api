@@ -32,7 +32,7 @@ type SityFaker struct {
 }
 
 // Sities represent multiple Sity.
-type Sities []Sity
+type Sities []*Sity
 
 // DetailSity represent format of detail Sity.
 type DetailSity struct {

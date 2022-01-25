@@ -595,7 +595,7 @@ paths:
       - sities
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       description: Create a new sity.
       parameters:
       - default: en

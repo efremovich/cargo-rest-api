@@ -10,5 +10,5 @@ type SityRepository interface {
 	UpdateSity(UUID string, tour *entity.Sity) (*entity.Sity, map[string]string, error)
 	DeleteSity(UUID string) error
 	GetSity(UUID string) (*entity.Sity, error)
-	GetSities(parameters *Parameters) ([]entity.Sity, *Meta, error)
+	GetSities(parameters *Parameters) ([]*entity.Sity, *Meta, error)
 }
