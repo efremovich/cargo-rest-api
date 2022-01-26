@@ -28,14 +28,15 @@ func NewSities(us application.SityAppInterface) *Sities {
 // @Summary Create a new sity
 // @Description Create a new sity.
 // @Tags sities
-// @Accept mpfd
+// @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
 // @Param name formData string true "Sity name"
-// @Param latitude formData string true "Sity latitude"
+// @Param region formData string true "Sity region"
+// @Param lantitude formData string true "Sity lantitude"
 // @Param longitude formData string true "Sity longitude"
 // @Success 201 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
@@ -77,6 +78,7 @@ func (s *Sities) SaveSities(c *gin.Context) {
 // @Security JWTAuth
 // @Param uuid path string true "Sity UUID"
 // @Param name formData string true "Sity name"
+// @Param region formData string true "Sity region"
 // @Param latitude formData string true "Sity latitude"
 // @Param longitude formData string true "Sity longitude"
 // @Success 200 {object} response.successOutput

@@ -920,8 +920,15 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "Sity latitude",
-                        "name": "latitude",
+                        "description": "Sity region",
+                        "name": "region",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity lantitude",
+                        "name": "lantitude",
                         "in": "formData",
                         "required": true
                     },
@@ -1023,6 +1030,13 @@ var doc = `{
                         "type": "string",
                         "description": "Sity name",
                         "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sity region",
+                        "name": "region",
                         "in": "formData",
                         "required": true
                     },

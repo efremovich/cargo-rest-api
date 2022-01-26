@@ -30,9 +30,9 @@ func TestSaveSity_Success(t *testing.T) {
 	sityHandler := NewSities(&sityApp)
 	sityJSON := `{
 		"name": "Самарканд",
-    	"region":"Самардкандская область",
-		"latitude":"74.54",
-		"longitude":"55.444",
+		"region": "Самардкандская область",
+		"latitude": "74.54",
+		"longitude": "55.444"
 	}`
 	UUID := uuid.New().String()
 
@@ -54,6 +54,7 @@ func TestSaveSity_Success(t *testing.T) {
 
 	var err error
 	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/sities", bytes.NewBufferString(sityJSON))
+	c.Request.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -67,9 +68,9 @@ func TestSaveSity_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, sityData.UUID, UUID)
 	assert.EqualValues(t, sityData.Name, "Самарканд")
-	assert.EqualValues(t, sityData.Region, "Самаркандаскя область")
-	assert.EqualValues(t, sityData.Latitude, "55.444")
-	assert.EqualValues(t, sityData.Longitude, "74.54")
+	assert.EqualValues(t, sityData.Region, "Самаркандская область")
+	assert.EqualValues(t, sityData.Latitude, "74.54")
+	assert.EqualValues(t, sityData.Longitude, "55.444")
 }
 
 func TestSaveSity_InvalidData(t *testing.T) {
@@ -78,11 +79,11 @@ func TestSaveSity_InvalidData(t *testing.T) {
 		statusCode int
 	}{
 		{
-			inputJSON:  `{"name": "","region": ""}`,
+			inputJSON:  `{"name": ,"region": ""}`,
 			statusCode: 422,
 		},
 		{
-			inputJSON:  `{"name": "", "region": "область"}`,
+			inputJSON:  `{"name": "", "region": "область",}`,
 			statusCode: 422,
 		},
 	}
@@ -122,11 +123,11 @@ func TestUpdateSity_Success(t *testing.T) {
 	var sityApp mock.SityAppInterface
 	sityHandler := NewSities(&sityApp)
 	sityJSON := `{
-		"name": "Самарканд",
-    	"region":"Самардкандская область",
-		"latitude":"74.54",
-		"longitude":"55.444",
-	}`
+			"name": "Самарканд",
+			"region": "Самардкандская область",
+			"latitude": "74.54",
+			"longitude": "55.444"
+		  }`
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
@@ -145,6 +146,16 @@ func TestUpdateSity_Success(t *testing.T) {
 		}, nil, nil
 	}
 
+	sityApp.GetSityFn = func(string) (*entity.Sity, error) {
+		return &entity.Sity{
+			UUID:      UUID,
+			Name:      "Самарканд",
+			Region:    "Самаркандская область",
+			Latitude:  "74.54",
+			Longitude: "55.444",
+		}, nil
+	}
+
 	var err error
 	c.Request, err = http.NewRequest(http.MethodPut, "/api/v1/external/sities/"+UUID, bytes.NewBufferString(sityJSON))
 	if err != nil {
@@ -160,7 +171,7 @@ func TestUpdateSity_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, sityData.UUID, UUID)
 	assert.EqualValues(t, sityData.Name, "Самарканд")
-	assert.EqualValues(t, sityData.Region, "Самаркандаскя область")
+	assert.EqualValues(t, sityData.Region, "Самаркандская область")
 	assert.EqualValues(t, sityData.Latitude, "74.54")
 	assert.EqualValues(t, sityData.Longitude, "55.444")
 }

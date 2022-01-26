@@ -130,7 +130,7 @@ func NewGinParameters(c *gin.Context) *Parameters {
 	}
 
 	for key, valueSlice := range c.Request.URL.Query() {
-		reEqual, _ := regexp.Compile("equal\\[(.*[a-z])\\]")
+		reEqual, _ := regexp.Compile("equal\\[(.*[\u0401\u0451\u0410-\u044f]|.*[a-z])\\]")
 		reEqualSlice := reEqual.FindStringSubmatch(key)
 		if len(reEqualSlice) > 0 {
 			if len(valueSlice) > 1 {
@@ -142,7 +142,7 @@ func NewGinParameters(c *gin.Context) *Parameters {
 			}
 		}
 
-		reNotEqual, _ := regexp.Compile("not\\[(.*[a-z])\\]")
+		reNotEqual, _ := regexp.Compile("not\\[(.*[\u0401\u0451\u0410-\u044f]|.*[a-z])\\]")
 		reNotEqualSlice := reNotEqual.FindStringSubmatch(key)
 		if len(reNotEqualSlice) > 0 {
 			if len(valueSlice) > 1 {
@@ -154,7 +154,7 @@ func NewGinParameters(c *gin.Context) *Parameters {
 			}
 		}
 
-		reLike, _ := regexp.Compile("like\\[(.*[a-z])\\]")
+		reLike, _ := regexp.Compile("like\\[(.*[\u0401\u0451\u0410-\u044f]|.*[a-z])\\]")
 		reLikeSlice := reLike.FindStringSubmatch(key)
 		if len(reLikeSlice) > 0 {
 			if len(valueSlice) > 1 {

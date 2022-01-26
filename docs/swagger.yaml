@@ -615,9 +615,14 @@ paths:
         name: name
         required: true
         type: string
-      - description: Sity latitude
+      - description: Sity region
         in: formData
-        name: latitude
+        name: region
+        required: true
+        type: string
+      - description: Sity lantitude
+        in: formData
+        name: lantitude
         required: true
         type: string
       - description: Sity longitude
@@ -791,6 +796,11 @@ paths:
       - description: Sity name
         in: formData
         name: name
+        required: true
+        type: string
+      - description: Sity region
+        in: formData
+        name: region
         required: true
         type: string
       - description: Sity latitude

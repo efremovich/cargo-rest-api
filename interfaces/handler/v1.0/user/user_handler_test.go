@@ -52,6 +52,15 @@ func TestSaveUser_Success(t *testing.T) {
 		}, nil, nil
 	}
 
+	userApp.GetUserByEmailFn = func(user *entity.User) (*entity.User, map[string]string, error) {
+		return &entity.User{
+			UUID:  UUID,
+			Name:  "Example",
+			Email: "example@test.com",
+			Phone: "+6285725833220",
+		}, nil, nil
+	}
+
 	var err error
 	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/users", bytes.NewBufferString(userJSON))
 	if err != nil {
