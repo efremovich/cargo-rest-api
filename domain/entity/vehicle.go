@@ -12,23 +12,23 @@ import (
 
 // Vehicle represent schema of table sities.
 type Vehicle struct {
-	UUID      string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
-	Name      string    `gorm:"size:100;not null;" json:"name" form:"name"`
-	Region    string    `gorm:"size:100;" json:"region" form:"region"`
-	Latitude  string    `gorm:"size:100;" json:"latitude" form:"latitude"`
-	Longitude string    `gorm:"size:100;" json:"longitude" form:"longitude"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt gorm.DeletedAt
+	UUID          string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
+	RegCode       string    `gorm:"size:100;not null;" json:"reg_code" form:"req_code"`
+	Model         string    `gorm:"size:100;not null;" json:"model" form:"model"`
+	NumberOfSeats string    `gorm:"size:100;" json:"number_of_seats" form:"number_of_seats"`
+	Class         string    `gorm:"size:100;" json:"class" form:"class"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
+	DeletedAt     gorm.DeletedAt
 }
 
 // VehicleFaker represent content when generate fake data of vehicle.
 type VehicleFaker struct {
-	UUID      string `faker:"uuid_hyphenated"`
-	Name      string `faker:"name"`
-	Region    string `faker:"region"`
-	Latitude  string `faker:"latitude"`
-	Longitude string `faker:"longitude"`
+	UUID          string `faker:"uuid_hyphenated"`
+	Model         string `faker:"model"`
+	RegCode       string `faker:"reg_code`
+	NumberOfSeats string `faker:"number_of_seats"`
+	Class         string `faker:"class"`
 }
 
 // Vehicles represent multiple Vehicle.
@@ -47,11 +47,11 @@ type DetailVehicleList struct {
 
 // VehicleFieldsForDetail represent fields of detail Vehicle.
 type VehicleFieldsForDetail struct {
-	UUID      string `json:"uuid"`
-	Name      string `json:"name"`
-	Region    string `json:"region"`
-	Latitude  string `json:"latitude"`
-	Longitude string `json:"longitude"`
+	UUID          string `json:"uuid"`
+	Model         string `json:"model"`
+	RegCode       string `json:"reg_code`
+	NumberOfSeats string `json:"number_of_seats"`
+	Class         string `json:"class"`
 }
 
 // VehicleFieldsForList represent fields of detail Vehicle for Vehicle list.
@@ -61,20 +61,20 @@ type VehicleFieldsForList struct {
 
 // TableName return name of table.
 func (u *Vehicle) TableName() string {
-	return "sities"
+	return "vehicles"
 }
 
 // FilterableFields return fields.
 func (u *Vehicle) FilterableFields() []interface{} {
-	return []interface{}{"uuid", "name", "region", "latitude", "longitude"}
+	return []interface{}{"uuid", "model", "reg_code", "number_of_seats", "class"}
 }
 
 // Prepare will prepare submitted data of vehicle.
 func (u *Vehicle) Prepare() {
-	u.Name = html.EscapeString(strings.TrimSpace(u.Name))
-	u.Region = html.EscapeString(strings.TrimSpace(u.Region))
-	u.Latitude = html.EscapeString(strings.TrimSpace(u.Latitude))
-	u.Longitude = html.EscapeString(strings.TrimSpace(u.Longitude))
+	u.Model = html.EscapeString(strings.TrimSpace(u.Model))
+	u.RegCode = html.EscapeString(strings.TrimSpace(u.RegCode))
+	u.NumberOfSeats = html.EscapeString(strings.TrimSpace(u.NumberOfSeats))
+	u.Class = html.EscapeString(strings.TrimSpace(u.Class))
 	u.CreatedAt = time.Now()
 	u.UpdatedAt = time.Now()
 }
@@ -101,11 +101,11 @@ func (sities Vehicles) DetailVehicles() []interface{} {
 func (u *Vehicle) DetailVehicle() interface{} {
 	return &DetailVehicle{
 		VehicleFieldsForDetail: VehicleFieldsForDetail{
-			UUID:      u.UUID,
-			Name:      u.Name,
-			Region:    u.Region,
-			Latitude:  u.Latitude,
-			Longitude: u.Longitude,
+			UUID:          u.UUID,
+			Model:         u.Model,
+			RegCode:       u.RegCode,
+			NumberOfSeats: u.NumberOfSeats,
+			Class:         u.Class,
 		},
 	}
 }
@@ -114,11 +114,11 @@ func (u *Vehicle) DetailVehicle() interface{} {
 func (u *Vehicle) DetailVehicleList() interface{} {
 	return &DetailVehicleList{
 		VehicleFieldsForDetail: VehicleFieldsForDetail{
-			UUID:      u.UUID,
-			Name:      u.Name,
-			Region:    u.Region,
-			Latitude:  u.Latitude,
-			Longitude: u.Longitude,
+			UUID:          u.UUID,
+			Model:         u.Model,
+			RegCode:       u.RegCode,
+			NumberOfSeats: u.NumberOfSeats,
+			Class:         u.Class,
 		},
 		VehicleFieldsForList: VehicleFieldsForList{
 			CreatedAt: u.CreatedAt,
