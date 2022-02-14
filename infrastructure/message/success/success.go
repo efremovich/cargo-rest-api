@@ -60,3 +60,12 @@ const (
 	SitySuccessfullyUpdateSity    = "api.msg.success.sity.successfully_update_sity"
 	SitySuccessfullyDeleteSity    = "api.msg.success.sity.successfully_delete_sity"
 )
+
+// Success message for vehicle.
+const (
+	VehicleSuccessfullyGetVehicleList   = "api.msg.success.vehicle.successfully_get_vehicle_list"
+	VehicleSuccessfullyGetVehicleDetail = "api.msg.success.vehicle.successfully_get_vehicle_detail"
+	VehicleSuccessfullyCreateVehicle    = "api.msg.success.vehicle.successfully_create_vehicle"
+	VehicleSuccessfullyUpdateVehicle    = "api.msg.success.vehicle.successfully_update_vehicle"
+	VehicleSuccessfullyDeleteVihicle    = "api.msg.success.vehicle.successfully_delete_vehicle"
+)

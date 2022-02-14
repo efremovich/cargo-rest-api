@@ -52,6 +52,7 @@ func CollectTableNames() []table {
 	var userPreference entity.UserPreference
 	var userRole entity.UserRole
 	var sity entity.Sity
+	var vehicle entity.Vehicle
 
 	return []table{
 		{Name: application.TableName()},
@@ -72,5 +73,6 @@ func CollectTableNames() []table {
 		{Name: userPreference.TableName()},
 		{Name: userRole.TableName()},
 		{Name: sity.TableName()},
+		{Name: vehicle.TableName()},
 	}
 }

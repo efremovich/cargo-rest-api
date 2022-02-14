@@ -5,6 +5,7 @@ import (
 	"cargo-rest-api/domain/repository"
 	"cargo-rest-api/infrastructure/message/exception"
 	"errors"
+	"strings"
 
 	"gorm.io/gorm"
 )
@@ -32,12 +33,42 @@ func (r SityRepo) SaveSity(Sity *entity.Sity) (*entity.Sity, map[string]string, 
 	return Sity, nil, nil
 }
 
-func (r SityRepo) UpdateSity(uuid string, tour *entity.Sity) (*entity.Sity, map[string]string, error) {
-	panic("implement me")
+func (r SityRepo) UpdateSity(uuid string, sity *entity.Sity) (*entity.Sity, map[string]string, error) {
+	errDesc := map[string]string{}
+	sityData := &entity.Sity{
+		Name:      sity.Name,
+		Region:    sity.Region,
+		Latitude:  sity.Latitude,
+		Longitude: sity.Longitude,
+	}
+
+	err := r.db.First(&sity, "uuid = ?", uuid).Updates(sityData).Error
+	if err != nil {
+		//If record not found
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			errDesc["uuid"] = exception.ErrorTextUserInvalidUUID.Error()
+			return nil, errDesc, exception.ErrorTextUserNotFound
+		}
+		//If the email is already taken
+		if strings.Contains(err.Error(), "duplicate") || strings.Contains(err.Error(), "Duplicate") {
+			errDesc["email"] = exception.ErrorTextUserEmailAlreadyTaken.Error()
+			return nil, errDesc, exception.ErrorTextUnprocessableEntity
+		}
+		return nil, errDesc, exception.ErrorTextAnErrorOccurred
+	}
+	return sity, nil, nil
 }
 
 func (r SityRepo) DeleteSity(uuid string) error {
-	panic("implement me")
+	var sity entity.Sity
+	err := r.db.Where("uuid = ?", uuid).Take(&sity).Delete(&sity).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return exception.ErrorTextUserNotFound
+		}
+		return err
+	}
+	return nil
 }
 
 func (r SityRepo) GetSity(uuid string) (*entity.Sity, error) {

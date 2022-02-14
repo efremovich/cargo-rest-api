@@ -129,3 +129,12 @@ var (
 	// ErrorTextRoleInvalidUUID is an error representing UUID not found in database.
 	ErrorTextSityInvalidUUID = errors.New("api.msg.error.sity.invalid_uuid")
 )
+
+// Errors for vehicle.
+var (
+	// ErrorTextRoleNotFound is an error representing vehicle not found in database.
+	ErrorTextVehicleNotFound = errors.New("api.msg.error.vehicle.not_found")
+
+	// ErrorTextRoleInvalidUUID is an error representing UUID not found in database.
+	ErrorTextVehicleInvalidUUID = errors.New("api.msg.error.vehicle.invalid_uuid")
+)
