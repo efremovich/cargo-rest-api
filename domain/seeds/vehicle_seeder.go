@@ -22,14 +22,14 @@ func vehicleFactory() []Seed {
 		}
 
 		vehicle := &entity.Vehicle{
-			UUID:      a.UUID,
-			Name:      a.Name,
-			Region:    a.Region,
-			Latitude:  a.Latitude,
-			Longitude: a.Longitude,
+			UUID:          a.UUID,
+			Model:         a.Model,
+			RegCode:       a.RegCode,
+			NumberOfSeats: a.NumberOfSeats,
+			Class:         a.Class,
 		}
 		fakerFactories[i] = Seed{
-			Name: fmt.Sprintf("Create %s", a.Name),
+			Name: fmt.Sprintf("Create %s", a.RegCode),
 			Run: func(db *gorm.DB) error {
 				_, errDB := createVehicle(db, vehicle)
 				return errDB
@@ -43,7 +43,7 @@ func vehicleFactory() []Seed {
 // createVehicle will create fake vehicle and insert into DB.
 func createVehicle(db *gorm.DB, vehicle *entity.Vehicle) (*entity.Vehicle, error) {
 	var vehicleExists entity.Vehicle
-	err := db.Where("name = ?", vehicle.Name).Take(&vehicleExists).Error
+	err := db.Where("reg_code = ?", vehicle.RegCode).Take(&vehicleExists).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			err := db.Create(vehicle).Error
