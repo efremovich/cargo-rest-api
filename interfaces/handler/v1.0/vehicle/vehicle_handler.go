@@ -1,4 +1,4 @@
-package sityv1point00
+package vehiclev1point00
 
 import (
 	"cargo-rest-api/application"
@@ -13,55 +13,51 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Sities is a struct defines the dependencies that will be used.
-type Sities struct {
-	us application.SityAppInterface
+// Vehicles is a struct defines the dependencies that will be used.
+type Vehicles struct {
+	us application.VehicleAppInterface
 }
 
-// NewCountreis is constructor will initialize sity handler.
-func NewSities(us application.SityAppInterface) *Sities {
-	return &Sities{
+// NewCountreis is constructor will initialize vehicle handler.
+func NewVehicles(us application.VehicleAppInterface) *Vehicles {
+	return &Vehicles{
 		us: us,
 	}
 }
 
-// @Summary Create a new sity
-// @Description Create a new sity.
-// @Tags sities
+// @Summary Create a new vehicle
+// @Description Create a new vehicle.
+// @Tags vehicles
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param name formData string true "Sity name"
-// @Param region formData string true "Sity region"
-// @Param lantitude formData string true "Sity lantitude"
-// @Param longitude formData string true "Sity longitude"
+// @Param vehicle body entity.DetailVehicles true "Vehicle vehicle"
 // @Success 201 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities [post]
-// SaveSity is a function sity to handle create a new sity.
-func (s *Sities) SaveSities(c *gin.Context) {
-	var sityEntity entity.Sity
-	if err := c.ShouldBindJSON(&sityEntity); err != nil {
+// @Router /api/v1/external/vehicles [post]
+// SaveVehicle is a function vehicle to handle create a new vehicle.
+func (s *Vehicles) SaveVehicles(c *gin.Context) {
+	var vehicleEntity entity.Vehicle
+	if err := c.ShouldBindJSON(&vehicleEntity); err != nil {
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
 		return
 	}
 
-	validateErr := sityEntity.ValidateSaveSity()
+	validateErr := vehicleEntity.ValidateSaveVehicle()
 	if len(validateErr) > 0 {
 		exceptionData := response.TranslateErrorForm(c, validateErr)
 		c.Set("data", exceptionData)
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
 		return
 	}
-
-	newSity, errDesc, errException := s.us.SaveSity(&sityEntity)
+	newVehicle, errDesc, errException := s.us.SaveVehicle(&vehicleEntity)
 	if errException != nil {
 		c.Set("data", errDesc)
 		if errors.Is(errException, exception.ErrorTextUnprocessableEntity) {
@@ -72,58 +68,58 @@ func (s *Sities) SaveSities(c *gin.Context) {
 		return
 	}
 	c.Status(http.StatusCreated)
-	response.NewSuccess(c, newSity.DetailSity(), success.SitySuccessfullyCreateSity).JSON()
+	response.NewSuccess(c, newVehicle.DetailVehicle(), success.VehicleSuccessfullyCreateVehicle).JSON()
 }
 
-// @Summary Update sity
-// @Description Update an existing sity.
-// @Tags sities
+// @Summary Update vehicle
+// @Description Update an existing vehicle.
+// @Tags vehicles
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Sity UUID"
-// @Param name formData string true "Sity name"
-// @Param region formData string true "Sity region"
-// @Param latitude formData string true "Sity latitude"
-// @Param longitude formData string true "Sity longitude"
+// @Param uuid path string true "Vehicle UUID"
+// @Param name formData string true "Vehicle name"
+// @Param region formData string true "Vehicle region"
+// @Param latitude formData string true "Vehicle latitude"
+// @Param longitude formData string true "Vehicle longitude"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities/uuid [put]
-// UpdateSity is a function uses to handle update sity by UUID.
-func (s *Sities) UpdateSities(c *gin.Context) {
-	var sityEntity entity.Sity
-	if err := c.ShouldBindUri(&sityEntity.UUID); err != nil {
+// @Router /api/v1/external/vehicles/uuid [put]
+// UpdateVehicle is a function uses to handle update vehicle by UUID.
+func (s *Vehicles) UpdateVehicles(c *gin.Context) {
+	var vehicleEntity entity.Vehicle
+	if err := c.ShouldBindUri(&vehicleEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
 		return
 	}
 
-	if err := c.ShouldBindJSON(&sityEntity); err != nil {
+	if err := c.ShouldBindJSON(&vehicleEntity); err != nil {
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
 		return
 	}
 
 	UUID := c.Param("uuid")
-	_, err := s.us.GetSity(UUID)
+	_, err := s.us.GetVehicle(UUID)
 	if err != nil {
-		if errors.Is(err, exception.ErrorTextSityNotFound) {
-			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextSityNotFound)
+		if errors.Is(err, exception.ErrorTextVehicleNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextVehicleNotFound)
 			return
 		}
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	updatedSity, errDesc, errException := s.us.UpdateSity(UUID, &sityEntity)
+	updatedVehicle, errDesc, errException := s.us.UpdateVehicle(UUID, &vehicleEntity)
 	if errException != nil {
 		c.Set("data", errDesc)
-		if errors.Is(errException, exception.ErrorTextSityNotFound) {
+		if errors.Is(errException, exception.ErrorTextVehicleNotFound) {
 			_ = c.AbortWithError(http.StatusNotFound, errException)
 			return
 		}
@@ -135,49 +131,49 @@ func (s *Sities) UpdateSities(c *gin.Context) {
 		return
 	}
 	c.Status(http.StatusOK)
-	response.NewSuccess(c, updatedSity.DetailSity(), success.SitySuccessfullyUpdateSity).JSON()
+	response.NewSuccess(c, updatedVehicle.DetailVehicle(), success.VehicleSuccessfullyUpdateVehicle).JSON()
 }
 
-// @Summary Delete sity
-// @Description Delete an existing sity.
-// @Tags sities
+// @Summary Delete vehicle
+// @Description Delete an existing vehicle.
+// @Tags vehicles
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Sity UUID"
+// @Param uuid path string true "Vehicle UUID"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities/{uuid} [delete]
-// DeleteSity is a function uses to handle delete sity by UUID.
-func (s *Sities) DeleteSity(c *gin.Context) {
-	var sityEntity entity.Sity
-	if err := c.ShouldBindUri(&sityEntity.UUID); err != nil {
+// @Router /api/v1/external/vehicles/{uuid} [delete]
+// DeleteVehicle is a function uses to handle delete vehicle by UUID.
+func (s *Vehicles) DeleteVehicle(c *gin.Context) {
+	var vehicleEntity entity.Vehicle
+	if err := c.ShouldBindUri(&vehicleEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
 		return
 	}
 
 	UUID := c.Param("uuid")
-	err := s.us.DeleteSity(UUID)
+	err := s.us.DeleteVehicle(UUID)
 	if err != nil {
-		if errors.Is(err, exception.ErrorTextSityNotFound) {
-			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextSityNotFound)
+		if errors.Is(err, exception.ErrorTextVehicleNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextVehicleNotFound)
 			return
 		}
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	response.NewSuccess(c, nil, success.SitySuccessfullyDeleteSity).JSON()
+	response.NewSuccess(c, nil, success.VehicleSuccessfullyDeleteVehicle).JSON()
 }
 
-// @Summary Get sities
-// @Description Get list of existing sities.
-// @Tags sities
+// @Summary Get vehicles
+// @Description Get list of existing vehicles.
+// @Tags vehicles
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -189,14 +185,14 @@ func (s *Sities) DeleteSity(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities [get]
-// GetSities is a function uses to handle get sity list.
-func (s *Sities) GetSities(c *gin.Context) {
-	var sity entity.Sity
-	var sities entity.Sities
+// @Router /api/v1/external/vehicles [get]
+// GetVehicles is a function uses to handle get vehicle list.
+func (s *Vehicles) GetVehicles(c *gin.Context) {
+	var vehicle entity.Vehicle
+	var vehicles entity.Vehicles
 	var err error
 	parameters := repository.NewGinParameters(c)
-	validateErr := parameters.ValidateParameter(sity.FilterableFields()...)
+	validateErr := parameters.ValidateParameter(vehicle.FilterableFields()...)
 	if len(validateErr) > 0 {
 		exceptionData := response.TranslateErrorForm(c, validateErr)
 		c.Set("data", exceptionData)
@@ -204,48 +200,48 @@ func (s *Sities) GetSities(c *gin.Context) {
 		return
 	}
 
-	sities, meta, err := s.us.GetSities(parameters)
+	vehicles, meta, err := s.us.GetVehicles(parameters)
 	if err != nil {
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	response.NewSuccess(c, sities.DetailSities(), success.SitySuccessfullyGetSityList).WithMeta(meta).JSON()
+	response.NewSuccess(c, vehicles.DetailVehicles(), success.VehicleSuccessfullyGetVehicleList).WithMeta(meta).JSON()
 }
 
-// @Summary Get sity
-// @Description Get detail of existing sity.
-// @Tags sities
+// @Summary Get vehicle
+// @Description Get detail of existing vehicle.
+// @Tags vehicles
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Sity UUID"
+// @Param uuid path string true "Vehicle UUID"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities/{uuid} [get]
-// GetSity is a function uses to handle get sity detail by UUID.
-func (s *Sities) GetSity(c *gin.Context) {
-	var sityEntity entity.Sity
-	if err := c.ShouldBindUri(&sityEntity.UUID); err != nil {
+// @Router /api/v1/external/vehicles/{uuid} [get]
+// GetVehicle is a function uses to handle get vehicle detail by UUID.
+func (s *Vehicles) GetVehicle(c *gin.Context) {
+	var vehicleEntity entity.Vehicle
+	if err := c.ShouldBindUri(&vehicleEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
 		return
 	}
 
 	UUID := c.Param("uuid")
-	sity, err := s.us.GetSity(UUID)
+	vehicle, err := s.us.GetVehicle(UUID)
 	if err != nil {
-		if errors.Is(err, exception.ErrorTextSityNotFound) {
-			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextSityNotFound)
+		if errors.Is(err, exception.ErrorTextVehicleNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextVehicleNotFound)
 			return
 		}
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	response.NewSuccess(c, sity.DetailSity(), success.SitySuccessfullyGetSityDetail).JSON()
+	response.NewSuccess(c, vehicle.DetailVehicle(), success.VehicleSuccessfullyGetVehicleDetail).JSON()
 }

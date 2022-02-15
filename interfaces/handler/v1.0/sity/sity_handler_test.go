@@ -79,7 +79,7 @@ func TestSaveSity_InvalidData(t *testing.T) {
 		statusCode int
 	}{
 		{
-			inputJSON:  `{"name": ,"region": ""}`,
+			inputJSON:  `{"name":"", "region": ""}`,
 			statusCode: 422,
 		},
 		{

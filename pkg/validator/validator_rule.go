@@ -220,7 +220,7 @@ func (vr *ValidationRules) IsAlpha() *ValidationRules {
 // IsAlphaSpace is a function to set the rule that current field value must be letters and space character only.
 func (vr *ValidationRules) IsAlphaSpace() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile("^[a-zA-Z\\s]*$")).
+		Rule: validation.Match(regexp.MustCompile("^[Ёёа-яА-Яa-zA-Z\\s]*$")).
 			Error("api.msg.error.validation.must_be_alpha_space"),
 		RuleOpt: nil,
 	})
@@ -230,7 +230,7 @@ func (vr *ValidationRules) IsAlphaSpace() *ValidationRules {
 // IsLowerAlphaUnderscore is a function to set the rule that current field value must be lower letters and underscore character only.
 func (vr *ValidationRules) IsLowerAlphaUnderscore() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile("^[a-z_]*$")).
+		Rule: validation.Match(regexp.MustCompile("^[ёа-яa-z_]*$")).
 			Error("api.msg.error.validation.must_be_lower_alpha_underscore"),
 		RuleOpt: nil,
 	})

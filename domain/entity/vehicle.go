@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"cargo-rest-api/pkg/response"
+	"cargo-rest-api/pkg/validator"
 	"html"
 	"strings"
 	"time"
@@ -26,7 +28,7 @@ type Vehicle struct {
 type VehicleFaker struct {
 	UUID          string `faker:"uuid_hyphenated"`
 	Model         string `faker:"model"`
-	RegCode       string `faker:"reg_code`
+	RegCode       string `faker:"reg_code"`
 	NumberOfSeats string `faker:"number_of_seats"`
 	Class         string `faker:"class"`
 }
@@ -49,7 +51,7 @@ type DetailVehicleList struct {
 type VehicleFieldsForDetail struct {
 	UUID          string `json:"uuid"`
 	Model         string `json:"model"`
-	RegCode       string `json:"reg_code`
+	RegCode       string `json:"reg_code"`
 	NumberOfSeats string `json:"number_of_seats"`
 	Class         string `json:"class"`
 }
@@ -124,4 +126,26 @@ func (u *Vehicle) DetailVehicleList() interface{} {
 			CreatedAt: u.CreatedAt,
 		},
 	}
+}
+
+// ValidateSaveVehicle will validate create a new vehicle request.
+func (u *Vehicle) ValidateSaveVehicle() []response.ErrorForm {
+	validation := validator.New()
+	validation.
+		Set("model", u.Model, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
+		Set("reg_code", u.RegCode, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
+		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsAlphaNumericSpace().Length(1, 64).Apply()).
+		Set("class", u.Class, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply())
+	return validation.Validate()
+}
+
+// ValidateUpdateVehicle will validate update a new vehicle request.
+func (u *Vehicle) ValidateUpdateVehicle() []response.ErrorForm {
+	validation := validator.New()
+	validation.
+		Set("model", u.Model, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
+		Set("reg_code", u.RegCode, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
+		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsAlphaNumericSpace().Length(1, 64).Apply()).
+		Set("class", u.Class, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply())
+	return validation.Validate()
 }

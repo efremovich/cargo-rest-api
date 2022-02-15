@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"cargo-rest-api/pkg/response"
+	"cargo-rest-api/pkg/validator"
 	"html"
 	"strings"
 	"time"
@@ -124,4 +126,26 @@ func (u *Sity) DetailSityList() interface{} {
 			CreatedAt: u.CreatedAt,
 		},
 	}
+}
+
+// ValidateSaveSity will validate create a new sity request.
+func (u *Sity) ValidateSaveSity() []response.ErrorForm {
+	validation := validator.New()
+	validation.
+		Set("name", u.Name, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply()).
+		Set("region", u.Region, validation.AddRule().Required().IsAlphaNumericSpace().Length(3, 64).Apply()).
+		Set("latitude", u.Latitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
+		Set("longitude", u.Longitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply())
+	return validation.Validate()
+}
+
+// ValidateUpdateSity will validate update a new sity request.
+func (u *Sity) ValidateUpdateSity() []response.ErrorForm {
+	validation := validator.New()
+	validation.
+		Set("name", u.Name, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply()).
+		Set("region", u.Region, validation.AddRule().Required().IsAlphaNumericSpace().Length(3, 64).Apply()).
+		Set("latitude", u.Latitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
+		Set("longitude", u.Longitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply())
+	return validation.Validate()
 }

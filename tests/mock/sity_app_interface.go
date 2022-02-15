@@ -15,13 +15,13 @@ type SityAppInterface struct {
 }
 
 // SaveSity calls the SaveSityFn.
-func (u *SityAppInterface) SaveSity(user *entity.Sity) (*entity.Sity, map[string]string, error) {
-	return u.SaveSityFn(user)
+func (u *SityAppInterface) SaveSity(sity *entity.Sity) (*entity.Sity, map[string]string, error) {
+	return u.SaveSityFn(sity)
 }
 
 // UpdateSity calls the UpdateSityFn.
-func (u *SityAppInterface) UpdateSity(uuid string, user *entity.Sity) (*entity.Sity, map[string]string, error) {
-	return u.UpdateSityFn(uuid, user)
+func (u *SityAppInterface) UpdateSity(uuid string, sity *entity.Sity) (*entity.Sity, map[string]string, error) {
+	return u.UpdateSityFn(uuid, sity)
 }
 
 // DeleteSity calls the DeleteSityFn.

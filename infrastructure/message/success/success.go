@@ -67,5 +67,5 @@ const (
 	VehicleSuccessfullyGetVehicleDetail = "api.msg.success.vehicle.successfully_get_vehicle_detail"
 	VehicleSuccessfullyCreateVehicle    = "api.msg.success.vehicle.successfully_create_vehicle"
 	VehicleSuccessfullyUpdateVehicle    = "api.msg.success.vehicle.successfully_update_vehicle"
-	VehicleSuccessfullyDeleteVihicle    = "api.msg.success.vehicle.successfully_delete_vehicle"
+	VehicleSuccessfullyDeleteVehicle    = "api.msg.success.vehicle.successfully_delete_vehicle"
 )
