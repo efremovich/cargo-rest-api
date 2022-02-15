@@ -31,7 +31,7 @@ func TestSaveUser_Success(t *testing.T) {
 	userHandler := NewUsers(&userApp, &storageApp)
 	userJSON := `{
 		"name": "Example",
-		"email": "example@test.com",
+		"email": "test@test1.com",
 		"phone": "+6285725833220",
 		"password": "password"
 	}`
@@ -47,7 +47,7 @@ func TestSaveUser_Success(t *testing.T) {
 		return &entity.User{
 			UUID:  UUID,
 			Name:  "Example",
-			Email: "example@test.com",
+			Email: "test@test1.com",
 			Phone: "+6285725833220",
 		}, nil, nil
 	}
@@ -56,13 +56,23 @@ func TestSaveUser_Success(t *testing.T) {
 		return &entity.User{
 			UUID:  UUID,
 			Name:  "Example",
-			Email: "example@test.com",
+			Email: "test@test1.com",
 			Phone: "+6285725833220",
-		}, nil, nil
+		}, nil, exception.ErrorTextUserEmailNotRegistered
+	}
+
+	userApp.GetUserByPhoneFn = func(user *entity.User) (*entity.User, map[string]string, error) {
+		return &entity.User{
+			UUID:  UUID,
+			Name:  "Example",
+			Email: "test@test1.com",
+			Phone: "+6285725833220",
+		}, nil, exception.ErrorTextUserPhoneNotRegistered
 	}
 
 	var err error
 	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/users", bytes.NewBufferString(userJSON))
+	c.Request.Header.Add("Content-Type", "application/json")
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -76,7 +86,7 @@ func TestSaveUser_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, userData.UUID, UUID)
 	assert.EqualValues(t, userData.Name, "Example")
-	assert.EqualValues(t, userData.Email, "example@test.com")
+	assert.EqualValues(t, userData.Email, "test@test1.com")
 	assert.EqualValues(t, userData.Phone, "+6285725833220")
 }
 
@@ -170,6 +180,14 @@ func TestUpdateUser_Success(t *testing.T) {
 		}, nil, nil
 	}
 
+	userApp.GetUserFn = func(UUID string) (*entity.User, error) {
+		return &entity.User{
+			UUID:  UUID,
+			Name:  "Example",
+			Email: "example@test.com",
+			Phone: "+6285725833220",
+		}, nil
+	}
 	var err error
 	c.Request, err = http.NewRequest(http.MethodPut, "/api/v1/external/users/"+UUID, bytes.NewBufferString(userJSON))
 	if err != nil {

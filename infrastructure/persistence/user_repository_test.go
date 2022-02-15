@@ -116,7 +116,7 @@ func TestGetUsers_Success(t *testing.T) {
 		Limit:   1,
 		PerPage: 1,
 		Page:    1,
-		Order:   "desc",
+		Order:   " name desc",
 	}
 	users, _, errGet := repo.GetUsers(&params)
 

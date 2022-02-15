@@ -202,7 +202,7 @@ func TestValidationRules_IsDigit(t *testing.T) {
 	rules := validation.AddRule().IsDigit().Apply()
 
 	for _, r := range rules {
-		assert.IsType(t, r.Rule, is.Digit)
+		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile("^[0-9\\s]*$")))
 		assert.Equal(t, r.RuleOpt, []validator.RuleOpt(nil))
 	}
 }
