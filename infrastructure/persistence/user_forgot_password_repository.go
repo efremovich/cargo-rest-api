@@ -34,7 +34,7 @@ func (u *UserForgotPasswordRepo) CreateToken(user *entity.User) (*entity.UserFor
 	var userForgotPassword entity.UserForgotPassword
 	errDesc := map[string]string{}
 
-	err := u.db.Where("user_uuid = ?", user.UUID).Delete(entity.UserForgotPassword{}).Error
+	err := u.db.Where("user_uuid = ?", user.UUID).Delete(&entity.UserForgotPassword{}).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}

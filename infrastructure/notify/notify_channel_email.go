@@ -55,7 +55,7 @@ func (e *EmailChannel) SetTemplateData(data interface{}) {
 }
 
 func (e *EmailChannel) setSender() {
-	e.emailRequest.from = "no-reply@trivaapps.com"
+	e.emailRequest.from = "rauon@bk.ru"
 }
 
 func (e *EmailChannel) setReceiver() {

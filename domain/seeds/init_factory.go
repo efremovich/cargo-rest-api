@@ -20,9 +20,13 @@ var (
 		Phone:    "+79384100025",
 		Password: "020407",
 	}
+
 	role = &entity.Role{
-		UUID: uuid.New().String(),
-		Name: "Super Administrator",
+		UUID: uuid.New().String(), Name: "Super Administrator",
+	}
+	otherRoles = []*entity.Role{
+		{UUID: uuid.New().String(), Name: "Driver"},
+		{UUID: uuid.New().String(), Name: "User"},
 	}
 	permissions = []*entity.Permission{
 		{UUID: uuid.New().String(), ModuleKey: "user", PermissionKey: "read"},
@@ -43,6 +47,16 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "tour", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "tour", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "tour", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -150,6 +164,20 @@ func (is *InitFactory) generateRoleSeeder() *InitFactory {
 		},
 	})
 
+	return is
+}
+
+func (is *InitFactory) generateOtherRoleSeeder() *InitFactory {
+	for _, role := range otherRoles {
+		or := role
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial other roles",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createRole(db, or)
+				return errDB
+			},
+		})
+	}
 	return is
 }
 
@@ -294,6 +322,7 @@ func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
 	initialSeeds.generateRoleSeeder()
+	initialSeeds.generateOtherRoleSeeder()
 	initialSeeds.generatePermissionsSeeder()
 	initialSeeds.generateRolePermissionsSeeder()
 	initialSeeds.generateUserRoleSeeder()
