@@ -134,8 +134,8 @@ func (u *Sity) ValidateSaveSity() []response.ErrorForm {
 	validation.
 		Set("name", u.Name, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply()).
 		Set("region", u.Region, validation.AddRule().Required().IsAlphaNumericSpace().Length(3, 64).Apply()).
-		Set("latitude", u.Latitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
-		Set("longitude", u.Longitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply())
+		Set("latitude", u.Latitude, validation.AddRule().Required().IsAlphaNumericSpaceAndDotsAndCommas().Length(3, 64).Apply()).
+		Set("longitude", u.Longitude, validation.AddRule().Required().IsAlphaNumericSpaceAndDotsAndCommas().Length(3, 64).Apply())
 	return validation.Validate()
 }
 
@@ -145,7 +145,7 @@ func (u *Sity) ValidateUpdateSity() []response.ErrorForm {
 	validation.
 		Set("name", u.Name, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply()).
 		Set("region", u.Region, validation.AddRule().Required().IsAlphaNumericSpace().Length(3, 64).Apply()).
-		Set("latitude", u.Latitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
-		Set("longitude", u.Longitude, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply())
+		Set("latitude", u.Latitude, validation.AddRule().Required().IsAlphaNumericSpaceAndDotsAndCommas().Length(3, 64).Apply()).
+		Set("longitude", u.Longitude, validation.AddRule().Required().IsAlphaNumericSpaceAndDotsAndCommas().Length(3, 64).Apply())
 	return validation.Validate()
 }

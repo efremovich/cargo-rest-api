@@ -30,6 +30,7 @@ func CollectEntities() []entities {
 		{Entity: entity.UserPreference{}},
 		{Entity: entity.UserRole{}},
 		{Entity: entity.Sity{}},
+		{Entity: entity.Vehicle{}},
 	}
 }
 

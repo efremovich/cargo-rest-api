@@ -117,6 +117,12 @@ var (
 		{UUID: uuid.New().String(), Name: "Сочи", Region: "Краснодарский край", Latitude: "43.3557", Longitude: "39.4332"},
 		{UUID: uuid.New().String(), Name: "Краснодар", Region: "Краснодарский край", Latitude: "45.0241", Longitude: "38.5833"},
 	}
+	vehicles = []*entity.Vehicle{
+		{UUID: uuid.New().String(), Model: "Ford transit", RegCode: "x245уы132", NumberOfSeats: "5", Class: "Комфорт +"},
+		{UUID: uuid.New().String(), Model: "BMV Colt", RegCode: "й111шш132", NumberOfSeats: "7", Class: "Люкс"},
+		{UUID: uuid.New().String(), Model: "Renaute Bibi", RegCode: "т777уз99", NumberOfSeats: "4", Class: "Эконом"},
+		{UUID: uuid.New().String(), Model: "Газель", RegCode: "а666дд132", NumberOfSeats: "13", Class: "Бомж"},
+	}
 )
 
 func newInitFactory() *InitFactory {
@@ -271,6 +277,19 @@ func (is *InitFactory) generateSities() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generateVehicle() *InitFactory {
+	for _, st := range vehicles {
+		vehicle := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial sities",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createVehicle(db, vehicle)
+				return errDB
+			},
+		})
+	}
+	return is
+}
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -284,6 +303,7 @@ func initFactory() []Seed {
 	initialSeeds.generateApplicationOauthSeeder()
 	initialSeeds.generateApplicationOauthClientSeeder()
 	initialSeeds.generateSities()
+	initialSeeds.generateVehicle()
 
 	return initialSeeds.seeders
 }

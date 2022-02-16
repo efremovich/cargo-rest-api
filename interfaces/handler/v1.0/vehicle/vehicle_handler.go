@@ -34,7 +34,7 @@ func NewVehicles(us application.VehicleAppInterface) *Vehicles {
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param vehicle body entity.DetailVehicles true "Vehicle vehicle"
+// @Param vehicle body entity.DetailVehicle true "Vehicle vehicle"
 // @Success 201 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
@@ -43,7 +43,7 @@ func NewVehicles(us application.VehicleAppInterface) *Vehicles {
 // @Failure 500 {object} response.errorOutput
 // @Router /api/v1/external/vehicles [post]
 // SaveVehicle is a function vehicle to handle create a new vehicle.
-func (s *Vehicles) SaveVehicles(c *gin.Context) {
+func (s *Vehicles) SaveVehicle(c *gin.Context) {
 	var vehicleEntity entity.Vehicle
 	if err := c.ShouldBindJSON(&vehicleEntity); err != nil {
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
@@ -93,7 +93,7 @@ func (s *Vehicles) SaveVehicles(c *gin.Context) {
 // @Failure 500 {object} response.errorOutput
 // @Router /api/v1/external/vehicles/uuid [put]
 // UpdateVehicle is a function uses to handle update vehicle by UUID.
-func (s *Vehicles) UpdateVehicles(c *gin.Context) {
+func (s *Vehicles) UpdateVehicle(c *gin.Context) {
 	var vehicleEntity entity.Vehicle
 	if err := c.ShouldBindUri(&vehicleEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)

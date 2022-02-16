@@ -21,6 +21,7 @@ api:
         must_be_alphanumeric: "Field {{.Field}} Must Contains Letters And Numbers Only"
         must_be_alphanumeric_space: "Field {{.Field}} Must Contain Letters, Numbers And Space Character Only"
         must_be_alphanumeric_space_special_character: "Field {{.Field}} Must Contain Letters, Numbers, Space, Underscore And + Character Only"
+        must_be_alphanumeric_numbers_dots_commas: "Field {{.Field}} Must Contain Letters, Numbers, Dots And Commas"
         must_be_time: "Must Be A Valid Time Format: yyyy-mm-dd hh:mm:ss"
         must_be_uuid: "Must Be A Valid UUID"
         must_be_email: "Must Be A Valid Email"
@@ -63,6 +64,10 @@ api:
         invalid_email_and_password: "Invalid Email And Password"
         forgot_password:
           token_not_found: "Invalid Token"
+      vehicle:
+        not_found: "Vehicle Not Found"
+      sity:
+        not_found: "Sity Not Found"
     success:
       common:
         ok: "OK"
@@ -116,11 +121,11 @@ attributes:
   equal[name]: "equal[name]"
   like[name]: "like[name]"
   not[name]: "not[name]"
-
+  #Sity
   region: "Region"
   latitude: "Latitude"
   longitude: "Longitude"
-
+  #Vehicle
   model: "Model"
   reg_code: "Reg code"
   number_of_seats: "Number of seats"

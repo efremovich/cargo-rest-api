@@ -5,7 +5,6 @@ import (
 	"cargo-rest-api/domain/repository"
 	"cargo-rest-api/infrastructure/message/exception"
 	"errors"
-	"strings"
 
 	"gorm.io/gorm"
 )
@@ -46,13 +45,8 @@ func (r SityRepo) UpdateSity(uuid string, sity *entity.Sity) (*entity.Sity, map[
 	if err != nil {
 		//If record not found
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			errDesc["uuid"] = exception.ErrorTextUserInvalidUUID.Error()
-			return nil, errDesc, exception.ErrorTextUserNotFound
-		}
-		//If the email is already taken
-		if strings.Contains(err.Error(), "duplicate") || strings.Contains(err.Error(), "Duplicate") {
-			errDesc["email"] = exception.ErrorTextUserEmailAlreadyTaken.Error()
-			return nil, errDesc, exception.ErrorTextUnprocessableEntity
+			errDesc["uuid"] = exception.ErrorTextSityInvalidUUID.Error()
+			return nil, errDesc, exception.ErrorTextSityNotFound
 		}
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}
@@ -64,7 +58,7 @@ func (r SityRepo) DeleteSity(uuid string) error {
 	err := r.db.Where("uuid = ?", uuid).Take(&sity).Delete(&sity).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return exception.ErrorTextUserNotFound
+			return exception.ErrorTextSityNotFound
 		}
 		return err
 	}
@@ -75,10 +69,9 @@ func (r SityRepo) GetSity(uuid string) (*entity.Sity, error) {
 	var sity entity.Sity
 	err := r.db.Where("uuid = ?", uuid).Take(&sity).Error
 	if err != nil {
-		return nil, err
-	}
-	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, exception.ErrorTextRoleNotFound
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, exception.ErrorTextSityNotFound
+		}
 	}
 	return &sity, nil
 }

@@ -40,7 +40,7 @@ func TestSaveVehicle_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/vehicles", vehicleHandler.SaveVehicles)
+	v1.POST("/vehicles", vehicleHandler.SaveVehicle)
 
 	vehicleApp.SaveVehicleFn = func(vehicle *entity.Vehicle) (*entity.Vehicle, map[string]string, error) {
 		return &entity.Vehicle{
@@ -96,7 +96,7 @@ func TestSaveVehicle_InvalidData(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, r := gin.CreateTestContext(w)
 		v1 := r.Group("/api/v1/external/")
-		v1.POST("/vehicles", vehicleHandler.SaveVehicles)
+		v1.POST("/vehicles", vehicleHandler.SaveVehicle)
 
 		var err error
 		c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/vehicles", bytes.NewBufferString(v.inputJSON))
@@ -134,7 +134,7 @@ func TestUpdateVehicle_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.PUT("/vehicles/:uuid", vehicleHandler.UpdateVehicles)
+	v1.PUT("/vehicles/:uuid", vehicleHandler.UpdateVehicle)
 
 	vehicleApp.UpdateVehicleFn = func(UUID string, vehicle *entity.Vehicle) (*entity.Vehicle, map[string]string, error) {
 		return &entity.Vehicle{

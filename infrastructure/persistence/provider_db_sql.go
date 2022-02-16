@@ -34,6 +34,7 @@ type Repositories struct {
 	UserForgotPassword repository.UserForgotPasswordRepository
 	UserPreference     repository.UserPreferenceRepository
 	Sity               repository.SityRepository
+	Vehicle            repository.VehicleRepository
 	DB                 *gorm.DB
 }
 
@@ -115,6 +116,7 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		UserForgotPassword: NewUserForgotPasswordRepository(db),
 		UserPreference:     NewUserPreferenceRepository(db),
 		Sity:               NewSityRepository(db),
+		Vehicle:            NewVehicleRepository(db),
 		DB:                 db,
 	}, nil
 }
