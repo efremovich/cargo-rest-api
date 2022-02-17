@@ -172,7 +172,7 @@ func TestValidationRules_IsAlphaSpace(t *testing.T) {
 	rules := validation.AddRule().IsAlphaSpace().Apply()
 
 	for _, r := range rules {
-		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile("^[a-zA-Z\\s]*$")))
+		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile(`^[a-zA-Z\\s]*$`)))
 		assert.Equal(t, r.RuleOpt, []validator.RuleOpt(nil))
 	}
 }
@@ -192,7 +192,7 @@ func TestValidationRules_IsAlphaNumericSpace(t *testing.T) {
 	rules := validation.AddRule().IsAlphaSpace().Apply()
 
 	for _, r := range rules {
-		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile("^[a-zA-Z0-9\\s]*$")))
+		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile(`^[a-zA-Z0-9\\s]*$`)))
 		assert.Equal(t, r.RuleOpt, []validator.RuleOpt(nil))
 	}
 }
@@ -202,7 +202,7 @@ func TestValidationRules_IsDigit(t *testing.T) {
 	rules := validation.AddRule().IsDigit().Apply()
 
 	for _, r := range rules {
-		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile("^[0-9\\s]*$")))
+		assert.IsType(t, r.Rule, ozzoValidation.Match(regexp.MustCompile(`^[0-9\\s]*$`)))
 		assert.Equal(t, r.RuleOpt, []validator.RuleOpt(nil))
 	}
 }

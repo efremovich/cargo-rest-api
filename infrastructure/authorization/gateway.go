@@ -48,7 +48,8 @@ func AuthGateway(g *Gateway, c *gin.Context) (*entity.User, error) {
 	var userAuth *entity.User
 	headerAuth := c.Request.Header.Get("Authorization")
 	headerAuthType := strings.SplitN(headerAuth, " ", 2)
-	queryApiKeyAuth := c.DefaultQuery("api_key", "")
+	// queryApiKeyAuth := c.DefaultQuery("api_key", "")
+	queryApiKeyAuth := c.Request.Header.Get("api_key")
 	queryAccessTokenAuth := c.DefaultQuery("access_token", "")
 
 	if len(headerAuthType) != lenOfAuthorization && queryApiKeyAuth == "" && queryAccessTokenAuth == "" {

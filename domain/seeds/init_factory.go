@@ -132,10 +132,10 @@ var (
 		{UUID: uuid.New().String(), Name: "Краснодар", Region: "Краснодарский край", Latitude: "45.0241", Longitude: "38.5833"},
 	}
 	vehicles = []*entity.Vehicle{
-		{UUID: uuid.New().String(), Model: "Ford transit", RegCode: "x245уы132", NumberOfSeats: "5", Class: "Комфорт +"},
-		{UUID: uuid.New().String(), Model: "BMV Colt", RegCode: "й111шш132", NumberOfSeats: "7", Class: "Люкс"},
-		{UUID: uuid.New().String(), Model: "Renaute Bibi", RegCode: "т777уз99", NumberOfSeats: "4", Class: "Эконом"},
-		{UUID: uuid.New().String(), Model: "Газель", RegCode: "а666дд132", NumberOfSeats: "13", Class: "Бомж"},
+		{UUID: uuid.New().String(), Model: "Ford transit", RegCode: "x245уы132", NumberOfSeats: 5, Class: "Комфорт +"},
+		{UUID: uuid.New().String(), Model: "BMV Colt", RegCode: "й111шш132", NumberOfSeats: 7, Class: "Люкс"},
+		{UUID: uuid.New().String(), Model: "Renaute Bibi", RegCode: "т777уз99", NumberOfSeats: 4, Class: "Эконом"},
+		{UUID: uuid.New().String(), Model: "Газель", RegCode: "а666дд132", NumberOfSeats: 13, Class: "Бомж"},
 	}
 )
 

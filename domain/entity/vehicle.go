@@ -17,7 +17,7 @@ type Vehicle struct {
 	UUID          string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
 	RegCode       string    `gorm:"size:100;not null;" json:"reg_code" form:"req_code"`
 	Model         string    `gorm:"size:100;not null;" json:"model" form:"model"`
-	NumberOfSeats string    `gorm:"size:100;" json:"number_of_seats" form:"number_of_seats"`
+	NumberOfSeats int       `gorm:"default:0" json:"number_of_seats" form:"number_of_seats"`
 	Class         string    `gorm:"size:100;" json:"class" form:"class"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
@@ -29,7 +29,7 @@ type VehicleFaker struct {
 	UUID          string `faker:"uuid_hyphenated"`
 	Model         string `faker:"model"`
 	RegCode       string `faker:"reg_code"`
-	NumberOfSeats string `faker:"number_of_seats"`
+	NumberOfSeats int    `faker:"number_of_seats"`
 	Class         string `faker:"class"`
 }
 
@@ -52,7 +52,7 @@ type VehicleFieldsForDetail struct {
 	UUID          string `json:"uuid"`
 	Model         string `json:"model"`
 	RegCode       string `json:"reg_code"`
-	NumberOfSeats string `json:"number_of_seats"`
+	NumberOfSeats int    `json:"number_of_seats"`
 	Class         string `json:"class"`
 }
 
@@ -75,7 +75,7 @@ func (u *Vehicle) FilterableFields() []interface{} {
 func (u *Vehicle) Prepare() {
 	u.Model = html.EscapeString(strings.TrimSpace(u.Model))
 	u.RegCode = html.EscapeString(strings.TrimSpace(u.RegCode))
-	u.NumberOfSeats = html.EscapeString(strings.TrimSpace(u.NumberOfSeats))
+	// u.NumberOfSeats = u.NumberOfSeats
 	u.Class = html.EscapeString(strings.TrimSpace(u.Class))
 	u.CreatedAt = time.Now()
 	u.UpdatedAt = time.Now()
@@ -134,7 +134,7 @@ func (u *Vehicle) ValidateSaveVehicle() []response.ErrorForm {
 	validation.
 		Set("model", u.Model, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
 		Set("reg_code", u.RegCode, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
-		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsAlphaNumericSpace().Length(1, 64).Apply()).
+		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsDigit().Apply()).
 		Set("class", u.Class, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply())
 	return validation.Validate()
 }
@@ -145,7 +145,7 @@ func (u *Vehicle) ValidateUpdateVehicle() []response.ErrorForm {
 	validation.
 		Set("model", u.Model, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
 		Set("reg_code", u.RegCode, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
-		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsAlphaNumericSpace().Length(1, 64).Apply()).
+		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsInt().Apply()).
 		Set("class", u.Class, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply())
 	return validation.Validate()
 }

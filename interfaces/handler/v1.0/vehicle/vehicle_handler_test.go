@@ -31,7 +31,7 @@ func TestSaveVehicle_Success(t *testing.T) {
 	vehicleJSON := `{
 		"model": "Шевроле каптюр",
 		"reg_code": "x554ыв95",
-		"number_of_seats": "5",
+		"number_of_seats": 5,
 		"class": "Люкс"
 	}`
 	UUID := uuid.New().String()
@@ -47,7 +47,7 @@ func TestSaveVehicle_Success(t *testing.T) {
 			UUID:          UUID,
 			Model:         "Шевроле каптюр",
 			RegCode:       "x554ыв95",
-			NumberOfSeats: "5",
+			NumberOfSeats: 5,
 			Class:         "Люкс",
 		}, nil, nil
 	}
@@ -69,7 +69,7 @@ func TestSaveVehicle_Success(t *testing.T) {
 	assert.EqualValues(t, vehicleData.UUID, UUID)
 	assert.EqualValues(t, vehicleData.Model, "Шевроле каптюр")
 	assert.EqualValues(t, vehicleData.RegCode, "x554ыв95")
-	assert.EqualValues(t, vehicleData.NumberOfSeats, "5")
+	assert.EqualValues(t, vehicleData.NumberOfSeats, 5)
 	assert.EqualValues(t, vehicleData.Class, "Люкс")
 }
 
@@ -125,7 +125,7 @@ func TestUpdateVehicle_Success(t *testing.T) {
 	vehicleJSON := `{
 		"model": "Шевроле каптюр",
 		"reg_code": "x554ыв95",
-		"number_of_seats": "5",
+		"number_of_seats": 5,
 		"class": "Люкс"
 		  }`
 	UUID := uuid.New().String()
@@ -141,7 +141,7 @@ func TestUpdateVehicle_Success(t *testing.T) {
 			UUID:          UUID,
 			Model:         "Шевроле каптюр",
 			RegCode:       "x554ыв95",
-			NumberOfSeats: "5",
+			NumberOfSeats: 5,
 			Class:         "Люкс",
 		}, nil, nil
 	}
@@ -151,7 +151,7 @@ func TestUpdateVehicle_Success(t *testing.T) {
 			UUID:          UUID,
 			Model:         "Шевроле каптюр",
 			RegCode:       "x554ыв95",
-			NumberOfSeats: "5",
+			NumberOfSeats: 5,
 			Class:         "Люкс",
 		}, nil
 	}
@@ -172,7 +172,7 @@ func TestUpdateVehicle_Success(t *testing.T) {
 	assert.EqualValues(t, vehicleData.UUID, UUID)
 	assert.EqualValues(t, vehicleData.Model, "Шевроле каптюр")
 	assert.EqualValues(t, vehicleData.RegCode, "x554ыв95")
-	assert.EqualValues(t, vehicleData.NumberOfSeats, "5")
+	assert.EqualValues(t, vehicleData.NumberOfSeats, 5)
 	assert.EqualValues(t, vehicleData.Class, "Люкс")
 }
 
@@ -199,7 +199,7 @@ func TestGetVehicle_Success(t *testing.T) {
 			UUID:          UUID,
 			Model:         "Шевроле каптюр",
 			RegCode:       "x554ыв95",
-			NumberOfSeats: "5",
+			NumberOfSeats: 5,
 			Class:         "Люкс",
 		}, nil
 	}
@@ -243,13 +243,13 @@ func TestGetVehicles_Success(t *testing.T) {
 				UUID:          UUID,
 				Model:         "Шевроле каптюр",
 				RegCode:       "x554ыв95",
-				NumberOfSeats: "5",
+				NumberOfSeats: 5,
 				Class:         "Люкс",
 			},
 			{
 				Model:         "BMV",
 				RegCode:       "x115ыв954",
-				NumberOfSeats: "12",
+				NumberOfSeats: 12,
 				Class:         "Премиум",
 			},
 		}
