@@ -220,7 +220,7 @@ func (vr *ValidationRules) IsAlpha() *ValidationRules {
 // IsAlphaSpace is a function to set the rule that current field value must be letters and space character only.
 func (vr *ValidationRules) IsAlphaSpace() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile(`^[Ёёа-яА-Яa-zA-Z\\s]*$`)).
+		Rule: validation.Match(regexp.MustCompile(`^[Ёёа-яА-Яa-zA-Z\s]*$`)).
 			Error("api.msg.error.validation.must_be_alpha_space"),
 		RuleOpt: nil,
 	})
@@ -240,7 +240,7 @@ func (vr *ValidationRules) IsLowerAlphaUnderscore() *ValidationRules {
 // IsDigit is a function to set the rule that current field value must be digit only.
 func (vr *ValidationRules) IsDigit() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile(`^[0-9\\s]*$`)).
+		Rule: validation.Match(regexp.MustCompile(`^[0-9\s]*$`)).
 			Error("api.msg.error.validation.must_be_digit"),
 		RuleOpt: nil,
 	})
@@ -260,7 +260,7 @@ func (vr *ValidationRules) IsAlphaNumeric() *ValidationRules {
 // space characters only.
 func (vr *ValidationRules) IsAlphaNumericSpace() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile(`^[a-zA-ZЁёа-яА-Я0-9 \\s]*$`)).
+		Rule: validation.Match(regexp.MustCompile(`^[a-zA-ZЁёа-яА-Я0-9 \s]*$`)).
 			Error("api.msg.error.validation.must_be_alphanumeric_space"),
 		RuleOpt: nil,
 	})
@@ -271,7 +271,7 @@ func (vr *ValidationRules) IsAlphaNumericSpace() *ValidationRules {
 // space characters, and allowed special characters only.
 func (vr *ValidationRules) IsAlphaNumericSpaceAndSpecialCharacter() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile(`^[a-zA-ZЁёа-яА-Я0-9_+\\s]*$`)).
+		Rule: validation.Match(regexp.MustCompile(`^[a-zA-ZЁёа-яА-Я0-9_+\s]*$`)).
 			Error("api.msg.error.validation.must_be_alphanumeric_space_special_character"),
 		RuleOpt: nil,
 	})
@@ -282,7 +282,7 @@ func (vr *ValidationRules) IsAlphaNumericSpaceAndSpecialCharacter() *ValidationR
 // space characters, dots, commas.
 func (vr *ValidationRules) IsAlphaNumericSpaceAndDotsAndCommas() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile(`^[a-zA-ZЁёа-яА-Я0-9,.+\\s]*$`)).
+		Rule: validation.Match(regexp.MustCompile(`^[a-zA-ZЁёа-яА-Я0-9,.+\s]*$`)).
 			Error("api.msg.error.validation.must_be_alphanumeric_numbers_dots_commas"),
 		RuleOpt: nil,
 	})

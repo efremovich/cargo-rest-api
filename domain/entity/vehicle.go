@@ -134,7 +134,7 @@ func (u *Vehicle) ValidateSaveVehicle() []response.ErrorForm {
 	validation.
 		Set("model", u.Model, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
 		Set("reg_code", u.RegCode, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
-		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsDigit().Apply()).
+		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().Apply()).
 		Set("class", u.Class, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply())
 	return validation.Validate()
 }
@@ -145,7 +145,7 @@ func (u *Vehicle) ValidateUpdateVehicle() []response.ErrorForm {
 	validation.
 		Set("model", u.Model, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
 		Set("reg_code", u.RegCode, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply()).
-		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().IsInt().Apply()).
+		Set("number_of_seats", u.NumberOfSeats, validation.AddRule().Required().Apply()).
 		Set("class", u.Class, validation.AddRule().Required().IsAlphaSpace().Length(3, 64).Apply())
 	return validation.Validate()
 }

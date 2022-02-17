@@ -220,7 +220,7 @@ func TestGetVehicle_Success(t *testing.T) {
 	assert.EqualValues(t, vehicleData.UUID, UUID)
 	assert.EqualValues(t, vehicleData.Model, "Шевроле каптюр")
 	assert.EqualValues(t, vehicleData.RegCode, "x554ыв95")
-	assert.EqualValues(t, vehicleData.NumberOfSeats, "5")
+	assert.EqualValues(t, vehicleData.NumberOfSeats, 5)
 	assert.EqualValues(t, vehicleData.Class, "Люкс")
 }
 
