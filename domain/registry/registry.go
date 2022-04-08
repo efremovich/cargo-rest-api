@@ -31,6 +31,7 @@ func CollectEntities() []entities {
 		{Entity: entity.UserRole{}},
 		{Entity: entity.Sity{}},
 		{Entity: entity.Vehicle{}},
+		{Entity: entity.PassengerType{}},
 	}
 }
 
@@ -54,6 +55,7 @@ func CollectTableNames() []table {
 	var userRole entity.UserRole
 	var sity entity.Sity
 	var vehicle entity.Vehicle
+	var passengerType entity.PassengerType
 
 	return []table{
 		{Name: application.TableName()},
@@ -75,5 +77,6 @@ func CollectTableNames() []table {
 		{Name: userRole.TableName()},
 		{Name: sity.TableName()},
 		{Name: vehicle.TableName()},
+		{Name: passengerType.TableName()},
 	}
 }

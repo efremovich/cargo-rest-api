@@ -91,7 +91,7 @@ air
 ## Api documentation
 This skeleton has builtin API documentation using [swagger](https://github.com/swaggo/swag). Just run this project and open this link:
 
-http://localhost:8888/swagger.index.html
+http://localhost:8888/swagger/index.html
 
 To rebuild api docs, simply run:
 ```shell script

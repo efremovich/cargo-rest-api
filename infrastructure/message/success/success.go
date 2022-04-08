@@ -69,3 +69,12 @@ const (
 	VehicleSuccessfullyUpdateVehicle    = "api.msg.success.vehicle.successfully_update_vehicle"
 	VehicleSuccessfullyDeleteVehicle    = "api.msg.success.vehicle.successfully_delete_vehicle"
 )
+
+// Success message for vehicle.
+const (
+	PassengerTypeSuccessfullyGetPassengerTypeList   = "api.msg.success.passenger_type.successfully_get_passenger_type_list"
+	PassengerTypeSuccessfullyGetPassengerTypeDetail = "api.msg.success.passenger_type.successfully_get_passenger_type_detail"
+	PassengerTypeSuccessfullyCreatePassengerType    = "api.msg.success.passenger_type.successfully_create_passenger_type"
+	PassengerTypeSuccessfullyUpdatePassengerType    = "api.msg.success.passenger_type.successfully_update_passenger_type"
+	PassengerTypeSuccessfullyDeletePassengerType    = "api.msg.success.passenger_type.successfully_delete_passenger_type"
+)

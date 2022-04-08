@@ -2281,7 +2281,7 @@
                     "type": "string"
                 },
                 "number_of_seats": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "reg_code": {
                     "type": "string"

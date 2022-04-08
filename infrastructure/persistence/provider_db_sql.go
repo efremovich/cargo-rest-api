@@ -35,6 +35,7 @@ type Repositories struct {
 	UserPreference     repository.UserPreferenceRepository
 	Sity               repository.SityRepository
 	Vehicle            repository.VehicleRepository
+	PassengerType      repository.PassengerTypeRepository
 	DB                 *gorm.DB
 }
 
@@ -117,6 +118,7 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		UserPreference:     NewUserPreferenceRepository(db),
 		Sity:               NewSityRepository(db),
 		Vehicle:            NewVehicleRepository(db),
+		PassengerType:      NewPassengerTypeRepository(db),
 		DB:                 db,
 	}, nil
 }

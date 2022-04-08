@@ -57,6 +57,16 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -136,6 +146,11 @@ var (
 		{UUID: uuid.New().String(), Model: "BMV Colt", RegCode: "й111шш132", NumberOfSeats: 7, Class: "Люкс"},
 		{UUID: uuid.New().String(), Model: "Renaute Bibi", RegCode: "т777уз99", NumberOfSeats: 4, Class: "Эконом"},
 		{UUID: uuid.New().String(), Model: "Газель", RegCode: "а666дд132", NumberOfSeats: 13, Class: "Бомж"},
+	}
+	passengerTypes = []*entity.PassengerType{
+		{UUID: uuid.NewString(), Type: "Взрослый"},
+		{UUID: uuid.NewString(), Type: "Детский"},
+		{UUID: uuid.NewString(), Type: "Пенсионный"},
 	}
 )
 
@@ -309,7 +324,7 @@ func (is *InitFactory) generateVehicle() *InitFactory {
 	for _, st := range vehicles {
 		vehicle := st
 		is.seeders = append(is.seeders, Seed{
-			Name: "Create initial sities",
+			Name: "Create initial vehicles",
 			Run: func(db *gorm.DB) error {
 				_, errDB := createVehicle(db, vehicle)
 				return errDB
@@ -318,6 +333,21 @@ func (is *InitFactory) generateVehicle() *InitFactory {
 	}
 	return is
 }
+
+func (is *InitFactory) generatePassengerType() *InitFactory {
+	for _, st := range passengerTypes {
+		passengerType := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial passenger_types",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createPassengerType(db, passengerType)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -333,6 +363,7 @@ func initFactory() []Seed {
 	initialSeeds.generateApplicationOauthClientSeeder()
 	initialSeeds.generateSities()
 	initialSeeds.generateVehicle()
+	initialSeeds.generatePassengerType()
 
 	return initialSeeds.seeders
 }
