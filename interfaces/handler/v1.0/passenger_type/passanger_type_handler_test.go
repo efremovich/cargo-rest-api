@@ -29,7 +29,7 @@ func TestSavePassengerType_Success(t *testing.T) {
 	var passengerTypeApp mock.PassengerTypeAppInterface
 	passengerTypeHandler := NewPassengerTypes(&passengerTypeApp)
 	passengerTypeJSON := `{
-		"type": "Взрослый",
+		"type": "Взрослый"
 	}`
 	UUID := uuid.New().String()
 

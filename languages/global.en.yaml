@@ -110,6 +110,12 @@ api:
         successfully_create_vehicle: "Successfully Create Vehicle"
         successfully_update_vehicle: "Successfully Update Vehicle"
         successfully_delete_vehicle: "Successfully Delete Vehicle"
+      passenger_type:
+        successfully_get_passenger_type_list: "Successfully Get Passenger type List"
+        successfully_get_passenger_type_detail: "Successfully Get Passenger type Detail"
+        successfully_create_passenger_type: "Successfully Create Passenger type"
+        successfully_update_passenger_type: "Successfully Update Passenger type"
+        successfully_delete_passenger_type: "Successfully Delete Passenger type"
 attributes:
   name: "Name"
   email: "Email"
@@ -129,3 +135,4 @@ attributes:
   reg_code: "Reg code"
   number_of_seats: "Number of seats"
   class: "Class vehicle"
+  passenger_type: "Passenger type"

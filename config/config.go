@@ -143,8 +143,8 @@ func New() *Config {
 		},
 		MinioConfig: MinioConfig{
 			Endpoint:  getEnv("MINIO_HOST", "127.0.0.1:9000"),
-			AccessKey: getEnv("MINIO_ACCESS_KEY", "minio"),
-			SecretKey: getEnv("MINIO_SECRET_KEY", "miniostorage"),
+			AccessKey: getEnv("MINIO_ROOT_USER", "minio"),
+			SecretKey: getEnv("MINIO_ROOT_PASSWORD", "minioPass"),
 			Bucket:    getEnv("MINIO_BUCKET", "cargo-rest-api"),
 		},
 		SMTPConfig: SMTPConfig{
