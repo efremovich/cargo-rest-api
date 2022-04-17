@@ -70,11 +70,20 @@ const (
 	VehicleSuccessfullyDeleteVehicle    = "api.msg.success.vehicle.successfully_delete_vehicle"
 )
 
-// Success message for vehicle.
+// Success message for passenger_type.
 const (
 	PassengerTypeSuccessfullyGetPassengerTypeList   = "api.msg.success.passenger_type.successfully_get_passenger_type_list"
 	PassengerTypeSuccessfullyGetPassengerTypeDetail = "api.msg.success.passenger_type.successfully_get_passenger_type_detail"
 	PassengerTypeSuccessfullyCreatePassengerType    = "api.msg.success.passenger_type.successfully_create_passenger_type"
 	PassengerTypeSuccessfullyUpdatePassengerType    = "api.msg.success.passenger_type.successfully_update_passenger_type"
 	PassengerTypeSuccessfullyDeletePassengerType    = "api.msg.success.passenger_type.successfully_delete_passenger_type"
+)
+
+// Success message for price.
+const (
+	PriceSuccessfullyGetPriceList   = "api.msg.success.price.successfully_get_price_list"
+	PriceSuccessfullyGetPriceDetail = "api.msg.success.price.successfully_get_price_detail"
+	PriceSuccessfullyCreatePrice    = "api.msg.success.price.successfully_create_price"
+	PriceSuccessfullyUpdatePrice    = "api.msg.success.price.successfully_update_price"
+	PriceSuccessfullyDeletePrice    = "api.msg.success.price.successfully_delete_price"
 )

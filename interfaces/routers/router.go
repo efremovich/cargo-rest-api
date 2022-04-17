@@ -110,6 +110,7 @@ func (r *Router) Init() *gin.Engine {
 	sityRoutes(e, r, rg)
 	vehicleRoutes(e, r, rg)
 	passengerTypeRoutes(e, r, rg)
+	priceRoutes(e, r, rg)
 
 	return e
 }

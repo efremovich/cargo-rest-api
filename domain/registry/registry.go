@@ -32,6 +32,7 @@ func CollectEntities() []entities {
 		{Entity: entity.Sity{}},
 		{Entity: entity.Vehicle{}},
 		{Entity: entity.PassengerType{}},
+		{Entity: entity.Price{}},
 	}
 }
 
@@ -56,6 +57,7 @@ func CollectTableNames() []table {
 	var sity entity.Sity
 	var vehicle entity.Vehicle
 	var passengerType entity.PassengerType
+	var price entity.Price
 
 	return []table{
 		{Name: application.TableName()},
@@ -78,5 +80,6 @@ func CollectTableNames() []table {
 		{Name: sity.TableName()},
 		{Name: vehicle.TableName()},
 		{Name: passengerType.TableName()},
+		{Name: price.TableName()},
 	}
 }

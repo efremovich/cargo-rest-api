@@ -69,6 +69,10 @@ api:
         not_found: "Vehicle Not Found"
       sity:
         not_found: "Sity Not Found"
+      price:
+        not_found: "Price Not Found"
+      passenger_type:
+        not_found: "Passenger Type Not Found"
     success:
       common:
         ok: "OK"
@@ -116,6 +120,12 @@ api:
         successfully_create_passenger_type: "Successfully Create Passenger type"
         successfully_update_passenger_type: "Successfully Update Passenger type"
         successfully_delete_passenger_type: "Successfully Delete Passenger type"
+      price:
+        successfully_get_price_list: "Successfully Get Price List"
+        successfully_get_price_detail: "Successfully Get Price Detail"
+        successfully_create_price: "Successfully Create Price"
+        successfully_update_price: "Successfully Update Price"
+        successfully_delete_price: "Successfully Delete Price"
 attributes:
   name: "Name"
   email: "Email"
@@ -136,3 +146,5 @@ attributes:
   number_of_seats: "Number of seats"
   class: "Class vehicle"
   passenger_type: "Passenger type"
+  price: "Price"
+  passenger_type_id: "Passenger type ID"

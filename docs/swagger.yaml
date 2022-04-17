@@ -1,4 +1,20 @@
 definitions:
+  entity.DetailPassengerType:
+    properties:
+      Type:
+        type: string
+      uuid:
+        type: string
+    type: object
+  entity.DetailPrice:
+    properties:
+      PassengerTypeID:
+        type: string
+      price:
+        type: number
+      uuid:
+        type: string
+    type: object
   entity.DetailUserPreference:
     properties:
       dark_mode:
@@ -220,6 +236,294 @@ paths:
       summary: Authentication logout
       tags:
       - authentication
+  /api/v1/external/passengerTypes:
+    get:
+      description: Get list of existing passengerTypes.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get passengerTypes
+      tags:
+      - passengerTypes
+    post:
+      consumes:
+      - application/json
+      description: Create a new passengerType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: PassengerType passengerType
+        in: body
+        name: passengerType
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailPassengerType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new passengerType
+      tags:
+      - passengerTypes
+  /api/v1/external/passengerTypes/{uuid}:
+    delete:
+      description: Delete an existing passengerType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: PassengerType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete passengerType
+      tags:
+      - passengerTypes
+    get:
+      description: Get detail of existing passengerType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: PassengerType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get passengerType
+      tags:
+      - passengerTypes
+  /api/v1/external/passengerTypes/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing passengerType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: PassengerType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: PassengerType name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: PassengerType region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: PassengerType latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: PassengerType longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update passengerType
+      tags:
+      - passengerTypes
   /api/v1/external/password/forgot:
     post:
       consumes:
@@ -466,6 +770,294 @@ paths:
       summary: Reset user preference
       tags:
       - preference
+  /api/v1/external/prices:
+    get:
+      description: Get list of existing prices.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get prices
+      tags:
+      - prices
+    post:
+      consumes:
+      - application/json
+      description: Create a new price.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Price price
+        in: body
+        name: price
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailPrice'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new price
+      tags:
+      - prices
+  /api/v1/external/prices/{uuid}:
+    delete:
+      description: Delete an existing price.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Price UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete price
+      tags:
+      - prices
+    get:
+      description: Get detail of existing price.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Price UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get price
+      tags:
+      - prices
+  /api/v1/external/prices/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing price.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Price UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: Price name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Price region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: Price latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: Price longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update price
+      tags:
+      - prices
   /api/v1/external/profile:
     get:
       description: Get current user profile using Authorization Header.

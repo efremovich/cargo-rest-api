@@ -67,6 +67,11 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -148,9 +153,14 @@ var (
 		{UUID: uuid.New().String(), Model: "Газель", RegCode: "а666дд132", NumberOfSeats: 13, Class: "Бомж"},
 	}
 	passengerTypes = []*entity.PassengerType{
-		{UUID: uuid.NewString(), Type: "Взрослый"},
-		{UUID: uuid.NewString(), Type: "Детский"},
-		{UUID: uuid.NewString(), Type: "Пенсионный"},
+		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Взрослый"},
+		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Детский"},
+		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Пенсионный"},
+	}
+	prices = []*entity.Price{
+		{UUID: "c1dadc6c-76e0-4213-a669-140dd389bed2", PassengerTypeID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Price: 350.00},
+		{UUID: "f2480365-2a2b-4e63-904f-03cb92ef06ec", PassengerTypeID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Price: 250.00},
+		{UUID: "17a77ff0-5dd4-42ed-8320-d9f204027dda", PassengerTypeID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Price: 550.00},
 	}
 )
 
@@ -348,6 +358,20 @@ func (is *InitFactory) generatePassengerType() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generatePrice() *InitFactory {
+	for _, st := range prices {
+		price := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial prices",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createPrice(db, price)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -364,6 +388,7 @@ func initFactory() []Seed {
 	initialSeeds.generateSities()
 	initialSeeds.generateVehicle()
 	initialSeeds.generatePassengerType()
+	initialSeeds.generatePrice()
 
 	return initialSeeds.seeders
 }
