@@ -1094,82 +1094,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/external/prices": {
-            "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Get list of existing prices.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "prices"
-                ],
-                "summary": "Get prices",
-                "parameters": [
-                    {
-                        "enum": [
-                            "en",
-                            "ru"
-                        ],
-                        "type": "string",
-                        "default": "en",
-                        "description": "Language code",
-                        "name": "Accept-Language",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Request id",
-                        "name": "Set-Request-Id",
-                        "in": "header"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.successOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    }
-                }
-            },
+        "/api/v1/external/price": {
             "post": {
                 "security": [
                     {
@@ -1258,7 +1183,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/external/prices/uuid": {
+        "/api/v1/external/price/uuid": {
             "put": {
                 "security": [
                     {
@@ -1373,7 +1298,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/external/prices/{uuid}": {
+        "/api/v1/external/price/{uuid}": {
             "get": {
                 "security": [
                     {
@@ -1497,6 +1422,83 @@ const docTemplate = `{
                         "name": "uuid",
                         "in": "path",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/prices": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get list of existing prices.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prices"
+                ],
+                "summary": "Get prices",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
                     }
                 ],
                 "responses": {
@@ -3166,7 +3168,8 @@ const docTemplate = `{
         "entity.DetailPrice": {
             "type": "object",
             "properties": {
-                "PassengerTypeID": {
+                "passenger_type": {},
+                "passenger_type_uuid": {
                     "type": "string"
                 },
                 "price": {

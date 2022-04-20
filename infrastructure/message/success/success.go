@@ -87,3 +87,12 @@ const (
 	PriceSuccessfullyUpdatePrice    = "api.msg.success.price.successfully_update_price"
 	PriceSuccessfullyDeletePrice    = "api.msg.success.price.successfully_delete_price"
 )
+
+// Success message for passenger.
+const (
+	PassengerSuccessfullyGetPassengerList   = "api.msg.success.passenger.successfully_get_passenger_list"
+	PassengerSuccessfullyGetPassengerDetail = "api.msg.success.passenger.successfully_get_passenger_detail"
+	PassengerSuccessfullyCreatePassenger    = "api.msg.success.passenger.successfully_create_passenger"
+	PassengerSuccessfullyUpdatePassenger    = "api.msg.success.passenger.successfully_update_passenger"
+	PassengerSuccessfullyDeletePassenger    = "api.msg.success.passenger.successfully_delete_passenger"
+)

@@ -14,11 +14,11 @@ import (
 
 // PassengerType represent schema of table sities.
 type PassengerType struct {
-	UUID      string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
-	Type      string    `gorm:"size:100;not null;" json:"type" form:"type"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt gorm.DeletedAt
+	UUID      string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
+	Type      string         `gorm:"size:100;not null;" json:"type,omitempty" form:"type"`
+	CreatedAt time.Time      `json:"created_at,omitempty"`
+	UpdatedAt time.Time      `json:"updated_at,omitempty"`
+	DeletedAt gorm.DeletedAt `json:"deleted_at,omitempty"`
 }
 
 // PassengerTypeFaker represent content when generate fake data of passenger_type.
@@ -79,9 +79,9 @@ func (u *PassengerType) BeforeCreate(tx *gorm.DB) error {
 }
 
 // DetailPassengerTypes will return formatted passenger_type detail of multiple passenger_type.
-func (sities PassengerTypes) DetailPassengerTypes() []interface{} {
-	result := make([]interface{}, len(sities))
-	for index, passenger_type := range sities {
+func (passengerType PassengerTypes) DetailPassengerTypes() []interface{} {
+	result := make([]interface{}, len(passengerType))
+	for index, passenger_type := range passengerType {
 		result[index] = passenger_type.DetailPassengerTypeList()
 	}
 	return result
@@ -114,7 +114,11 @@ func (u *PassengerType) DetailPassengerTypeList() interface{} {
 func (u *PassengerType) ValidateSavePassengerType() []response.ErrorForm {
 	validation := validator.New()
 	validation.
-		Set("type", u.Type, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply())
+		Set(
+			"type",
+			u.Type,
+			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
+		)
 	return validation.Validate()
 }
 
@@ -122,6 +126,10 @@ func (u *PassengerType) ValidateSavePassengerType() []response.ErrorForm {
 func (u *PassengerType) ValidateUpdatePassengerType() []response.ErrorForm {
 	validation := validator.New()
 	validation.
-		Set("type", u.Type, validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply())
+		Set(
+			"type",
+			u.Type,
+			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
+		)
 	return validation.Validate()
 }

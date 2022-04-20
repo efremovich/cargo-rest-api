@@ -8,7 +8,8 @@ definitions:
     type: object
   entity.DetailPrice:
     properties:
-      PassengerTypeID:
+      passenger_type: {}
+      passenger_type_uuid:
         type: string
       price:
         type: number
@@ -770,55 +771,7 @@ paths:
       summary: Reset user preference
       tags:
       - preference
-  /api/v1/external/prices:
-    get:
-      description: Get list of existing prices.
-      parameters:
-      - default: en
-        description: Language code
-        enum:
-        - en
-        - ru
-        in: header
-        name: Accept-Language
-        type: string
-      - description: Request id
-        in: header
-        name: Set-Request-Id
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.successOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
-      summary: Get prices
-      tags:
-      - prices
+  /api/v1/external/price:
     post:
       consumes:
       - application/json
@@ -875,7 +828,7 @@ paths:
       summary: Create a new price
       tags:
       - prices
-  /api/v1/external/prices/{uuid}:
+  /api/v1/external/price/{uuid}:
     delete:
       description: Delete an existing price.
       parameters:
@@ -982,7 +935,7 @@ paths:
       summary: Get price
       tags:
       - prices
-  /api/v1/external/prices/uuid:
+  /api/v1/external/price/uuid:
     put:
       consumes:
       - application/json
@@ -1056,6 +1009,55 @@ paths:
       - BasicAuth: []
       - JWTAuth: []
       summary: Update price
+      tags:
+      - prices
+  /api/v1/external/prices:
+    get:
+      description: Get list of existing prices.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get prices
       tags:
       - prices
   /api/v1/external/profile:

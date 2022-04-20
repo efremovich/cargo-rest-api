@@ -22,12 +22,12 @@ func priceFactory() []Seed {
 		}
 
 		price := &entity.Price{
-			UUID:            a.UUID,
-			PassengerTypeID: a.PassengerTypeID,
-			Price:           a.Price,
+			UUID:              a.UUID,
+			PassengerTypeUUID: a.PassengerTypeUUID,
+			Price:             a.Price,
 		}
 		fakerFactories[i] = Seed{
-			Name: fmt.Sprintf("Create %s", a.PassengerTypeID),
+			Name: fmt.Sprintf("Create %s", a.PassengerTypeUUID),
 			Run: func(db *gorm.DB) error {
 				_, errDB := createPrice(db, price)
 				return errDB
@@ -41,7 +41,7 @@ func priceFactory() []Seed {
 // createPrice will create fake price and insert into DB.
 func createPrice(db *gorm.DB, price *entity.Price) (*entity.Price, error) {
 	var priceExists entity.Price
-	err := db.Where("passenger_type_id = ?", price.PassengerTypeID).Take(&priceExists).Error
+	err := db.Where("passenger_type_uuid = ?", price.PassengerTypeUUID).Take(&priceExists).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			err := db.Create(price).Error

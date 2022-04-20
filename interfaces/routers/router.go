@@ -46,7 +46,11 @@ func NewRouter(
 }
 
 // NewRouter is a constructor uses to construct RouterAuthGateway.
-func NewRouterAuthGateway(ag *authorization.Gateway, at *authorization.Token, oa *authorization.OauthAuth) *RouterAuthGateway {
+func NewRouterAuthGateway(
+	ag *authorization.Gateway,
+	at *authorization.Token,
+	oa *authorization.OauthAuth,
+) *RouterAuthGateway {
 	return &RouterAuthGateway{
 		authGateway: ag,
 		authToken:   at,
@@ -111,6 +115,7 @@ func (r *Router) Init() *gin.Engine {
 	vehicleRoutes(e, r, rg)
 	passengerTypeRoutes(e, r, rg)
 	priceRoutes(e, r, rg)
+	passengerRoutes(e, r, rg)
 
 	return e
 }

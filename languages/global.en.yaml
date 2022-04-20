@@ -73,6 +73,8 @@ api:
         not_found: "Price Not Found"
       passenger_type:
         not_found: "Passenger Type Not Found"
+      passenger:
+        not_found: "Passenger Not Found"
     success:
       common:
         ok: "OK"
@@ -126,6 +128,12 @@ api:
         successfully_create_price: "Successfully Create Price"
         successfully_update_price: "Successfully Update Price"
         successfully_delete_price: "Successfully Delete Price"
+      passenger:
+        successfully_get_passenger_list: "Successfully Get Passenger List"
+        successfully_get_passenger_detail: "Successfully Get Passenger Detail"
+        successfully_create_passenger: "Successfully Create Passenger"
+        successfully_update_passenger: "Successfully Update Passenger"
+        successfully_delete_passenger: "Successfully Delete Passenger"
 attributes:
   name: "Name"
   email: "Email"
@@ -145,6 +153,13 @@ attributes:
   reg_code: "Reg code"
   number_of_seats: "Number of seats"
   class: "Class vehicle"
-  passenger_type: "Passenger type"
+  passenger_type: "Passenger Type"
   price: "Price"
-  passenger_type_id: "Passenger type ID"
+  passenger_type_uuid: "Passenger Type ID"
+  first_name: "First Name"
+  last_name: "Last name"
+  patronomic: "Patronomic"
+  birthday: "Birth Date"
+  passport_series: "Pasport Series"
+  passport_number: "Pasport Number"
+

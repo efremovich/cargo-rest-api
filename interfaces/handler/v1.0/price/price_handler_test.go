@@ -28,7 +28,7 @@ func TestSavePrice_Success(t *testing.T) {
 	var priceData entity.Price
 	var priceApp mock.PriceAppInterface
 	priceHandler := NewPrices(&priceApp)
-	priceJSON := `{"passenger_type_id": "503f4ab8-5bf2-409c-a469-8da4b614232c","price": 150.00}`
+	priceJSON := `{"passenger_type_uuid": "503f4ab8-5bf2-409c-a469-8da4b614232c","price": 150.00}`
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
@@ -39,9 +39,9 @@ func TestSavePrice_Success(t *testing.T) {
 
 	priceApp.SavePriceFn = func(price *entity.Price) (*entity.Price, map[string]string, error) {
 		return &entity.Price{
-			UUID:            UUID,
-			PassengerTypeID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
-			Price:           150.00,
+			UUID:              UUID,
+			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
+			Price:             150.00,
 		}, nil, nil
 	}
 
@@ -60,7 +60,7 @@ func TestSavePrice_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, priceData.UUID, UUID)
-	assert.EqualValues(t, priceData.PassengerTypeID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
+	assert.EqualValues(t, priceData.PassengerTypeUUID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
 	assert.EqualValues(t, priceData.Price, 150.00)
 }
 
@@ -70,11 +70,11 @@ func TestSavePrice_InvalidData(t *testing.T) {
 		statusCode int
 	}{
 		{
-			inputJSON:  `{"passenger_type_id":"", "price": ""}`,
+			inputJSON:  `{"passenger_type_uuid":"", "price": ""}`,
 			statusCode: 422,
 		},
 		{
-			inputJSON:  `{"passenger_type_id": "22", "price": "Двадцать два",}`,
+			inputJSON:  `{"passenger_type_uuid": "22", "price": "Двадцать два",}`,
 			statusCode: 422,
 		},
 	}
@@ -113,7 +113,7 @@ func TestUpdatePrice_Success(t *testing.T) {
 	var priceData entity.Price
 	var priceApp mock.PriceAppInterface
 	priceHandler := NewPrices(&priceApp)
-	priceJSON := `{"passenger_type_id": "503f4ab8-5bf2-409c-a469-8da4b614232c", "price":150.22}`
+	priceJSON := `{"passenger_type_uuid": "503f4ab8-5bf2-409c-a469-8da4b614232c", "price":150.22}`
 	UUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
@@ -124,17 +124,17 @@ func TestUpdatePrice_Success(t *testing.T) {
 
 	priceApp.UpdatePriceFn = func(UUID string, price *entity.Price) (*entity.Price, map[string]string, error) {
 		return &entity.Price{
-			UUID:            UUID,
-			PassengerTypeID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
-			Price:           150.22,
+			UUID:              UUID,
+			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
+			Price:             150.22,
 		}, nil, nil
 	}
 
 	priceApp.GetPriceFn = func(string) (*entity.Price, error) {
 		return &entity.Price{
-			UUID:            UUID,
-			PassengerTypeID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
-			Price:           150.22,
+			UUID:              UUID,
+			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
+			Price:             150.22,
 		}, nil
 	}
 
@@ -152,7 +152,7 @@ func TestUpdatePrice_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, priceData.UUID, UUID)
-	assert.EqualValues(t, priceData.PassengerTypeID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
+	assert.EqualValues(t, priceData.PassengerTypeUUID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
 	assert.EqualValues(t, priceData.Price, 150.22)
 }
 
@@ -176,9 +176,9 @@ func TestGetPrice_Success(t *testing.T) {
 
 	priceApp.GetPriceFn = func(string) (*entity.Price, error) {
 		return &entity.Price{
-			UUID:            UUID,
-			PassengerTypeID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
-			Price:           150.22,
+			UUID:              UUID,
+			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
+			Price:             150.22,
 		}, nil
 	}
 
@@ -196,7 +196,7 @@ func TestGetPrice_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, priceData.UUID, UUID)
-	assert.EqualValues(t, priceData.PassengerTypeID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
+	assert.EqualValues(t, priceData.PassengerTypeUUID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
 	assert.EqualValues(t, priceData.Price, 150.22)
 }
 
@@ -216,14 +216,14 @@ func TestGetPrices_Success(t *testing.T) {
 	priceApp.GetPricesFn = func(params *repository.Parameters) ([]*entity.Price, *repository.Meta, error) {
 		prices := []*entity.Price{
 			{
-				UUID:            UUID,
-				PassengerTypeID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
-				Price:           150.22,
+				UUID:              UUID,
+				PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
+				Price:             150.22,
 			},
 			{
-				UUID:            UUID,
-				PassengerTypeID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
-				Price:           150.22,
+				UUID:              UUID,
+				PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
+				Price:             150.22,
 			},
 		}
 		meta := repository.NewMeta(params, int64(len(prices)))

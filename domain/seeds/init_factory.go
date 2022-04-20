@@ -2,6 +2,7 @@ package seeds
 
 import (
 	"cargo-rest-api/domain/entity"
+	"time"
 
 	"gorm.io/gorm"
 
@@ -72,6 +73,11 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -141,10 +147,34 @@ var (
 		Callbacks:       "http://localhost:8181/oauth2/callback",
 	}
 	sities = []*entity.Sity{
-		{UUID: uuid.New().String(), Name: "Волгоград", Region: "Волгоградская область", Latitude: "48.7194", Longitude: "44.5018"},
-		{UUID: uuid.New().String(), Name: "Елань", Region: "Волгоградская область", Latitude: "50.5656", Longitude: "43.4416"},
-		{UUID: uuid.New().String(), Name: "Сочи", Region: "Краснодарский край", Latitude: "43.3557", Longitude: "39.4332"},
-		{UUID: uuid.New().String(), Name: "Краснодар", Region: "Краснодарский край", Latitude: "45.0241", Longitude: "38.5833"},
+		{
+			UUID:      uuid.New().String(),
+			Name:      "Волгоград",
+			Region:    "Волгоградская область",
+			Latitude:  "48.7194",
+			Longitude: "44.5018",
+		},
+		{
+			UUID:      uuid.New().String(),
+			Name:      "Елань",
+			Region:    "Волгоградская область",
+			Latitude:  "50.5656",
+			Longitude: "43.4416",
+		},
+		{
+			UUID:      uuid.New().String(),
+			Name:      "Сочи",
+			Region:    "Краснодарский край",
+			Latitude:  "43.3557",
+			Longitude: "39.4332",
+		},
+		{
+			UUID:      uuid.New().String(),
+			Name:      "Краснодар",
+			Region:    "Краснодарский край",
+			Latitude:  "45.0241",
+			Longitude: "38.5833",
+		},
 	}
 	vehicles = []*entity.Vehicle{
 		{UUID: uuid.New().String(), Model: "Ford transit", RegCode: "x245уы132", NumberOfSeats: 5, Class: "Комфорт +"},
@@ -158,9 +188,45 @@ var (
 		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Пенсионный"},
 	}
 	prices = []*entity.Price{
-		{UUID: "c1dadc6c-76e0-4213-a669-140dd389bed2", PassengerTypeID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Price: 350.00},
-		{UUID: "f2480365-2a2b-4e63-904f-03cb92ef06ec", PassengerTypeID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Price: 250.00},
-		{UUID: "17a77ff0-5dd4-42ed-8320-d9f204027dda", PassengerTypeID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Price: 550.00},
+		{
+			UUID:              "c1dadc6c-76e0-4213-a669-140dd389bed2",
+			PassengerTypeUUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd",
+			Price:             350.00,
+		},
+		{
+			UUID:              "f2480365-2a2b-4e63-904f-03cb92ef06ec",
+			PassengerTypeUUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e",
+			Price:             250.00,
+		},
+		{
+			UUID:              "17a77ff0-5dd4-42ed-8320-d9f204027dda",
+			PassengerTypeUUID: "04e9b29e-064b-4a13-8bab-074b14ae465d",
+			Price:             550.00,
+		},
+	}
+	passengers = []*entity.Passenger{
+		{
+			UUID:              uuid.New().String(),
+			FirstName:         "Владимир",
+			LastName:          "Ульянов",
+			Patronomic:        "Ильич",
+			BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
+			PassportSeries:    "0401",
+			PassportNumber:    "564247",
+			UserUUID:          user.UUID,
+			PassengerTypeUUID: passengerTypes[2].UUID,
+		},
+		{
+			UUID:              uuid.New().String(),
+			FirstName:         "Николай",
+			LastName:          "Чехидзе",
+			Patronomic:        "Семёнович",
+			BirthDay:          time.Date(1864, time.April, 9, 0, 0, 0, 0, time.UTC),
+			PassportSeries:    "5501",
+			PassportNumber:    "014247",
+			UserUUID:          user.UUID,
+			PassengerTypeUUID: passengerTypes[0].UUID,
+		},
 	}
 )
 
@@ -372,6 +438,20 @@ func (is *InitFactory) generatePrice() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generatePassenger() *InitFactory {
+	for _, st := range passengers {
+		passenger := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial passengers",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createPassenger(db, passenger)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -389,6 +469,6 @@ func initFactory() []Seed {
 	initialSeeds.generateVehicle()
 	initialSeeds.generatePassengerType()
 	initialSeeds.generatePrice()
-
+	initialSeeds.generatePassenger()
 	return initialSeeds.seeders
 }

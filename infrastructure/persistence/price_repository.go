@@ -36,8 +36,8 @@ func (r PriceRepo) SavePrice(Price *entity.Price) (*entity.Price, map[string]str
 func (r PriceRepo) UpdatePrice(uuid string, price *entity.Price) (*entity.Price, map[string]string, error) {
 	errDesc := map[string]string{}
 	priceData := &entity.Price{
-		PassengerTypeID: price.PassengerTypeID,
-		Price:           price.Price,
+		PassengerTypeUUID: price.PassengerTypeUUID,
+		Price:             price.Price,
 	}
 
 	err := r.db.First(&price, "uuid = ?", uuid).Updates(priceData).Error
@@ -71,7 +71,7 @@ func (r PriceRepo) DeletePrice(uuid string) error {
 
 func (r PriceRepo) GetPrice(uuid string) (*entity.Price, error) {
 	var price entity.Price
-	err := r.db.Where("uuid = ?", uuid).Take(&price).Error
+	err := r.db.Preload("PassengerType").Where("uuid = ?", uuid).Take(&price).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, exception.ErrorTextPriceNotFound

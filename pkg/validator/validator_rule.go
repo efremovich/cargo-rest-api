@@ -220,8 +220,18 @@ func (vr *ValidationRules) IsAlpha() *ValidationRules {
 // IsAlphaSpace is a function to set the rule that current field value must be letters and space character only.
 func (vr *ValidationRules) IsAlphaSpace() *ValidationRules {
 	vr.Rules = append(vr.Rules, ValidationRule{
-		Rule: validation.Match(regexp.MustCompile(`^[Ёёа-яА-Яa-zA-Z\s]*$`)).
+		Rule: validation.Match(regexp.MustCompile(`^[Ёёа-яА-Яa-zA-Z \s]*$`)).
 			Error("api.msg.error.validation.must_be_alpha_space"),
+		RuleOpt: nil,
+	})
+	return vr
+}
+
+// IsAlphaUnicode is a function to set the rule that current field value must be letters character only.
+func (vr *ValidationRules) IsAlphaUnicode() *ValidationRules {
+	vr.Rules = append(vr.Rules, ValidationRule{
+		Rule: validation.Match(regexp.MustCompile(`^[Ёёа-яА-Яa-zA-Z\s]*$`)).
+			Error("api.msg.error.validation.must_be_alpha"),
 		RuleOpt: nil,
 	})
 	return vr

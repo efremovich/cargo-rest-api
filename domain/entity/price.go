@@ -14,19 +14,20 @@ import (
 
 // Price represent schema of table sities.
 type Price struct {
-	UUID            string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
-	PassengerTypeID string         `gorm:"size:36;not null;" json:"passenger_type_id" form:"passenger_type_id"`
-	Price           float64        `json:"price" from:"price"`
-	CreatedAt       time.Time      `json:"created_at"`
-	UpdatedAt       time.Time      `json:"updated_at"`
-	DeletedAt       gorm.DeletedAt `json:"deleted_at"`
+	UUID              string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
+	PassengerTypeUUID string         `gorm:"size:36;not null;" json:"passenger_type_uuid,omitempty" form:"passenger_type_uuid"`
+	PassengerType     PassengerType  `gorm:"foreignKey:PassengerTypeUUID" json:"passenger_type,omitempty"`
+	Price             float64        `json:"price,omitempty" from:"price"`
+	CreatedAt         time.Time      `json:"created_at,omitempty"`
+	UpdatedAt         time.Time      `json:"updated_at,omitempty"`
+	DeletedAt         gorm.DeletedAt `json:"deleted_at,omitempty"`
 }
 
 // PriceFaker represent content when generate fake data of passenger_type.
 type PriceFaker struct {
-	UUID            string  `faker:"uuid_hyphenated"`
-	PassengerTypeID string  `faker:"passenger_type_id"`
-	Price           float64 `faker:"price"`
+	UUID              string  `faker:"uuid_hyphenated"`
+	PassengerTypeUUID string  `faker:"passenger_type_uuid"`
+	Price             float64 `faker:"price"`
 }
 
 // Prices represent multiple Price.
@@ -45,9 +46,10 @@ type DetailPriceList struct {
 
 // PriceFieldsForDetail represent fields of detail Price.
 type PriceFieldsForDetail struct {
-	UUID            string  `json:"uuid"`
-	PassengerTypeID string  `json:"passenger_type_id"`
-	Price           float64 `json:"price"`
+	UUID              string      `json:"uuid"`
+	PassengerTypeUUID string      `json:"passenger_type_uuid"`
+	PassengerType     interface{} `json:"passenger_type"`
+	Price             float64     `json:"price"`
 }
 
 // PriceFieldsForList represent fields of detail Price for Price list.
@@ -62,12 +64,12 @@ func (u *Price) TableName() string {
 
 // FilterableFields return fields.
 func (u *Price) FilterableFields() []interface{} {
-	return []interface{}{"uuid", "passenger_type_id", "price"}
+	return []interface{}{"uuid", "passenger_type_uuid", "price"}
 }
 
 // Prepare will prepare submitted data of passenger_type.
 func (u *Price) Prepare() {
-	u.PassengerTypeID = html.EscapeString(strings.TrimSpace(u.PassengerTypeID))
+	u.PassengerTypeUUID = html.EscapeString(strings.TrimSpace(u.PassengerTypeUUID))
 	u.CreatedAt = time.Now()
 	u.UpdatedAt = time.Now()
 }
@@ -82,10 +84,10 @@ func (u *Price) BeforeCreate(tx *gorm.DB) error {
 }
 
 // DetailPrices will return formatted passenger_type detail of multiple passenger_type.
-func (sities Prices) DetailPrices() []interface{} {
-	result := make([]interface{}, len(sities))
-	for index, passenger_type := range sities {
-		result[index] = passenger_type.DetailPriceList()
+func (prices Prices) DetailPrices() []interface{} {
+	result := make([]interface{}, len(prices))
+	for index, price := range prices {
+		result[index] = price.DetailPriceList()
 	}
 	return result
 }
@@ -94,20 +96,28 @@ func (sities Prices) DetailPrices() []interface{} {
 func (u *Price) DetailPrice() interface{} {
 	return &DetailPrice{
 		PriceFieldsForDetail: PriceFieldsForDetail{
-			UUID:            u.UUID,
-			PassengerTypeID: u.PassengerTypeID,
-			Price:           u.Price,
+			UUID:              u.UUID,
+			PassengerTypeUUID: u.PassengerTypeUUID,
+			PassengerType:     u.PassengerType.Type,
+			Price:             u.Price,
 		},
 	}
+}
+
+// GetPriceTypeDetail will return .
+func (u *Price) GetPricePassengerType() interface{} {
+	pst := PassengerType{UUID: u.UUID}
+	a := pst.DetailPassengerTypeList()
+	return a
 }
 
 // DetailPriceList will return formatted passenger_type detail of passenger_type for passenger_type list.
 func (u *Price) DetailPriceList() interface{} {
 	return &DetailPriceList{
 		PriceFieldsForDetail: PriceFieldsForDetail{
-			UUID:            u.UUID,
-			PassengerTypeID: u.PassengerTypeID,
-			Price:           u.Price,
+			UUID:              u.UUID,
+			PassengerTypeUUID: u.PassengerTypeUUID,
+			Price:             u.Price,
 		},
 		PriceFieldsForList: PriceFieldsForList{
 			CreatedAt: u.CreatedAt,
@@ -119,7 +129,7 @@ func (u *Price) DetailPriceList() interface{} {
 func (u *Price) ValidateSavePrice() []response.ErrorForm {
 	validation := validator.New()
 	validation.
-		Set("passenger_type_id", u.PassengerTypeID, validation.AddRule().Required().Length(3, 64).Apply()).
+		Set("passenger_type_uuid", u.PassengerTypeUUID, validation.AddRule().Required().Length(3, 64).Apply()).
 		Set("price", u.Price, validation.AddRule().Required().Apply())
 	return validation.Validate()
 }
@@ -128,7 +138,7 @@ func (u *Price) ValidateSavePrice() []response.ErrorForm {
 func (u *Price) ValidateUpdatePrice() []response.ErrorForm {
 	validation := validator.New()
 	validation.
-		Set("passenger_type_id", u.PassengerTypeID, validation.AddRule().Required().Length(3, 64).Apply()).
+		Set("passenger_type_uuid", u.PassengerTypeUUID, validation.AddRule().Required().Length(3, 64).Apply()).
 		Set("price", u.Price, validation.AddRule().Required().Apply())
 	return validation.Validate()
 }
