@@ -30,7 +30,7 @@ func prepare() []Seed {
 	allFactories = append(allFactories, vehicleFactories...)
 	allFactories = append(allFactories, passengerTypeFactories...)
 	allFactories = append(allFactories, priceFactories...)
-	allFactories = append(allFactories, passengerTypeFactories...)
+	allFactories = append(allFactories, passengerFactories...)
 
 	return allFactories
 }
