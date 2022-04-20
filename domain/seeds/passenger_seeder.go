@@ -33,7 +33,7 @@ func passengerFactory() []Seed {
 			PassengerTypeUUID: a.PassengerTypeUUID,
 		}
 		fakerFactories[i] = Seed{
-			Name: fmt.Sprintf("Create %s", a.PassengerTypeUUID),
+			Name: fmt.Sprintf("Create %s", a.FirstName),
 			Run: func(db *gorm.DB) error {
 				_, errDB := createPassenger(db, passenger)
 				return errDB

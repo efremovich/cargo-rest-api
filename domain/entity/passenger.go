@@ -18,7 +18,7 @@ type Passenger struct {
 	FirstName         string         `gorm:"size:100;"                                 json:"first_name,omitempty"          from:"first_name"`
 	LastName          string         `gorm:"size:100;"                                 json:"last_name,omitempty"           from:"last_name"`
 	Patronomic        string         `gorm:"size:100;"                                 json:"patronomic,omitempty"          from:"patronomic"`
-	BirthDay          time.Time      `gorm:"size:100;"                                 json:"birthday,omitempty"            from:"birthday"        time_format:"2006-01-02"`
+	BirthDay          time.Time      `gorm:"size:100;"                                 json:"birthday,omitempty"            from:"birthday"      `
 	PassportSeries    string         `gorm:"size:4;"                                   json:"passport_series,omitempty"     from:"passport_series"`
 	PassportNumber    string         `gorm:"size:6;"                                   json:"passport_number,omitempty"     from:"passport_number"`
 	UserUUID          string         `gorm:"size:36"                                   json:"user_uuid,omitempty"`
@@ -61,7 +61,7 @@ type PassengerFieldsForDetail struct {
 	FirstName         string    `json:"first_name"`
 	LastName          string    `json:"last_name"`
 	Patronomic        string    `json:"patronomic"`
-	BirthDay          time.Time `json:"birthday"            time_format:"2006-01-02"`
+	BirthDay          time.Time `json:"birthday"  `
 	PassportSeries    string    `json:"passport_series"`
 	PassportNumber    string    `json:"passport_number"`
 	UserUUID          string    `json:"user_uuid"`

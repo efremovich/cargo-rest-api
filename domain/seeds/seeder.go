@@ -19,6 +19,7 @@ func prepare() []Seed {
 	vehicleFactories := vehicleFactory()
 	passengerTypeFactories := passengerTypeFactory()
 	priceFactories := priceFactory()
+	passengerFactories := passengerFactory()
 
 	var (
 		allFactories []Seed
@@ -29,6 +30,7 @@ func prepare() []Seed {
 	allFactories = append(allFactories, vehicleFactories...)
 	allFactories = append(allFactories, passengerTypeFactories...)
 	allFactories = append(allFactories, priceFactories...)
+	allFactories = append(allFactories, passengerTypeFactories...)
 
 	return allFactories
 }
