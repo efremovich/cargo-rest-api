@@ -43,8 +43,8 @@ func (r PassengerRepo) UpdatePassenger(
 		LastName:          Passenger.LastName,
 		Patronomic:        Passenger.Patronomic,
 		BirthDay:          Passenger.BirthDay,
-		PassportSeries:    Passenger.PassportSeries,
-		PassportNumber:    Passenger.PassportNumber,
+		DocumentSeries:    Passenger.DocumentSeries,
+		DocumentNumber:    Passenger.DocumentNumber,
 		UserUUID:          Passenger.UserUUID,
 		PassengerTypeUUID: Passenger.PassengerTypeUUID,
 	}
@@ -80,7 +80,7 @@ func (r PassengerRepo) DeletePassenger(uuid string) error {
 
 func (r PassengerRepo) GetPassenger(uuid string) (*entity.Passenger, error) {
 	var Passenger entity.Passenger
-	err := r.db.Where("uuid = ?", uuid).Take(&Passenger).Error
+	err := r.db.Preload("DocumentType").Where("uuid = ?", uuid).Take(&Passenger).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, exception.ErrorTextPassengerNotFound

@@ -165,3 +165,12 @@ var (
 	// ErrorTextRoleInvalidUUID is an error representing UUID not found in database.
 	ErrorTextPassengerInvalidUUID = errors.New("api.msg.error.passenger.invalid_uuid")
 )
+
+// Errors for document_type.
+var (
+	// ErrorTextRoleNotFound is an error representing document_type not found in database.
+	ErrorTextDocumentTypeNotFound = errors.New("api.msg.error.document_type.not_found")
+
+	// ErrorTextRoleInvalidUUID is an error representing UUID not found in database.
+	ErrorTextDocumentTypeInvalidUUID = errors.New("api.msg.error.document_type.invalid_uuid")
+)

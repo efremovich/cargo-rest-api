@@ -15,12 +15,12 @@ import (
 // Price represent schema of table sities.
 type Price struct {
 	UUID              string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
-	PassengerTypeUUID string         `gorm:"size:36;not null;" json:"passenger_type_uuid,omitempty" form:"passenger_type_uuid"`
-	PassengerType     PassengerType  `gorm:"foreignKey:PassengerTypeUUID" json:"passenger_type,omitempty"`
-	Price             float64        `json:"price,omitempty" from:"price"`
-	CreatedAt         time.Time      `json:"created_at,omitempty"`
-	UpdatedAt         time.Time      `json:"updated_at,omitempty"`
-	DeletedAt         gorm.DeletedAt `json:"deleted_at,omitempty"`
+	PassengerTypeUUID string         `gorm:"size:36;not null;"                         json:"passenger_type_uuid,omitempty" form:"passenger_type_uuid"`
+	PassengerType     PassengerType  `gorm:"foreignKey:PassengerTypeUUID"              json:"passenger_type,omitempty"`
+	Price             float64        `                                                 json:"price,omitempty"                                          from:"price"`
+	CreatedAt         time.Time      `                                                 json:"created_at,omitempty"`
+	UpdatedAt         time.Time      `                                                 json:"updated_at,omitempty"`
+	DeletedAt         gorm.DeletedAt `                                                 json:"deleted_at,omitempty"`
 }
 
 // PriceFaker represent content when generate fake data of passenger_type.
@@ -104,19 +104,13 @@ func (u *Price) DetailPrice() interface{} {
 	}
 }
 
-// GetPriceTypeDetail will return .
-func (u *Price) GetPricePassengerType() interface{} {
-	pst := PassengerType{UUID: u.UUID}
-	a := pst.DetailPassengerTypeList()
-	return a
-}
-
 // DetailPriceList will return formatted passenger_type detail of passenger_type for passenger_type list.
 func (u *Price) DetailPriceList() interface{} {
 	return &DetailPriceList{
 		PriceFieldsForDetail: PriceFieldsForDetail{
 			UUID:              u.UUID,
 			PassengerTypeUUID: u.PassengerTypeUUID,
+			PassengerType:     u.PassengerType.Type,
 			Price:             u.Price,
 		},
 		PriceFieldsForList: PriceFieldsForList{

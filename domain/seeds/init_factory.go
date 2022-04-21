@@ -48,36 +48,42 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "tour", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "tour", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "tour", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "read"},
 		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "create"},
 		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "update"},
 		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "sity", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "read"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "create"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "update"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "vehicle", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "read"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "create"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "update"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "read"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "create"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "update"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger_type", PermissionKey: "detail"},
-		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "create"},
-		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "update"},
-		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "delete"},
-		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "bulk_delete"},
-		{UUID: uuid.New().String(), ModuleKey: "price", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "read"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "create"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "update"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "passenger", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -211,8 +217,8 @@ var (
 			LastName:          "Ульянов",
 			Patronomic:        "Ильич",
 			BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
-			PassportSeries:    "0401",
-			PassportNumber:    "564247",
+			DocumentSeries:    "0401",
+			DocumentNumber:    "564247",
 			UserUUID:          user.UUID,
 			PassengerTypeUUID: passengerTypes[2].UUID,
 		},
@@ -222,11 +228,16 @@ var (
 			LastName:          "Чехидзе",
 			Patronomic:        "Семёнович",
 			BirthDay:          time.Date(1864, time.April, 9, 0, 0, 0, 0, time.UTC),
-			PassportSeries:    "5501",
-			PassportNumber:    "014247",
+			DocumentSeries:    "5501",
+			DocumentNumber:    "014247",
 			UserUUID:          user.UUID,
 			PassengerTypeUUID: passengerTypes[0].UUID,
 		},
+	}
+	documentTypes = []*entity.DocumentType{
+		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Паспорт"},
+		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Свидетельство о рождении"},
+		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Водительские парава"},
 	}
 )
 
@@ -452,6 +463,20 @@ func (is *InitFactory) generatePassenger() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generateDocumentType() *InitFactory {
+	for _, st := range documentTypes {
+		documentType := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial document_types",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createDocumentType(db, documentType)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -470,5 +495,6 @@ func initFactory() []Seed {
 	initialSeeds.generatePassengerType()
 	initialSeeds.generatePrice()
 	initialSeeds.generatePassenger()
+	initialSeeds.generateDocumentType()
 	return initialSeeds.seeders
 }

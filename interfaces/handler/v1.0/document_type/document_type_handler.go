@@ -1,4 +1,4 @@
-package passengerv1point00
+package documentTypev1point00
 
 import (
 	"cargo-rest-api/application"
@@ -13,51 +13,51 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Passengers is a struct defines the dependencies that will be used.
-type Passengers struct {
-	us application.PassengerAppInterface
+// DocumentTypes is a struct defines the dependencies that will be used.
+type DocumentTypes struct {
+	us application.DocumentTypeAppInterface
 }
 
-// NewCountreis is constructor will initialize passenger handler.
-func NewPassengers(us application.PassengerAppInterface) *Passengers {
-	return &Passengers{
+// NewCountreis is constructor will initialize documentType handler.
+func NewDocumentTypes(us application.DocumentTypeAppInterface) *DocumentTypes {
+	return &DocumentTypes{
 		us: us,
 	}
 }
 
-// @Summary Create a new passenger
-// @Description Create a new passenger.
-// @Tags passenger
+// @Summary Create a new documentType
+// @Description Create a new documentType.
+// @Tags document types
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param passenger body entity.DetailPassenger true "Passenger passenger"
+// @Param documentType body entity.DetailDocumentType true "DocumentType documentType"
 // @Success 201 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/passenger [post]
-// SavePassenger is a function passenger to handle create a new passenger.
-func (s *Passengers) SavePassenger(c *gin.Context) {
-	var passengerEntity entity.Passenger
-	if err := c.ShouldBindJSON(&passengerEntity); err != nil {
+// @Router /api/v1/external/documentType [post]
+// SaveDocumentType is a function documentType to handle create a new documentType.
+func (s *DocumentTypes) SaveDocumentType(c *gin.Context) {
+	var documentTypeEntity entity.DocumentType
+	if err := c.ShouldBindJSON(&documentTypeEntity); err != nil {
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
 		return
 	}
 
-	validateErr := passengerEntity.ValidateSavePassenger()
+	validateErr := documentTypeEntity.ValidateSaveDocumentType()
 	if len(validateErr) > 0 {
 		exceptionData := response.TranslateErrorForm(c, validateErr)
 		c.Set("data", exceptionData)
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
 		return
 	}
-	newPassenger, errDesc, errException := s.us.SavePassenger(&passengerEntity)
+	newDocumentType, errDesc, errException := s.us.SaveDocumentType(&documentTypeEntity)
 	if errException != nil {
 		c.Set("data", errDesc)
 		if errors.Is(errException, exception.ErrorTextUnprocessableEntity) {
@@ -68,58 +68,58 @@ func (s *Passengers) SavePassenger(c *gin.Context) {
 		return
 	}
 	c.Status(http.StatusCreated)
-	response.NewSuccess(c, newPassenger.DetailPassenger(), success.PassengerSuccessfullyCreatePassenger).JSON()
+	response.NewSuccess(c, newDocumentType.DetailDocumentType(), success.DocumentTypeSuccessfullyCreateDocumentType).JSON()
 }
 
-// @Summary Update passenger
-// @Description Update an existing passenger.
-// @Tags passenger
+// @Summary Update documentType
+// @Description Update an existing documentType.
+// @Tags document types
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Passenger UUID"
-// @Param name formData string true "Passenger name"
-// @Param region formData string true "Passenger region"
-// @Param latitude formData string true "Passenger latitude"
-// @Param longitude formData string true "Passenger longitude"
+// @Param uuid path string true "DocumentType UUID"
+// @Param name formData string true "DocumentType name"
+// @Param region formData string true "DocumentType region"
+// @Param latitude formData string true "DocumentType latitude"
+// @Param longitude formData string true "DocumentType longitude"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/passenger/uuid [put]
-// UpdatePassenger is a function uses to handle update passenger by UUID.
-func (s *Passengers) UpdatePassenger(c *gin.Context) {
-	var passengerEntity entity.Passenger
-	if err := c.ShouldBindUri(&passengerEntity.UUID); err != nil {
+// @Router /api/v1/external/documentType/uuid [put]
+// UpdateDocumentType is a function uses to handle update documentType by UUID.
+func (s *DocumentTypes) UpdateDocumentType(c *gin.Context) {
+	var documentTypeEntity entity.DocumentType
+	if err := c.ShouldBindUri(&documentTypeEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
 		return
 	}
 
-	if err := c.ShouldBindJSON(&passengerEntity); err != nil {
+	if err := c.ShouldBindJSON(&documentTypeEntity); err != nil {
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
 		return
 	}
 
 	UUID := c.Param("uuid")
-	_, err := s.us.GetPassenger(UUID)
+	_, err := s.us.GetDocumentType(UUID)
 	if err != nil {
-		if errors.Is(err, exception.ErrorTextPassengerNotFound) {
-			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextPassengerNotFound)
+		if errors.Is(err, exception.ErrorTextDocumentTypeNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextDocumentTypeNotFound)
 			return
 		}
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	updatedPassenger, errDesc, errException := s.us.UpdatePassenger(UUID, &passengerEntity)
+	updatedDocumentType, errDesc, errException := s.us.UpdateDocumentType(UUID, &documentTypeEntity)
 	if errException != nil {
 		c.Set("data", errDesc)
-		if errors.Is(errException, exception.ErrorTextPassengerNotFound) {
+		if errors.Is(errException, exception.ErrorTextDocumentTypeNotFound) {
 			_ = c.AbortWithError(http.StatusNotFound, errException)
 			return
 		}
@@ -131,49 +131,49 @@ func (s *Passengers) UpdatePassenger(c *gin.Context) {
 		return
 	}
 	c.Status(http.StatusOK)
-	response.NewSuccess(c, updatedPassenger.DetailPassenger(), success.PassengerSuccessfullyUpdatePassenger).JSON()
+	response.NewSuccess(c, updatedDocumentType.DetailDocumentType(), success.DocumentTypeSuccessfullyUpdateDocumentType).JSON()
 }
 
-// @Summary Delete passenger
-// @Description Delete an existing passenger.
-// @Tags passenger
+// @Summary Delete documentType
+// @Description Delete an existing documentType.
+// @Tags document types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Passenger UUID"
+// @Param uuid path string true "DocumentType UUID"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/passenger/{uuid} [delete]
-// DeletePassenger is a function uses to handle delete passenger by UUID.
-func (s *Passengers) DeletePassenger(c *gin.Context) {
-	var passengerEntity entity.Passenger
-	if err := c.ShouldBindUri(&passengerEntity.UUID); err != nil {
+// @Router /api/v1/external/documentType/{uuid} [delete]
+// DeleteDocumentType is a function uses to handle delete documentType by UUID.
+func (s *DocumentTypes) DeleteDocumentType(c *gin.Context) {
+	var documentTypeEntity entity.DocumentType
+	if err := c.ShouldBindUri(&documentTypeEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
 		return
 	}
 
 	UUID := c.Param("uuid")
-	err := s.us.DeletePassenger(UUID)
+	err := s.us.DeleteDocumentType(UUID)
 	if err != nil {
-		if errors.Is(err, exception.ErrorTextPassengerNotFound) {
-			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextPassengerNotFound)
+		if errors.Is(err, exception.ErrorTextDocumentTypeNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextDocumentTypeNotFound)
 			return
 		}
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	response.NewSuccess(c, nil, success.PassengerSuccessfullyDeletePassenger).JSON()
+	response.NewSuccess(c, nil, success.DocumentTypeSuccessfullyDeleteDocumentType).JSON()
 }
 
-// @Summary Get passengers
-// @Description Get list of existing passengers.
-// @Tags passenger
+// @Summary Get documentTypes
+// @Description Get list of existing documentTypes.
+// @Tags document types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -185,14 +185,14 @@ func (s *Passengers) DeletePassenger(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/passengers [get]
-// GetPassengers is a function uses to handle get passenger list.
-func (s *Passengers) GetPassengers(c *gin.Context) {
-	var passenger entity.Passenger
-	var passengers entity.Passengers
+// @Router /api/v1/external/documentTypes [get]
+// GetDocumentTypes is a function uses to handle get documentType list.
+func (s *DocumentTypes) GetDocumentTypes(c *gin.Context) {
+	var documentType entity.DocumentType
+	var documentTypes entity.DocumentTypes
 	var err error
 	parameters := repository.NewGinParameters(c)
-	validateErr := parameters.ValidateParameter(passenger.FilterableFields()...)
+	validateErr := parameters.ValidateParameter(documentType.FilterableFields()...)
 	if len(validateErr) > 0 {
 		exceptionData := response.TranslateErrorForm(c, validateErr)
 		c.Set("data", exceptionData)
@@ -200,50 +200,50 @@ func (s *Passengers) GetPassengers(c *gin.Context) {
 		return
 	}
 
-	passengers, meta, err := s.us.GetPassengers(parameters)
+	documentTypes, meta, err := s.us.GetDocumentTypes(parameters)
 	if err != nil {
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	response.NewSuccess(c, passengers.DetailPassengers(), success.PassengerSuccessfullyGetPassengerList).
+	response.NewSuccess(c, documentTypes.DetailDocumentTypes(), success.DocumentTypeSuccessfullyGetDocumentTypeList).
 		WithMeta(meta).
 		JSON()
 }
 
-// @Summary Get passenger
-// @Description Get detail of existing passenger.
-// @Tags passenger
+// @Summary Get documentType
+// @Description Get detail of existing documentType.
+// @Tags document types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Passenger UUID"
+// @Param uuid path string true "DocumentType UUID"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/passenger/{uuid} [get]
-// GetPassenger is a function uses to handle get passenger detail by UUID.
-func (s *Passengers) GetPassenger(c *gin.Context) {
-	var passengerEntity entity.Passenger
-	if err := c.ShouldBindUri(&passengerEntity.UUID); err != nil {
+// @Router /api/v1/external/documentType/{uuid} [get]
+// GetDocumentType is a function uses to handle get documentType detail by UUID.
+func (s *DocumentTypes) GetDocumentType(c *gin.Context) {
+	var documentTypeEntity entity.DocumentType
+	if err := c.ShouldBindUri(&documentTypeEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
 		return
 	}
 
 	UUID := c.Param("uuid")
-	passenger, err := s.us.GetPassenger(UUID)
+	documentType, err := s.us.GetDocumentType(UUID)
 	if err != nil {
-		if errors.Is(err, exception.ErrorTextPassengerNotFound) {
-			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextPassengerNotFound)
+		if errors.Is(err, exception.ErrorTextDocumentTypeNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextDocumentTypeNotFound)
 			return
 		}
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	response.NewSuccess(c, passenger.DetailPassenger(), success.PassengerSuccessfullyGetPassengerDetail).JSON()
+	response.NewSuccess(c, documentType.DetailDocumentType(), success.DocumentTypeSuccessfullyGetDocumentTypeDetail).JSON()
 }

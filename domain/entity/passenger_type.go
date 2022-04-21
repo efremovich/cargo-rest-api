@@ -15,10 +15,10 @@ import (
 // PassengerType represent schema of table sities.
 type PassengerType struct {
 	UUID      string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
-	Type      string         `gorm:"size:100;not null;" json:"type,omitempty" form:"type"`
-	CreatedAt time.Time      `json:"created_at,omitempty"`
-	UpdatedAt time.Time      `json:"updated_at,omitempty"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at,omitempty"`
+	Type      string         `gorm:"size:100;not null;"                        json:"type,omitempty"       form:"type"`
+	CreatedAt time.Time      `                                                 json:"created_at,omitempty"`
+	UpdatedAt time.Time      `                                                 json:"updated_at,omitempty"`
+	DeletedAt gorm.DeletedAt `                                                 json:"deleted_at,omitempty"`
 }
 
 // PassengerTypeFaker represent content when generate fake data of passenger_type.

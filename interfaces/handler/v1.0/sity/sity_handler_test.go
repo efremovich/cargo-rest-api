@@ -40,7 +40,7 @@ func TestSaveSity_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/sities", sityHandler.SaveSities)
+	v1.POST("/sities", sityHandler.SaveSity)
 
 	sityApp.SaveSityFn = func(sity *entity.Sity) (*entity.Sity, map[string]string, error) {
 		return &entity.Sity{
@@ -96,7 +96,7 @@ func TestSaveSity_InvalidData(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, r := gin.CreateTestContext(w)
 		v1 := r.Group("/api/v1/external/")
-		v1.POST("/sities", sityHandler.SaveSities)
+		v1.POST("/sities", sityHandler.SaveSity)
 
 		var err error
 		c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/sities", bytes.NewBufferString(v.inputJSON))
@@ -134,7 +134,7 @@ func TestUpdateSity_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.PUT("/sities/:uuid", sityHandler.UpdateSities)
+	v1.PUT("/sities/:uuid", sityHandler.UpdateSity)
 
 	sityApp.UpdateSityFn = func(UUID string, sity *entity.Sity) (*entity.Sity, map[string]string, error) {
 		return &entity.Sity{

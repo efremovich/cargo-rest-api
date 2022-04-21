@@ -18,9 +18,11 @@ type Passenger struct {
 	FirstName         string         `gorm:"size:100;"                                 json:"first_name,omitempty"          from:"first_name"`
 	LastName          string         `gorm:"size:100;"                                 json:"last_name,omitempty"           from:"last_name"`
 	Patronomic        string         `gorm:"size:100;"                                 json:"patronomic,omitempty"          from:"patronomic"`
-	BirthDay          time.Time      `gorm:"size:100;"                                 json:"birthday,omitempty"            from:"birthday"      `
-	PassportSeries    string         `gorm:"size:4;"                                   json:"passport_series,omitempty"     from:"passport_series"`
-	PassportNumber    string         `gorm:"size:6;"                                   json:"passport_number,omitempty"     from:"passport_number"`
+	BirthDay          time.Time      `gorm:"size:100;"                                 json:"birthday,omitempty"            from:"birthday"          time_format:"2006-01-02"`
+	DocumentTypeUUID  string         `gorm:"size:36"                                   json:"document_type_uuid"            from:"document_typeUUID"`
+	DocumentType      DocumentType   `gorm:"foreignKey:PassengerTypeUUID"              json:"documetn_type"`
+	DocumentSeries    string         `gorm:"size:4;"                                   json:"document_series,omitempty"     from:"document_series"`
+	DocumentNumber    string         `gorm:"size:6;"                                   json:"document_number,omitempty"     from:"document_number"`
 	UserUUID          string         `gorm:"size:36"                                   json:"user_uuid,omitempty"`
 	PassengerTypeUUID string         `gorm:"size:36"                                   json:"passenger_type_uuid,omitempty"`
 	CreatedAt         time.Time      `                                                 json:"created_at,omitempty"`
@@ -35,8 +37,8 @@ type PassengerFaker struct {
 	LastName          string    `faker:"last_name"`
 	Patronomic        string    `faker:"patronomic"`
 	BirthDay          time.Time `faker:"birthday"`
-	PassportSeries    string    `faker:"passport_series"`
-	PassportNumber    string    `faker:"passport_number"`
+	DocumentSeries    string    `faker:"document_series"`
+	DocumentNumber    string    `faker:"document_number"`
 	UserUUID          string    `faker:"user_uuid"`
 	PassengerTypeUUID string    `faker:"passenger_type_uuid"`
 }
@@ -57,15 +59,16 @@ type DetailPassengerList struct {
 
 // PassengerFieldsForDetail represent fields of detail Passenger.
 type PassengerFieldsForDetail struct {
-	UUID              string    `json:"uuid"`
-	FirstName         string    `json:"first_name"`
-	LastName          string    `json:"last_name"`
-	Patronomic        string    `json:"patronomic"`
-	BirthDay          time.Time `json:"birthday"  `
-	PassportSeries    string    `json:"passport_series"`
-	PassportNumber    string    `json:"passport_number"`
-	UserUUID          string    `json:"user_uuid"`
-	PassengerTypeUUID string    `json:"passenger_type_uuid"`
+	UUID              string      `json:"uuid"`
+	FirstName         string      `json:"first_name"`
+	LastName          string      `json:"last_name"`
+	Patronomic        string      `json:"patronomic"`
+	BirthDay          time.Time   `json:"birthday"`
+	DocumentType      interface{} `json:"documetn_type"`
+	DocumentSeries    string      `json:"document_series"`
+	DocumentNumber    string      `json:"document_number"`
+	UserUUID          string      `json:"user_uuid"`
+	PassengerTypeUUID string      `json:"passenger_type_uuid"`
 }
 
 // PassengerFieldsForList represent fields of detail Passenger for Passenger list.
@@ -86,8 +89,8 @@ func (u *Passenger) FilterableFields() []interface{} {
 		"first_name",
 		"last_name",
 		"patronomic",
-		"passport_series",
-		"passport_number",
+		"document_series",
+		"document_number",
 		"birthday",
 	}
 }
@@ -126,8 +129,9 @@ func (u *Passenger) DetailPassenger() interface{} {
 			LastName:          u.LastName,
 			Patronomic:        u.Patronomic,
 			BirthDay:          u.BirthDay,
-			PassportSeries:    u.PassportSeries,
-			PassportNumber:    u.PassportNumber,
+			DocumentType:      u.DocumentType.Type,
+			DocumentSeries:    u.DocumentSeries,
+			DocumentNumber:    u.DocumentNumber,
 			UserUUID:          u.UserUUID,
 			PassengerTypeUUID: u.PassengerTypeUUID,
 		},
@@ -143,8 +147,9 @@ func (u *Passenger) DetailPassengerList() interface{} {
 			LastName:          u.LastName,
 			Patronomic:        u.Patronomic,
 			BirthDay:          u.BirthDay,
-			PassportSeries:    u.PassportSeries,
-			PassportNumber:    u.PassportNumber,
+			DocumentType:      u.DocumentType.Type,
+			DocumentSeries:    u.DocumentSeries,
+			DocumentNumber:    u.DocumentNumber,
 			UserUUID:          u.UserUUID,
 			PassengerTypeUUID: u.PassengerTypeUUID,
 		},
@@ -162,8 +167,8 @@ func (u *Passenger) ValidateSavePassenger() []response.ErrorForm {
 		Set("last_name", u.LastName, validation.AddRule().IsAlphaUnicode().Required().Apply()).
 		Set("patronomic", u.Patronomic, validation.AddRule().IsAlphaUnicode().Required().Apply()).
 		Set("birthday", u.BirthDay, validation.AddRule().Required().Apply()).
-		Set("passport_series", u.PassportSeries, validation.AddRule().IsDigit().Required().Apply()).
-		Set("passport_number", u.PassportNumber, validation.AddRule().IsDigit().Required().Apply())
+		Set("document_series", u.DocumentSeries, validation.AddRule().IsDigit().Required().Apply()).
+		Set("document_number", u.DocumentNumber, validation.AddRule().IsDigit().Required().Apply())
 	return validation.Validate()
 }
 
@@ -175,7 +180,7 @@ func (u *Passenger) ValidateUpdatePassenger() []response.ErrorForm {
 		Set("last_name", u.LastName, validation.AddRule().IsAlphaUnicode().Required().Apply()).
 		Set("patronomic", u.Patronomic, validation.AddRule().IsAlphaUnicode().Required().Apply()).
 		Set("birthday", u.BirthDay, validation.AddRule().Required().Apply()).
-		Set("passport_series", u.PassportSeries, validation.AddRule().IsDigit().Required().Apply()).
-		Set("passport_number", u.PassportNumber, validation.AddRule().IsDigit().Required().Apply())
+		Set("document_series", u.DocumentSeries, validation.AddRule().IsDigit().Required().Apply()).
+		Set("document_number", u.DocumentNumber, validation.AddRule().IsDigit().Required().Apply())
 	return validation.Validate()
 }

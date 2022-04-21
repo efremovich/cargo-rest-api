@@ -121,11 +121,11 @@ func NewGinParameters(c *gin.Context) *Parameters {
 	var queryNotEqual = make(map[int]map[string]interface{})
 	var queryLike = make(map[int]map[string]interface{})
 
-	if strings.ToLower(searchCondition) == strings.ToLower(and) {
+	if strings.EqualFold(searchCondition, and) {
 		queryCondition = " AND "
 	}
 
-	if strings.ToLower(searchCondition) == strings.ToLower(or) {
+	if strings.EqualFold(searchCondition, or) {
 		queryCondition = " OR "
 	}
 

@@ -27,7 +27,7 @@ func NewPassengerTypes(us application.PassengerTypeAppInterface) *PassengerTypes
 
 // @Summary Create a new passengerType
 // @Description Create a new passengerType.
-// @Tags passengerTypes
+// @Tags passenger types
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
@@ -73,7 +73,7 @@ func (s *PassengerTypes) SavePassengerType(c *gin.Context) {
 
 // @Summary Update passengerType
 // @Description Update an existing passengerType.
-// @Tags passengerTypes
+// @Tags passenger types
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
@@ -131,12 +131,13 @@ func (s *PassengerTypes) UpdatePassengerType(c *gin.Context) {
 		return
 	}
 	c.Status(http.StatusOK)
-	response.NewSuccess(c, updatedPassengerType.DetailPassengerType(), success.PassengerTypeSuccessfullyUpdatePassengerType).JSON()
+	response.NewSuccess(c, updatedPassengerType.DetailPassengerType(), success.PassengerTypeSuccessfullyUpdatePassengerType).
+		JSON()
 }
 
 // @Summary Delete passengerType
 // @Description Delete an existing passengerType.
-// @Tags passengerTypes
+// @Tags passenger types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -173,7 +174,7 @@ func (s *PassengerTypes) DeletePassengerType(c *gin.Context) {
 
 // @Summary Get passengerTypes
 // @Description Get list of existing passengerTypes.
-// @Tags passengerTypes
+// @Tags passenger types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -205,12 +206,14 @@ func (s *PassengerTypes) GetPassengerTypes(c *gin.Context) {
 		_ = c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
-	response.NewSuccess(c, passengerTypes.DetailPassengerTypes(), success.PassengerTypeSuccessfullyGetPassengerTypeList).WithMeta(meta).JSON()
+	response.NewSuccess(c, passengerTypes.DetailPassengerTypes(), success.PassengerTypeSuccessfullyGetPassengerTypeList).
+		WithMeta(meta).
+		JSON()
 }
 
 // @Summary Get passengerType
 // @Description Get detail of existing passengerType.
-// @Tags passengerTypes
+// @Tags passenger types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"

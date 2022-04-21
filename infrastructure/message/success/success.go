@@ -96,3 +96,12 @@ const (
 	PassengerSuccessfullyUpdatePassenger    = "api.msg.success.passenger.successfully_update_passenger"
 	PassengerSuccessfullyDeletePassenger    = "api.msg.success.passenger.successfully_delete_passenger"
 )
+
+// Success message for document_type.
+const (
+	DocumentTypeSuccessfullyGetDocumentTypeList   = "api.msg.success.document_type.successfully_get_document_type_list"
+	DocumentTypeSuccessfullyGetDocumentTypeDetail = "api.msg.success.document_type.successfully_get_document_type_detail"
+	DocumentTypeSuccessfullyCreateDocumentType    = "api.msg.success.document_type.successfully_create_document_type"
+	DocumentTypeSuccessfullyUpdateDocumentType    = "api.msg.success.document_type.successfully_update_document_type"
+	DocumentTypeSuccessfullyDeleteDocumentType    = "api.msg.success.document_type.successfully_delete_document_type"
+)

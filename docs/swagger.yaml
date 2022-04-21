@@ -1,4 +1,33 @@
 definitions:
+  entity.DetailDocumentType:
+    properties:
+      Type:
+        type: string
+      uuid:
+        type: string
+    type: object
+  entity.DetailPassenger:
+    properties:
+      birthday:
+        type: string
+      document_number:
+        type: string
+      document_series:
+        type: string
+      documetn_type: {}
+      first_name:
+        type: string
+      last_name:
+        type: string
+      passenger_type_uuid:
+        type: string
+      patronomic:
+        type: string
+      user_uuid:
+        type: string
+      uuid:
+        type: string
+    type: object
   entity.DetailPassengerType:
     properties:
       Type:
@@ -13,6 +42,19 @@ definitions:
         type: string
       price:
         type: number
+      uuid:
+        type: string
+    type: object
+  entity.DetailSity:
+    properties:
+      latitude:
+        type: string
+      longitude:
+        type: string
+      name:
+        type: string
+      region:
+        type: string
       uuid:
         type: string
     type: object
@@ -135,6 +177,295 @@ paths:
       summary: Generate a secret
       tags:
       - development
+  /api/v1/external/documentType:
+    post:
+      consumes:
+      - application/json
+      description: Create a new documentType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: DocumentType documentType
+        in: body
+        name: documentType
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailDocumentType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new documentType
+      tags:
+      - document types
+  /api/v1/external/documentType/{uuid}:
+    delete:
+      description: Delete an existing documentType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: DocumentType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete documentType
+      tags:
+      - document types
+    get:
+      description: Get detail of existing documentType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: DocumentType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get documentType
+      tags:
+      - document types
+  /api/v1/external/documentType/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing documentType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: DocumentType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: DocumentType name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: DocumentType region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: DocumentType latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: DocumentType longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update documentType
+      tags:
+      - document types
+  /api/v1/external/documentTypes:
+    get:
+      description: Get list of existing documentTypes.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get documentTypes
+      tags:
+      - document types
   /api/v1/external/login:
     post:
       consumes:
@@ -237,6 +568,246 @@ paths:
       summary: Authentication logout
       tags:
       - authentication
+  /api/v1/external/passenger:
+    post:
+      consumes:
+      - application/json
+      description: Create a new passenger.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Passenger passenger
+        in: body
+        name: passenger
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailPassenger'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new passenger
+      tags:
+      - passenger
+  /api/v1/external/passenger/{uuid}:
+    delete:
+      description: Delete an existing passenger.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Passenger UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete passenger
+      tags:
+      - passenger
+    get:
+      description: Get detail of existing passenger.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Passenger UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get passenger
+      tags:
+      - passenger
+  /api/v1/external/passenger/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing passenger.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Passenger UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: Passenger name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Passenger region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: Passenger latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: Passenger longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update passenger
+      tags:
+      - passenger
   /api/v1/external/passengerTypes:
     get:
       description: Get list of existing passengerTypes.
@@ -285,7 +856,7 @@ paths:
       - JWTAuth: []
       summary: Get passengerTypes
       tags:
-      - passengerTypes
+      - passenger types
     post:
       consumes:
       - application/json
@@ -341,7 +912,7 @@ paths:
       - JWTAuth: []
       summary: Create a new passengerType
       tags:
-      - passengerTypes
+      - passenger types
   /api/v1/external/passengerTypes/{uuid}:
     delete:
       description: Delete an existing passengerType.
@@ -395,7 +966,7 @@ paths:
       - JWTAuth: []
       summary: Delete passengerType
       tags:
-      - passengerTypes
+      - passenger types
     get:
       description: Get detail of existing passengerType.
       parameters:
@@ -448,7 +1019,7 @@ paths:
       - JWTAuth: []
       summary: Get passengerType
       tags:
-      - passengerTypes
+      - passenger types
   /api/v1/external/passengerTypes/uuid:
     put:
       consumes:
@@ -524,7 +1095,56 @@ paths:
       - JWTAuth: []
       summary: Update passengerType
       tags:
-      - passengerTypes
+      - passenger types
+  /api/v1/external/passengers:
+    get:
+      description: Get list of existing passengers.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get passengers
+      tags:
+      - passenger
   /api/v1/external/password/forgot:
     post:
       consumes:
@@ -1199,7 +1819,8 @@ paths:
       - JWTAuth: []
       summary: Get sities
       tags:
-      - sities
+      - sity
+  /api/v1/external/sity:
     post:
       consumes:
       - application/json
@@ -1217,26 +1838,12 @@ paths:
         in: header
         name: Set-Request-Id
         type: string
-      - description: Sity name
-        in: formData
-        name: name
+      - description: Sity sity
+        in: body
+        name: passenger
         required: true
-        type: string
-      - description: Sity region
-        in: formData
-        name: region
-        required: true
-        type: string
-      - description: Sity lantitude
-        in: formData
-        name: lantitude
-        required: true
-        type: string
-      - description: Sity longitude
-        in: formData
-        name: longitude
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/entity.DetailSity'
       produces:
       - application/json
       responses:
@@ -1269,8 +1876,8 @@ paths:
       - JWTAuth: []
       summary: Create a new sity
       tags:
-      - sities
-  /api/v1/external/sities/{uuid}:
+      - sity
+  /api/v1/external/sity/{uuid}:
     delete:
       description: Delete an existing sity.
       parameters:
@@ -1323,7 +1930,7 @@ paths:
       - JWTAuth: []
       summary: Delete sity
       tags:
-      - sities
+      - sity
     get:
       description: Get detail of existing sity.
       parameters:
@@ -1376,8 +1983,8 @@ paths:
       - JWTAuth: []
       summary: Get sity
       tags:
-      - sities
-  /api/v1/external/sities/uuid:
+      - sity
+  /api/v1/external/sity/uuid:
     put:
       consumes:
       - application/json
@@ -1395,31 +2002,12 @@ paths:
         in: header
         name: Set-Request-Id
         type: string
-      - description: Sity UUID
-        in: path
-        name: uuid
+      - description: Sity sity
+        in: body
+        name: passenger
         required: true
-        type: string
-      - description: Sity name
-        in: formData
-        name: name
-        required: true
-        type: string
-      - description: Sity region
-        in: formData
-        name: region
-        required: true
-        type: string
-      - description: Sity latitude
-        in: formData
-        name: latitude
-        required: true
-        type: string
-      - description: Sity longitude
-        in: formData
-        name: longitude
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/entity.DetailSity'
       produces:
       - application/json
       responses:
@@ -1452,7 +2040,7 @@ paths:
       - JWTAuth: []
       summary: Update sity
       tags:
-      - sities
+      - sity
   /api/v1/external/users:
     get:
       description: Get list of existing users.

@@ -27,26 +27,23 @@ func NewSities(us application.SityAppInterface) *Sities {
 
 // @Summary Create a new sity
 // @Description Create a new sity.
-// @Tags sities
+// @Tags sity
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param name formData string true "Sity name"
-// @Param region formData string true "Sity region"
-// @Param lantitude formData string true "Sity lantitude"
-// @Param longitude formData string true "Sity longitude"
+// @Param passenger body entity.DetailSity true "Sity sity"
 // @Success 201 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities [post]
+// @Router /api/v1/external/sity [post]
 // SaveSity is a function sity to handle create a new sity.
-func (s *Sities) SaveSities(c *gin.Context) {
+func (s *Sities) SaveSity(c *gin.Context) {
 	var sityEntity entity.Sity
 	if err := c.ShouldBindJSON(&sityEntity); err != nil {
 		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
@@ -77,27 +74,23 @@ func (s *Sities) SaveSities(c *gin.Context) {
 
 // @Summary Update sity
 // @Description Update an existing sity.
-// @Tags sities
+// @Tags sity
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Sity UUID"
-// @Param name formData string true "Sity name"
-// @Param region formData string true "Sity region"
-// @Param latitude formData string true "Sity latitude"
-// @Param longitude formData string true "Sity longitude"
+// @Param passenger body entity.DetailSity true "Sity sity"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities/uuid [put]
+// @Router /api/v1/external/sity/uuid [put]
 // UpdateSity is a function uses to handle update sity by UUID.
-func (s *Sities) UpdateSities(c *gin.Context) {
+func (s *Sities) UpdateSity(c *gin.Context) {
 	var sityEntity entity.Sity
 	if err := c.ShouldBindUri(&sityEntity.UUID); err != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, exception.ErrorTextBadRequest)
@@ -140,7 +133,7 @@ func (s *Sities) UpdateSities(c *gin.Context) {
 
 // @Summary Delete sity
 // @Description Delete an existing sity.
-// @Tags sities
+// @Tags sity
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -153,7 +146,7 @@ func (s *Sities) UpdateSities(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities/{uuid} [delete]
+// @Router /api/v1/external/sity/{uuid} [delete]
 // DeleteSity is a function uses to handle delete sity by UUID.
 func (s *Sities) DeleteSity(c *gin.Context) {
 	var sityEntity entity.Sity
@@ -177,7 +170,7 @@ func (s *Sities) DeleteSity(c *gin.Context) {
 
 // @Summary Get sities
 // @Description Get list of existing sities.
-// @Tags sities
+// @Tags sity
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -214,7 +207,7 @@ func (s *Sities) GetSities(c *gin.Context) {
 
 // @Summary Get sity
 // @Description Get detail of existing sity.
-// @Tags sities
+// @Tags sity
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -227,7 +220,7 @@ func (s *Sities) GetSities(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Router /api/v1/external/sities/{uuid} [get]
+// @Router /api/v1/external/sity/{uuid} [get]
 // GetSity is a function uses to handle get sity detail by UUID.
 func (s *Sities) GetSity(c *gin.Context) {
 	var sityEntity entity.Sity

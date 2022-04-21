@@ -33,8 +33,8 @@ func TestSavePassenger_Success(t *testing.T) {
       "last_name": "Ульянов",
       "patronomic": "Ильич",
       "birthday": "1870-04-22T00:00:00Z",
-      "passport_series": "0401",
-      "passport_number": "564247",
+      "document_series": "0401",
+      "document_number": "564247",
       "user_uuid": "64f8b70d-d84f-4dde-a066-5dcb2f1f402a",
       "passenger_type_uuid":"7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd"}`
 	UUID := uuid.New().String()
@@ -52,8 +52,8 @@ func TestSavePassenger_Success(t *testing.T) {
 			LastName:          "Ульянов",
 			Patronomic:        "Ильич",
 			BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
-			PassportSeries:    "0401",
-			PassportNumber:    "564247",
+			DocumentSeries:    "0401",
+			DocumentNumber:    "564247",
 			UserUUID:          "c7912516-5bb4-4a5b-abee-d7bd242d93c6",
 			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
 		}, nil, nil
@@ -82,8 +82,8 @@ func TestSavePassenger_Success(t *testing.T) {
 	assert.EqualValues(t, passengerData.LastName, "Ульянов")
 	assert.EqualValues(t, passengerData.Patronomic, "Ильич")
 	assert.EqualValues(t, passengerData.BirthDay, time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC))
-	assert.EqualValues(t, passengerData.PassportSeries, "0401")
-	assert.EqualValues(t, passengerData.PassportNumber, "564247")
+	assert.EqualValues(t, passengerData.DocumentSeries, "0401")
+	assert.EqualValues(t, passengerData.DocumentNumber, "564247")
 	assert.EqualValues(t, passengerData.UserUUID, "c7912516-5bb4-4a5b-abee-d7bd242d93c6")
 	assert.EqualValues(t, passengerData.PassengerTypeUUID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
 }
@@ -184,8 +184,8 @@ func TestUpdatePassenger_Success(t *testing.T) {
 			LastName:          "Ульянов",
 			Patronomic:        "Ильич",
 			BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
-			PassportSeries:    "0401",
-			PassportNumber:    "564247",
+			DocumentSeries:    "0401",
+			DocumentNumber:    "564247",
 			UserUUID:          "c7912516-5bb4-4a5b-abee-d7bd242d93c6",
 			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
 		}, nil, nil
@@ -198,8 +198,8 @@ func TestUpdatePassenger_Success(t *testing.T) {
 			LastName:          "Ульянов",
 			Patronomic:        "Ильич",
 			BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
-			PassportSeries:    "0401",
-			PassportNumber:    "564247",
+			DocumentSeries:    "0401",
+			DocumentNumber:    "564247",
 			UserUUID:          "c7912516-5bb4-4a5b-abee-d7bd242d93c6",
 			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
 		}, nil
@@ -227,8 +227,8 @@ func TestUpdatePassenger_Success(t *testing.T) {
 	assert.EqualValues(t, passengerData.LastName, "Ульянов")
 	assert.EqualValues(t, passengerData.Patronomic, "Ильич")
 	assert.EqualValues(t, passengerData.BirthDay, time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC))
-	assert.EqualValues(t, passengerData.PassportSeries, "0401")
-	assert.EqualValues(t, passengerData.PassportNumber, "564247")
+	assert.EqualValues(t, passengerData.DocumentSeries, "0401")
+	assert.EqualValues(t, passengerData.DocumentNumber, "564247")
 	assert.EqualValues(t, passengerData.UserUUID, "c7912516-5bb4-4a5b-abee-d7bd242d93c6")
 	assert.EqualValues(t, passengerData.PassengerTypeUUID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
 }
@@ -258,8 +258,8 @@ func TestGetPassenger_Success(t *testing.T) {
 			LastName:          "Ульянов",
 			Patronomic:        "Ильич",
 			BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
-			PassportSeries:    "0401",
-			PassportNumber:    "564247",
+			DocumentSeries:    "0401",
+			DocumentNumber:    "564247",
 			UserUUID:          "c7912516-5bb4-4a5b-abee-d7bd242d93c6",
 			PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
 		}, nil
@@ -283,8 +283,8 @@ func TestGetPassenger_Success(t *testing.T) {
 	assert.EqualValues(t, passengerData.LastName, "Ульянов")
 	assert.EqualValues(t, passengerData.Patronomic, "Ильич")
 	assert.EqualValues(t, passengerData.BirthDay, time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC))
-	assert.EqualValues(t, passengerData.PassportSeries, "0401")
-	assert.EqualValues(t, passengerData.PassportNumber, "564247")
+	assert.EqualValues(t, passengerData.DocumentSeries, "0401")
+	assert.EqualValues(t, passengerData.DocumentNumber, "564247")
 	assert.EqualValues(t, passengerData.UserUUID, "c7912516-5bb4-4a5b-abee-d7bd242d93c6")
 	assert.EqualValues(t, passengerData.PassengerTypeUUID, "503f4ab8-5bf2-409c-a469-8da4b614232c")
 }
@@ -310,8 +310,8 @@ func TestGetPassengers_Success(t *testing.T) {
 				LastName:          "Ульянов",
 				Patronomic:        "Ильич",
 				BirthDay:          time.Date(1870, time.April, 22, 0, 0, 0, 0, time.UTC),
-				PassportSeries:    "0401",
-				PassportNumber:    "564247",
+				DocumentSeries:    "0401",
+				DocumentNumber:    "564247",
 				UserUUID:          "c7912516-5bb4-4a5b-abee-d7bd242d93c6",
 				PassengerTypeUUID: "503f4ab8-5bf2-409c-a469-8da4b614232c",
 			},
@@ -321,8 +321,8 @@ func TestGetPassengers_Success(t *testing.T) {
 				LastName:          "Чехидзе",
 				Patronomic:        "Семёнович",
 				BirthDay:          time.Date(1864, time.April, 9, 0, 0, 0, 0, time.UTC),
-				PassportSeries:    "5501",
-				PassportNumber:    "014247",
+				DocumentSeries:    "5501",
+				DocumentNumber:    "014247",
 				UserUUID:          "c7912516-5bb4-4a5b-abee-d7bd242d93c6",
 				PassengerTypeUUID: "04e9b29e-064b-4a13-8bab-074b14ae465d",
 			},

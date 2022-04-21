@@ -16,14 +16,14 @@ import (
 // User represent schema of table users.
 type User struct {
 	UUID               string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
-	Name               string    `gorm:"size:100;not null;" json:"name" form:"name"`
-	Email              string    `gorm:"size:100;not null;uniqueIndex;" json:"email" form:"email"`
-	EmailOrigin        string    `gorm:"size:100;not null;uniqueIndex;" json:"email_origin" form:"email_origin"`
-	Phone              string    `gorm:"size:100;index;" json:"phone,omitempty" form:"phone"`
-	Password           string    `gorm:"size:100;not null;index;" json:"password" form:"password"`
-	AvatarUUID         string    `gorm:"size:36;" json:"avatar_uuid"`
-	CreatedAt          time.Time `json:"created_at"`
-	UpdatedAt          time.Time `json:"updated_at"`
+	Name               string    `gorm:"size:100;not null;"                        json:"name"            form:"name"`
+	Email              string    `gorm:"size:100;not null;uniqueIndex;"            json:"email"           form:"email"`
+	EmailOrigin        string    `gorm:"size:100;not null;uniqueIndex;"            json:"email_origin"    form:"email_origin"`
+	Phone              string    `gorm:"size:100;index;"                           json:"phone,omitempty" form:"phone"`
+	Password           string    `gorm:"size:100;not null;index;"                  json:"password"        form:"password"`
+	AvatarUUID         string    `gorm:"size:36;"                                  json:"avatar_uuid"`
+	CreatedAt          time.Time `                                                 json:"created_at"`
+	UpdatedAt          time.Time `                                                 json:"updated_at"`
 	DeletedAt          gorm.DeletedAt
 	UserRoles          []UserRole           `gorm:"foreignKey:UserUUID"`
 	UserLogins         []UserLogin          `gorm:"foreignKey:UserUUID"`
@@ -32,7 +32,7 @@ type User struct {
 
 // UserResetPassword represent payload for reset password request.
 type UserResetPassword struct {
-	NewPassword     string `json:"new_password" form:"new_password"`
+	NewPassword     string `json:"new_password"     form:"new_password"`
 	ConfirmPassword string `json:"confirm_password" form:"confirm_password"`
 }
 
@@ -96,6 +96,9 @@ func (u *User) Prepare() {
 func (u *User) BeforeCreate(tx *gorm.DB) error {
 	generateUUID := uuid.New()
 	hashPassword, err := security.Hash(u.Password)
+	if err != nil {
+		return err
+	}
 	emailOrigin, err := security.EmailOrigin(u.Email)
 	if err != nil {
 		return err

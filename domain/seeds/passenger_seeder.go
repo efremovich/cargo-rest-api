@@ -27,8 +27,8 @@ func passengerFactory() []Seed {
 			LastName:          a.LastName,
 			Patronomic:        a.Patronomic,
 			BirthDay:          a.BirthDay,
-			PassportSeries:    a.PassportSeries,
-			PassportNumber:    a.PassportNumber,
+			DocumentSeries:    a.DocumentSeries,
+			DocumentNumber:    a.DocumentNumber,
 			UserUUID:          a.UserUUID,
 			PassengerTypeUUID: a.PassengerTypeUUID,
 		}
@@ -47,7 +47,7 @@ func passengerFactory() []Seed {
 // createPassenger will create fake passenger and insert into DB.
 func createPassenger(db *gorm.DB, passenger *entity.Passenger) (*entity.Passenger, error) {
 	var passengerExists entity.Passenger
-	err := db.Where("passport_number = ? and passport_series = ?", passenger.PassportNumber, passenger.PassportNumber).
+	err := db.Where("document_number = ? and document_series = ?", passenger.DocumentNumber, passenger.DocumentNumber).
 		Take(&passengerExists).
 		Error
 	if err != nil {

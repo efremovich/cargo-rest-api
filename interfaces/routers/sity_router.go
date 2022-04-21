@@ -2,18 +2,20 @@ package routers
 
 import (
 	SityV1Point00 "cargo-rest-api/interfaces/handler/v1.0/sity"
+	"cargo-rest-api/interfaces/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func sityRoutes(e *gin.Engine, r *Router, rg *RouterAuthGateway) {
-	SityV1 := SityV1Point00.NewSities(r.dbService.Sity)
+	sityV1 := SityV1Point00.NewSities(r.dbService.Sity)
 
+	guard := middleware.Guard(rg.authGateway)
 	v1 := e.Group("/api/v1/external")
 
-	v1.GET("/sities", SityV1.GetSities)
-	v1.POST("/sities", SityV1.SaveSities)
-	v1.GET("/sities/:uuid", SityV1.GetSity)
-	v1.PUT("/sities/:uuid", SityV1.UpdateSities)
-	v1.DELETE("/sities/:uuid", SityV1.DeleteSity)
+	v1.GET("/sities", guard.Authenticate(), guard.Authorize("sity_read"), sityV1.GetSities)
+	v1.POST("/sity", guard.Authenticate(), guard.Authorize("sity_create"), sityV1.SaveSity)
+	v1.GET("/sity/:uuid", guard.Authenticate(), guard.Authorize("sity_detail"), sityV1.GetSity)
+	v1.PUT("/sity/:uuid", guard.Authenticate(), guard.Authorize("sity_update"), sityV1.UpdateSity)
+	v1.DELETE("/sity/:uuid", guard.Authenticate(), guard.Authorize("sity_delete"), sityV1.DeleteSity)
 }

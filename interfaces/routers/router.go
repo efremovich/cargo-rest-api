@@ -116,6 +116,7 @@ func (r *Router) Init() *gin.Engine {
 	passengerTypeRoutes(e, r, rg)
 	priceRoutes(e, r, rg)
 	passengerRoutes(e, r, rg)
+	documentTypeRoutes(e, r, rg)
 
 	return e
 }

@@ -75,6 +75,8 @@ api:
         not_found: "Passenger Type Not Found"
       passenger:
         not_found: "Passenger Not Found"
+      documetn_type:
+        not_found: "Document Type Not Found"
     success:
       common:
         ok: "OK"
@@ -134,6 +136,12 @@ api:
         successfully_create_passenger: "Successfully Create Passenger"
         successfully_update_passenger: "Successfully Update Passenger"
         successfully_delete_passenger: "Successfully Delete Passenger"
+      document_type:
+        successfully_get_document_type_list: "Successfully Get Document type List"
+        successfully_get_document_type_detail: "Successfully Get Document type Detail"
+        successfully_create_document_type: "Successfully Create Document type"
+        successfully_update_document_type: "Successfully Update Document type"
+        successfully_delete_document_type: "Successfully Delete Document type"
 attributes:
   name: "Name"
   email: "Email"
@@ -160,6 +168,8 @@ attributes:
   last_name: "Last name"
   patronomic: "Patronomic"
   birthday: "Birth Date"
-  passport_series: "Pasport Series"
-  passport_number: "Pasport Number"
+  document_series: "Pasport Series"
+  document_number: "Pasport Number"
+  document_type: "Document Type"
+  document_type_uuid: "Document Type ID"
 
