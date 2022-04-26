@@ -105,3 +105,12 @@ const (
 	DocumentTypeSuccessfullyUpdateDocumentType    = "api.msg.success.document_type.successfully_update_document_type"
 	DocumentTypeSuccessfullyDeleteDocumentType    = "api.msg.success.document_type.successfully_delete_document_type"
 )
+
+// Success message for regularity_type.
+const (
+	RegularityTypeSuccessfullyGetRegularityTypeList   = "api.msg.success.regularity_type.successfully_get_regularity_type_list"
+	RegularityTypeSuccessfullyGetRegularityTypeDetail = "api.msg.success.regularity_type.successfully_get_regularity_type_detail"
+	RegularityTypeSuccessfullyCreateRegularityType    = "api.msg.success.regularity_type.successfully_create_regularity_type"
+	RegularityTypeSuccessfullyUpdateRegularityType    = "api.msg.success.regularity_type.successfully_update_regularity_type"
+	RegularityTypeSuccessfullyDeleteRegularityType    = "api.msg.success.regularity_type.successfully_delete_regularity_type"
+)

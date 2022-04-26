@@ -84,6 +84,12 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "document_type", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -238,6 +244,11 @@ var (
 		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Паспорт"},
 		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Свидетельство о рождении"},
 		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Водительские парава"},
+	}
+	regularityTypes = []*entity.RegularityType{
+		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Каждый день"},
+		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Каждый х день интервала (1 день недели или месяца)"},
+		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "В указанные даты"},
 	}
 )
 
@@ -477,6 +488,20 @@ func (is *InitFactory) generateDocumentType() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generateRegularityType() *InitFactory {
+	for _, st := range regularityTypes {
+		regularityType := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial regularity_types",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createRegularityType(db, regularityType)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -496,5 +521,6 @@ func initFactory() []Seed {
 	initialSeeds.generatePrice()
 	initialSeeds.generatePassenger()
 	initialSeeds.generateDocumentType()
+	initialSeeds.generateRegularityType()
 	return initialSeeds.seeders
 }

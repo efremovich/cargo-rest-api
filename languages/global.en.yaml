@@ -142,6 +142,12 @@ api:
         successfully_create_document_type: "Successfully Create Document type"
         successfully_update_document_type: "Successfully Update Document type"
         successfully_delete_document_type: "Successfully Delete Document type"
+      regularity_type:
+        successfully_get_regularity_type_list: "Successfully Get Regularity type List"
+        successfully_get_regularity_type_detail: "Successfully Get Regularity type Detail"
+        successfully_create_regularity_type: "Successfully Create Regularity type"
+        successfully_update_regularity_type: "Successfully Update Regularity type"
+        successfully_delete_regularity_type: "Successfully Delete Regularity type"
 attributes:
   name: "Name"
   email: "Email"
@@ -172,4 +178,6 @@ attributes:
   document_number: "Pasport Number"
   document_type: "Document Type"
   document_type_uuid: "Document Type ID"
+  regularity_type: "Regularity Type"
+  regularity_type_uuid: "Regularity Type ID"
 

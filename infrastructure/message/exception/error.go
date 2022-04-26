@@ -174,3 +174,12 @@ var (
 	// ErrorTextRoleInvalidUUID is an error representing UUID not found in database.
 	ErrorTextDocumentTypeInvalidUUID = errors.New("api.msg.error.document_type.invalid_uuid")
 )
+
+// Errors for regularity.
+var (
+	// ErrorTextRegularityTypeNotFound is an error representing regularity not found in database.
+	ErrorTextRegularityTypeNotFound = errors.New("api.msg.error.regularity_type.not_found")
+
+	// ErrorTextRegularityTypeInvalidUUID is an error representing UUID not found in database.
+	ErrorTextRegularityTypeInvalidUUID = errors.New("api.msg.error.regularity_type.invalid_uuid")
+)

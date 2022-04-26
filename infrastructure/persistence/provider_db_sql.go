@@ -39,6 +39,7 @@ type Repositories struct {
 	Price              repository.PriceRepository
 	Passenger          repository.PassengerRepository
 	DocumentType       repository.DocumentTypeRepository
+	RegularityType     repository.RegularityTypeRepository
 	DB                 *gorm.DB
 }
 
@@ -125,6 +126,7 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		Price:              NewPriceRepository(db),
 		Passenger:          NewPassengerRepository(db),
 		DocumentType:       NewDocumentTypeRepository(db),
+		RegularityType:     NewRegularityTypeRepository(db),
 		DB:                 db,
 	}, nil
 }
