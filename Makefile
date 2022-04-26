@@ -28,3 +28,7 @@ proto:
 		protoc --go_out=plugins=grpc:. $$f; \
 		echo compiled: $$f; \
 	done
+
+gen:
+	@go run ./codegen/code_generanor.go
+
