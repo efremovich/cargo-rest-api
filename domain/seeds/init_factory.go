@@ -90,6 +90,12 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "regularity_type", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -249,6 +255,18 @@ var (
 		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Каждый день"},
 		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Каждый х день интервала (1 день недели или месяца)"},
 		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "В указанные даты"},
+	}
+	orderStatusTypes = []*entity.OrderStatusType{
+		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Оплачен"},
+		{UUID: "12888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Резерв"},
+		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Не оплачен"},
+		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Отменен"},
+	}
+	drivers = []*entity.Driver{
+		{UUID: uuid.New().String(), Name: "Мамука Тбилиский", UserUUID: user.UUID},
+		{UUID: uuid.New().String(), Name: "Гагик Анпский", UserUUID: user.UUID},
+		{UUID: uuid.New().String(), Name: "Арам Хачитурян", UserUUID: user.UUID},
+		{UUID: uuid.New().String(), Name: "Кирил Радионов", UserUUID: user.UUID},
 	}
 )
 
@@ -502,6 +520,19 @@ func (is *InitFactory) generateRegularityType() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generateOrderStatusType() *InitFactory {
+	for _, st := range orderStatusTypes {
+		orderStatusType := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial order_status_types",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createOrderStatusType(db, orderStatusType)
+				return errDB
+			},
+		})
+	}
+	return is
+}
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -522,5 +553,6 @@ func initFactory() []Seed {
 	initialSeeds.generatePassenger()
 	initialSeeds.generateDocumentType()
 	initialSeeds.generateRegularityType()
+	initialSeeds.generateOrderStatusType()
 	return initialSeeds.seeders
 }

@@ -183,3 +183,21 @@ var (
 	// ErrorTextRegularityTypeInvalidUUID is an error representing UUID not found in database.
 	ErrorTextRegularityTypeInvalidUUID = errors.New("api.msg.error.regularity_type.invalid_uuid")
 )
+
+// Errors for order_status_type.
+var (
+	// ErrorTextOrderStatusTypeNotFound is an error representing regularity not found in database.
+	ErrorTextOrderStatusTypeNotFound = errors.New("api.msg.error.order_status_type.not_found")
+
+	// ErrorTextOrderStatusTypeInvalidUUID is an error representing UUID not found in database.
+	ErrorTextOrderStatusTypeInvalidUUID = errors.New("api.msg.error.order_status_type.invalid_uuid")
+)
+
+// Errors for driver.
+var (
+	// ErrorTextDriverNotFound is an error representing regularity not found in database.
+	ErrorTextDriverNotFound = errors.New("api.msg.error.driver.not_found")
+
+	// ErrorTextDriverInvalidUUID is an error representing UUID not found in database.
+	ErrorTextDriverInvalidUUID = errors.New("api.msg.error.driver.invalid_uuid")
+)

@@ -36,6 +36,8 @@ func CollectEntities() []entities {
 		{Entity: entity.Passenger{}},
 		{Entity: entity.DocumentType{}},
 		{Entity: entity.RegularityType{}},
+		{Entity: entity.OrderStatusType{}},
+		{Entity: entity.Driver{}},
 	}
 }
 
@@ -64,6 +66,8 @@ func CollectTableNames() []table {
 	var passenger entity.Passenger
 	var documentType entity.DocumentType
 	var regularityType entity.RegularityType
+	var orderStatusType entity.OrderStatusType
+	var driver entity.Driver
 
 	return []table{
 		{Name: application.TableName()},
@@ -90,5 +94,7 @@ func CollectTableNames() []table {
 		{Name: passenger.TableName()},
 		{Name: documentType.TableName()},
 		{Name: regularityType.TableName()},
+		{Name: orderStatusType.TableName()},
+		{Name: driver.TableName()},
 	}
 }

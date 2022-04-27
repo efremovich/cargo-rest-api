@@ -114,3 +114,21 @@ const (
 	RegularityTypeSuccessfullyUpdateRegularityType    = "api.msg.success.regularity_type.successfully_update_regularity_type"
 	RegularityTypeSuccessfullyDeleteRegularityType    = "api.msg.success.regularity_type.successfully_delete_regularity_type"
 )
+
+// Success message for order_status_type.
+const (
+	OrderStatusTypeSuccessfullyGetOrderStatusTypeList   = "api.msg.success.order_status_type.successfully_get_order_status_type_list"
+	OrderStatusTypeSuccessfullyGetOrderStatusTypeDetail = "api.msg.success.order_status_type.successfully_get_order_status_type_detail"
+	OrderStatusTypeSuccessfullyCreateOrderStatusType    = "api.msg.success.order_status_type.successfully_create_order_status_type"
+	OrderStatusTypeSuccessfullyUpdateOrderStatusType    = "api.msg.success.order_status_type.successfully_update_order_status_type"
+	OrderStatusTypeSuccessfullyDeleteOrderStatusType    = "api.msg.success.order_status_type.successfully_delete_order_status_type"
+)
+
+// Success message for driver.
+const (
+	DriverSuccessfullyGetDriverList   = "api.msg.success.driver.successfully_get_driver_list"
+	DriverSuccessfullyGetDriverDetail = "api.msg.success.driver.successfully_get_driver_detail"
+	DriverSuccessfullyCreateDriver    = "api.msg.success.driver.successfully_create_driver"
+	DriverSuccessfullyUpdateDriver    = "api.msg.success.driver.successfully_update_driver"
+	DriverSuccessfullyDeleteDriver    = "api.msg.success.driver.successfully_delete_driver"
+)

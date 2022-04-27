@@ -148,6 +148,18 @@ api:
         successfully_create_regularity_type: "Successfully Create Regularity type"
         successfully_update_regularity_type: "Successfully Update Regularity type"
         successfully_delete_regularity_type: "Successfully Delete Regularity type"
+      order_status_type:
+        successfully_get_order_status_type_list: "Successfully Get Order Status Type List"
+        successfully_get_order_status_type_detail: "Successfully Get Order Status Type Detail"
+        successfully_create_order_status_type: "Successfully Create Order Status Type"
+        successfully_update_order_status_type: "Successfully Update Order Status Type"
+        successfully_delete_order_status_type: "Successfully Delete Order Status Type"
+      driver:
+        successfully_get_driver_list: "Successfully Get Driver List"
+        successfully_get_driver_detail: "Successfully Get Driver Detail"
+        successfully_create_driver: "Successfully Create Driver"
+        successfully_update_driver: "Successfully Update Driver"
+        successfully_delete_driver: "Successfully Delete Driver"
 attributes:
   name: "Name"
   email: "Email"
@@ -180,4 +192,8 @@ attributes:
   document_type_uuid: "Document Type ID"
   regularity_type: "Regularity Type"
   regularity_type_uuid: "Regularity Type ID"
+  order_status_type: "Order Status Type"
+  order_status_type_uuid: "Order Status Type ID"
+  driver: "Driver"
+  driver_uuid: "Driver ID"
 

@@ -1,0 +1,14 @@
+package repository
+
+import (
+	"cargo-rest-api/domain/entity"
+)
+
+// DriverRepository is an interface.
+type DriverRepository interface {
+	SaveDriver(tour *entity.Driver) (*entity.Driver, map[string]string, error)
+	UpdateDriver(UUID string, tour *entity.Driver) (*entity.Driver, map[string]string, error)
+	DeleteDriver(UUID string) error
+	GetDriver(UUID string) (*entity.Driver, error)
+	GetDrivers(parameters *Parameters) ([]*entity.Driver, *Meta, error)
+}

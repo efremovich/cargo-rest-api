@@ -27,7 +27,7 @@ func NewRegularityTypes(us application.RegularityTypeAppInterface) *RegularityTy
 
 // @Summary Create a new regularityType
 // @Description Create a new regularityType.
-// @Tags document types
+// @Tags regularity types
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
@@ -74,7 +74,7 @@ func (s *RegularityTypes) SaveRegularityType(c *gin.Context) {
 
 // @Summary Update regularityType
 // @Description Update an existing regularityType.
-// @Tags document types
+// @Tags regularity types
 // @Accept json
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
@@ -138,7 +138,7 @@ func (s *RegularityTypes) UpdateRegularityType(c *gin.Context) {
 
 // @Summary Delete regularityType
 // @Description Delete an existing regularityType.
-// @Tags document types
+// @Tags regularity types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -175,7 +175,7 @@ func (s *RegularityTypes) DeleteRegularityType(c *gin.Context) {
 
 // @Summary Get regularityTypes
 // @Description Get list of existing regularityTypes.
-// @Tags document types
+// @Tags regularity types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
@@ -214,7 +214,7 @@ func (s *RegularityTypes) GetRegularityTypes(c *gin.Context) {
 
 // @Summary Get regularityType
 // @Description Get detail of existing regularityType.
-// @Tags document types
+// @Tags regularity types
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"

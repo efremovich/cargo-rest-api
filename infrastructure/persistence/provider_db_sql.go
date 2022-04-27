@@ -40,6 +40,8 @@ type Repositories struct {
 	Passenger          repository.PassengerRepository
 	DocumentType       repository.DocumentTypeRepository
 	RegularityType     repository.RegularityTypeRepository
+	OrderStatusType    repository.OrderStatusTypeRepository
+	Driver             repository.DriverRepository
 	DB                 *gorm.DB
 }
 
@@ -127,6 +129,8 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		Passenger:          NewPassengerRepository(db),
 		DocumentType:       NewDocumentTypeRepository(db),
 		RegularityType:     NewRegularityTypeRepository(db),
+		OrderStatusType:    NewOrderStatusTypeRepository(db),
+		Driver:             NewDriverRepository(db),
 		DB:                 db,
 	}, nil
 }
