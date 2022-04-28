@@ -252,15 +252,15 @@ var (
 		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Водительские парава"},
 	}
 	regularityTypes = []*entity.RegularityType{
-		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Каждый день"},
-		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Каждый х день интервала (1 день недели или месяца)"},
-		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "В указанные даты"},
+		{UUID: "58e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Каждый день"},
+		{UUID: "1c888dfd-d8be-40ca-a85a-61cc3ab7fb1e", Type: "Каждый х день интервала (1 день недели или месяца)"},
+		{UUID: "743eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "В указанные даты"},
 	}
 	orderStatusTypes = []*entity.OrderStatusType{
-		{UUID: "04e9b29e-064b-4a13-8bab-074b14ae465d", Type: "Оплачен"},
-		{UUID: "12888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Резерв"},
-		{UUID: "1c888dfd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Не оплачен"},
-		{UUID: "7f3eb88e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Отменен"},
+		{UUID: "04e9be9e-064b-4a13-8bab-074b14ae465d", Type: "Оплачен"},
+		{UUID: "12888dsd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Резерв"},
+		{UUID: "1c888sfd-78ie-40ca-a85a-61cc3ab7fb1e", Type: "Не оплачен"},
+		{UUID: "7f3ebl8e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Отменен"},
 	}
 	drivers = []*entity.Driver{
 		{UUID: uuid.New().String(), Name: "Мамука Тбилиский", UserUUID: user.UUID},
@@ -533,6 +533,21 @@ func (is *InitFactory) generateOrderStatusType() *InitFactory {
 	}
 	return is
 }
+
+func (is *InitFactory) generateDriver() *InitFactory {
+	for _, st := range drivers {
+		driver := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial driver",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createDriver(db, driver)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -554,5 +569,6 @@ func initFactory() []Seed {
 	initialSeeds.generateDocumentType()
 	initialSeeds.generateRegularityType()
 	initialSeeds.generateOrderStatusType()
+	initialSeeds.generateDriver()
 	return initialSeeds.seeders
 }

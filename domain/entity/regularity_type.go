@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// RegularityType represent schema of table sities.
+// RegularityType represent schema of table regularity_type.
 type RegularityType struct {
 	UUID      string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
 	Type      string         `gorm:"size:100;not null;"                        json:"type,omitempty"       form:"type"`
@@ -21,7 +21,7 @@ type RegularityType struct {
 	DeletedAt gorm.DeletedAt `                                                 json:"deleted_at,omitempty"`
 }
 
-// RegularityTypeFaker represent content when generate fake data of document_type.
+// RegularityTypeFaker represent content when generate fake data of regularity_type.
 type RegularityTypeFaker struct {
 	UUID string `faker:"uuid_hyphenated"`
 	Type string `faker:"type"`
@@ -54,7 +54,7 @@ type RegularityTypeFieldsForList struct {
 
 // TableName return name of table.
 func (u *RegularityType) TableName() string {
-	return "document_types"
+	return "regularity_types"
 }
 
 // FilterableFields return fields.

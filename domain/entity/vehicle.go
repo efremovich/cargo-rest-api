@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// Vehicle represent schema of table sities.
+// Vehicle represent schema of table vehicle.
 type Vehicle struct {
 	UUID          string    `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid"`
 	RegCode       string    `gorm:"size:100;not null;" json:"reg_code" form:"req_code"`
@@ -90,10 +90,19 @@ func (u *Vehicle) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
+// GetVehicle will return multiple role detail.
+func (u Vehicles) GetVehicle() []interface{} {
+	result := make([]interface{}, len(u))
+	for index, vehicle := range u {
+		result[index] = vehicle.DetailVehicle()
+	}
+	return result
+}
+
 // DetailVehicles will return formatted vehicle detail of multiple vehicle.
-func (sities Vehicles) DetailVehicles() []interface{} {
-	result := make([]interface{}, len(sities))
-	for index, vehicle := range sities {
+func (u Vehicles) DetailVehicles() []interface{} {
+	result := make([]interface{}, len(u))
+	for index, vehicle := range u {
 		result[index] = vehicle.DetailVehicleList()
 	}
 	return result

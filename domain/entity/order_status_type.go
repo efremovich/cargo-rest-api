@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// OrderStatusType represent schema of table sities.
+// OrderStatusType represent schema of table order_status_type.
 type OrderStatusType struct {
 	UUID      string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
 	Type      string         `gorm:"size:100;not null;"                        json:"type,omitempty"       form:"type"`
@@ -54,7 +54,7 @@ type OrderStatusTypeFieldsForList struct {
 
 // TableName return name of table.
 func (u *OrderStatusType) TableName() string {
-	return "document_types"
+	return "order_status_types"
 }
 
 // FilterableFields return fields.

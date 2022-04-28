@@ -76,7 +76,7 @@ func (r DriverRepo) DeleteDriver(uuid string) error {
 
 func (r DriverRepo) GetDriver(uuid string) (*entity.Driver, error) {
 	var driver entity.Driver
-	err := r.db.Where("uuid = ?", uuid).Take(&driver).Error
+	err := r.db.Preload("Vehicles").Where("uuid = ?", uuid).Take(&driver).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, exception.ErrorTextDriverNotFound

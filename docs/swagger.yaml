@@ -6,6 +6,25 @@ definitions:
       uuid:
         type: string
     type: object
+  entity.DetailDriver:
+    properties:
+      name:
+        type: string
+      user_uuid:
+        type: string
+      uuid:
+        type: string
+      vehicles:
+        items: {}
+        type: array
+    type: object
+  entity.DetailOrderStatusType:
+    properties:
+      Type:
+        type: string
+      uuid:
+        type: string
+    type: object
   entity.DetailPassenger:
     properties:
       birthday:
@@ -42,6 +61,13 @@ definitions:
         type: string
       price:
         type: number
+      uuid:
+        type: string
+    type: object
+  entity.DetailRegularityType:
+    properties:
+      Type:
+        type: string
       uuid:
         type: string
     type: object
@@ -466,6 +492,295 @@ paths:
       summary: Get documentTypes
       tags:
       - document types
+  /api/v1/external/driver:
+    post:
+      consumes:
+      - application/json
+      description: Create a new driver.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Driver driver
+        in: body
+        name: driver
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailDriver'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new driver
+      tags:
+      - drivers
+  /api/v1/external/driver/{uuid}:
+    delete:
+      description: Delete an existing driver.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Driver UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete driver
+      tags:
+      - drivers
+    get:
+      description: Get detail of existing driver.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Driver UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get driver
+      tags:
+      - drivers
+  /api/v1/external/driver/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing driver.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Driver UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: Driver name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Driver region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: Driver latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: Driver longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update driver
+      tags:
+      - drivers
+  /api/v1/external/drivers:
+    get:
+      description: Get list of existing drivers.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get drivers
+      tags:
+      - drivers
   /api/v1/external/login:
     post:
       consumes:
@@ -568,6 +883,295 @@ paths:
       summary: Authentication logout
       tags:
       - authentication
+  /api/v1/external/orderStatusType:
+    post:
+      consumes:
+      - application/json
+      description: Create a new orderStatusType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: OrderStatusType orderStatusType
+        in: body
+        name: orderStatusType
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailOrderStatusType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new orderStatusType
+      tags:
+      - ordes status types
+  /api/v1/external/orderStatusType/{uuid}:
+    delete:
+      description: Delete an existing orderStatusType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: OrderStatusType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete orderStatusType
+      tags:
+      - ordes status types
+    get:
+      description: Get detail of existing orderStatusType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: OrderStatusType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get orderStatusType
+      tags:
+      - ordes status types
+  /api/v1/external/orderStatusType/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing orderStatusType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: OrderStatusType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: OrderStatusType name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: OrderStatusType region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: OrderStatusType latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: OrderStatusType longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update orderStatusType
+      tags:
+      - ordes status types
+  /api/v1/external/orderStatusTypes:
+    get:
+      description: Get list of existing orderStatusTypes.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get orderStatusTypes
+      tags:
+      - ordes status types
   /api/v1/external/passenger:
     post:
       consumes:
@@ -1771,6 +2375,295 @@ paths:
       summary: Authentication refresh
       tags:
       - authentication
+  /api/v1/external/regularityType:
+    post:
+      consumes:
+      - application/json
+      description: Create a new regularityType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: RegularityType regularityType
+        in: body
+        name: regularityType
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailRegularityType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Create a new regularityType
+      tags:
+      - regularity types
+  /api/v1/external/regularityType/{uuid}:
+    delete:
+      description: Delete an existing regularityType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: RegularityType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete regularityType
+      tags:
+      - regularity types
+    get:
+      description: Get detail of existing regularityType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: RegularityType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get regularityType
+      tags:
+      - regularity types
+  /api/v1/external/regularityType/uuid:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing regularityType.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: RegularityType UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: RegularityType name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: RegularityType region
+        in: formData
+        name: region
+        required: true
+        type: string
+      - description: RegularityType latitude
+        in: formData
+        name: latitude
+        required: true
+        type: string
+      - description: RegularityType longitude
+        in: formData
+        name: longitude
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Update regularityType
+      tags:
+      - regularity types
+  /api/v1/external/regularityTypes:
+    get:
+      description: Get list of existing regularityTypes.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Get regularityTypes
+      tags:
+      - regularity types
   /api/v1/external/sities:
     get:
       description: Get list of existing sities.

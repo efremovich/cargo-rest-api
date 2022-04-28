@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// PassengerType represent schema of table sities.
+// PassengerType represent schema of table passenger_type.
 type PassengerType struct {
 	UUID      string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
 	Type      string         `gorm:"size:100;not null;"                        json:"type,omitempty"       form:"type"`

@@ -12,25 +12,25 @@ import (
 	"github.com/google/uuid"
 )
 
-// Driver represent schema of table sities.
+// Driver represent schema of table driver.
 type Driver struct {
-	UUID      string         `json:"uuid,omitempty"       gorm:"size:36;not null;uniqueIndex;primary_key;"`
-	Name      string         `json:"name"                 gorm:"size:200;"`
-	Vehicles  []Vehicle      `json:"vehicles"             gorm:"many2many:driver_vehicles;"`
-	UserUUID  string         `json:"user_uuid,omitempty"  gorm:"size:36"`
-	User      User           `json:"user"                 gorm:"foreignKey:UserUUID;association_foreignKey:UserUUID"`
-	CreatedAt time.Time      `json:"created_at,omitempty"`
-	UpdatedAt time.Time      `json:"updated_at,omitempty"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at,omitempty"`
+	UUID      string     `json:"uuid,omitempty"       gorm:"size:36;not null;uniqueIndex;primary_key;"`
+	Name      string     `json:"name"                 gorm:"size:200;"`
+	Vehicles  []*Vehicle `json:"vehicles"             gorm:"many2many:driver_vehicles;"`
+	UserUUID  string     `json:"user_uuid,omitempty"  gorm:"size:36"`
+	User      User       `json:"user"                 gorm:"foreignKey:UserUUID;association_foreignKey:UserUUID"`
+	CreatedAt time.Time  `json:"created_at,omitempty"`
+	UpdatedAt time.Time  `json:"updated_at,omitempty"`
+	DeletedAt gorm.DeletedAt
 }
 
 // DriverFaker represent content when generate fake data of driver_type.
 type DriverFaker struct {
-	UUID     string    `faker:"uuid_hyphenated"`
-	Name     string    `faker:"name"`
-	Vehicles []Vehicle `faker:"vehicles"`
-	UserUUID string    `faker:"user_uuid"`
-	User     User      `faker:"user"`
+	UUID     string     `faker:"uuid_hyphenated"`
+	Name     string     `faker:"name"`
+	Vehicles []*Vehicle `faker:"vehicles"`
+	UserUUID string     `faker:"user_uuid"`
+	User     User       `faker:"user"`
 }
 
 // Drivers represent multiple Driver.
@@ -39,6 +39,7 @@ type Drivers []*Driver
 // DetailDriver represent format of detail Driver.
 type DetailDriver struct {
 	DriverFieldsForDetail
+	Vehicle []interface{} `json:"vehicle,omitempty"`
 }
 
 // DetailDriverList represent format of DetailDriver for Driver list.
@@ -49,11 +50,9 @@ type DetailDriverList struct {
 
 // DriverFieldsForDetail represent fields of detail Driver.
 type DriverFieldsForDetail struct {
-	UUID     string
-	Name     string        `json:"name"`
-	Vehicles []interface{} `json:"vehicles"`
-	UserUUID string        `json:"user_uuid"`
-	User     User          `json:"user"`
+	UUID     string `json:"uuid,omitempty"`
+	Name     string `json:"name,omitempty"`
+	UserUUID string `json:"user_uuid,omitempty"`
 }
 
 // DriverFieldsForList represent fields of detail Driver for Driver list.
@@ -93,9 +92,9 @@ func (u *Driver) BeforeCreate(tx *gorm.DB) error {
 }
 
 // DetailDrivers will return formatted driver_type detail of multiple driver_type.
-func (sities Drivers) DetailDrivers() []interface{} {
-	result := make([]interface{}, len(sities))
-	for index, driver_type := range sities {
+func (d Drivers) DetailDrivers() []interface{} {
+	result := make([]interface{}, len(d))
+	for index, driver_type := range d {
 		result[index] = driver_type.DetailDriverList()
 	}
 	return result
@@ -103,12 +102,14 @@ func (sities Drivers) DetailDrivers() []interface{} {
 
 // DetailDriver will return formatted driver_type detail of driver_type.
 func (u *Driver) DetailDriver() interface{} {
+	v := *u
 	return &DetailDriver{
 		DriverFieldsForDetail: DriverFieldsForDetail{
 			UUID:     u.UUID,
 			Name:     u.Name,
 			UserUUID: u.UserUUID,
 		},
+		Vehicle: Vehicles.GetVehicle(v.Vehicles),
 	}
 }
 

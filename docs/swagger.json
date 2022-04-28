@@ -560,6 +560,453 @@
                 }
             }
         },
+        "/api/v1/external/driver": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Create a new driver.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Create a new driver",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "description": "Driver driver",
+                        "name": "driver",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DetailDriver"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/driver/uuid": {
+            "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Update an existing driver.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Update driver",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver region",
+                        "name": "region",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver latitude",
+                        "name": "latitude",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver longitude",
+                        "name": "longitude",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/driver/{uuid}": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get detail of existing driver.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Get driver",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Delete an existing driver.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Delete driver",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Driver UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/drivers": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get list of existing drivers.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Get drivers",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/external/login": {
             "post": {
                 "description": "Login by email and password.",
@@ -695,6 +1142,453 @@
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/orderStatusType": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Create a new orderStatusType.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ordes status types"
+                ],
+                "summary": "Create a new orderStatusType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "description": "OrderStatusType orderStatusType",
+                        "name": "orderStatusType",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DetailOrderStatusType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/orderStatusType/uuid": {
+            "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Update an existing orderStatusType.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ordes status types"
+                ],
+                "summary": "Update orderStatusType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType region",
+                        "name": "region",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType latitude",
+                        "name": "latitude",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType longitude",
+                        "name": "longitude",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/orderStatusType/{uuid}": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get detail of existing orderStatusType.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ordes status types"
+                ],
+                "summary": "Get orderStatusType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Delete an existing orderStatusType.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ordes status types"
+                ],
+                "summary": "Delete orderStatusType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "OrderStatusType UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/orderStatusTypes": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get list of existing orderStatusTypes.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ordes status types"
+                ],
+                "summary": "Get orderStatusTypes",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
                         "schema": {
                             "$ref": "#/definitions/response.errorOutput"
                         }
@@ -2571,6 +3465,453 @@
                 }
             }
         },
+        "/api/v1/external/regularityType": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Create a new regularityType.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "regularity types"
+                ],
+                "summary": "Create a new regularityType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "description": "RegularityType regularityType",
+                        "name": "regularityType",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DetailRegularityType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/regularityType/uuid": {
+            "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Update an existing regularityType.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "regularity types"
+                ],
+                "summary": "Update regularityType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType name",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType region",
+                        "name": "region",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType latitude",
+                        "name": "latitude",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType longitude",
+                        "name": "longitude",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/regularityType/{uuid}": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get detail of existing regularityType.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "regularity types"
+                ],
+                "summary": "Get regularityType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Delete an existing regularityType.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "regularity types"
+                ],
+                "summary": "Delete regularityType",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "RegularityType UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/regularityTypes": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Get list of existing regularityTypes.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "regularity types"
+                ],
+                "summary": "Get regularityTypes",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/external/sities": {
             "get": {
                 "security": [
@@ -4011,6 +5352,35 @@
                 }
             }
         },
+        "entity.DetailDriver": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "user_uuid": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                },
+                "vehicles": {
+                    "type": "array",
+                    "items": {}
+                }
+            }
+        },
+        "entity.DetailOrderStatusType": {
+            "type": "object",
+            "properties": {
+                "Type": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
         "entity.DetailPassenger": {
             "type": "object",
             "properties": {
@@ -4064,6 +5434,17 @@
                 },
                 "price": {
                     "type": "number"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "entity.DetailRegularityType": {
+            "type": "object",
+            "properties": {
+                "Type": {
+                    "type": "string"
                 },
                 "uuid": {
                     "type": "string"

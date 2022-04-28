@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// DocumentType represent schema of table sities.
+// DocumentType represent schema of table docement_type.
 type DocumentType struct {
 	UUID      string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
 	Type      string         `gorm:"size:100;not null;"                        json:"type,omitempty"       form:"type"`

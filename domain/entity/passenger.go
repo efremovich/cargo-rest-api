@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// Passenger represent schema of table sities.
+// Passenger represent schema of table passenger.
 type Passenger struct {
 	UUID              string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
 	FirstName         string         `gorm:"size:100;"                                 json:"first_name,omitempty"          from:"first_name"`
@@ -112,9 +112,9 @@ func (u *Passenger) BeforeCreate(tx *gorm.DB) error {
 }
 
 // DetailPassengers will return formatted passenger_type detail of multiple passenger_type.
-func (sities Passengers) DetailPassengers() []interface{} {
-	result := make([]interface{}, len(sities))
-	for index, passenger_type := range sities {
+func (p Passengers) DetailPassengers() []interface{} {
+	result := make([]interface{}, len(p))
+	for index, passenger_type := range p {
 		result[index] = passenger_type.DetailPassengerList()
 	}
 	return result

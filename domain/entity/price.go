@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// Price represent schema of table sities.
+// Price represent schema of table price.
 type Price struct {
 	UUID              string         `gorm:"size:36;not null;uniqueIndex;primary_key;" json:"uuid,omitempty"`
 	PassengerTypeUUID string         `gorm:"size:36;not null;"                         json:"passenger_type_uuid,omitempty" form:"passenger_type_uuid"`
