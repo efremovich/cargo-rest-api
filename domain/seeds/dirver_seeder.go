@@ -44,7 +44,8 @@ func createDriver(db *gorm.DB, driver *entity.Driver) (*entity.Driver, error) {
 	err := db.Where("name = ?", driver.Name).Take(&driverExists).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			err := db.Create(driver).Error
+			db.Model(driver).Association("Vehicles")
+			err = db.Create(driver).Error
 			if err != nil {
 				return driver, err
 			}

@@ -38,6 +38,7 @@ func CollectEntities() []entities {
 		{Entity: entity.RegularityType{}},
 		{Entity: entity.OrderStatusType{}},
 		{Entity: entity.Driver{}},
+		{Entity: entity.Route{}},
 	}
 }
 
@@ -68,6 +69,7 @@ func CollectTableNames() []table {
 	var regularityType entity.RegularityType
 	var orderStatusType entity.OrderStatusType
 	var driver entity.Driver
+	var route entity.Route
 
 	return []table{
 		{Name: application.TableName()},
@@ -96,5 +98,6 @@ func CollectTableNames() []table {
 		{Name: regularityType.TableName()},
 		{Name: orderStatusType.TableName()},
 		{Name: driver.TableName()},
+		{Name: route.TableName()},
 	}
 }

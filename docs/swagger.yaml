@@ -14,7 +14,7 @@ definitions:
         type: string
       uuid:
         type: string
-      vehicles:
+      vehicle:
         items: {}
         type: array
     type: object
@@ -674,31 +674,12 @@ paths:
         in: header
         name: Set-Request-Id
         type: string
-      - description: Driver UUID
-        in: path
-        name: uuid
+      - description: Driver driver
+        in: body
+        name: driver
         required: true
-        type: string
-      - description: Driver name
-        in: formData
-        name: name
-        required: true
-        type: string
-      - description: Driver region
-        in: formData
-        name: region
-        required: true
-        type: string
-      - description: Driver latitude
-        in: formData
-        name: latitude
-        required: true
-        type: string
-      - description: Driver longitude
-        in: formData
-        name: longitude
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/entity.DetailDriver'
       produces:
       - application/json
       responses:
@@ -730,6 +711,120 @@ paths:
       - BasicAuth: []
       - JWTAuth: []
       summary: Update driver
+      tags:
+      - drivers
+  /api/v1/external/driver/vehicle_add:
+    post:
+      consumes:
+      - application/json
+      description: Add vehicle to a driver.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Driver driver
+        in: body
+        name: driver
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailDriver'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Add vehicle to a driver
+      tags:
+      - drivers
+  /api/v1/external/driver/vehicle_del:
+    post:
+      consumes:
+      - application/json
+      description: Delete vehicle to a driver.
+      parameters:
+      - default: en
+        description: Language code
+        enum:
+        - en
+        - ru
+        in: header
+        name: Accept-Language
+        type: string
+      - description: Request id
+        in: header
+        name: Set-Request-Id
+        type: string
+      - description: Driver driver
+        in: body
+        name: driver
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DetailDriver'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.successOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorOutput'
+      security:
+      - BasicAuth: []
+      - JWTAuth: []
+      summary: Delete vehicle to a driver
       tags:
       - drivers
   /api/v1/external/drivers:

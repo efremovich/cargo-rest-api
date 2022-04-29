@@ -263,7 +263,7 @@ var (
 		{UUID: "7f3ebl8e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Отменен"},
 	}
 	drivers = []*entity.Driver{
-		{UUID: uuid.New().String(), Name: "Мамука Тбилиский", UserUUID: user.UUID},
+		{UUID: uuid.New().String(), Name: "Мамука Тбилиский", UserUUID: user.UUID, Vehicles: []*entity.Vehicle{{UUID: vehicles[0].UUID}}},
 		{UUID: uuid.New().String(), Name: "Гагик Анпский", UserUUID: user.UUID},
 		{UUID: uuid.New().String(), Name: "Арам Хачитурян", UserUUID: user.UUID},
 		{UUID: uuid.New().String(), Name: "Кирил Радионов", UserUUID: user.UUID},

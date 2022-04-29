@@ -18,4 +18,7 @@ func driverRoutes(e *gin.Engine, r *Router, rg *RouterAuthGateway) {
 	v1.GET("/driver/:uuid", guard.Authenticate(), DriverV1.GetDriver)
 	v1.PUT("/driver/:uuid", guard.Authenticate(), DriverV1.UpdateDriver)
 	v1.DELETE("/driver/:uuid", guard.Authenticate(), DriverV1.DeleteDriver)
+
+	v1.POST("/driver/vehicle_add", guard.Authenticate(), DriverV1.AddDriverVehicle)
+	v1.POST("/driver/vehicle_del", guard.Authenticate(), DriverV1.DeleteDriverVehicle)
 }

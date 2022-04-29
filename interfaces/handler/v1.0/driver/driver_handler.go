@@ -81,11 +81,7 @@ func (s *Drivers) SaveDriver(c *gin.Context) {
 // @Param Set-Request-Id header string false "Request id"
 // @Security BasicAuth
 // @Security JWTAuth
-// @Param uuid path string true "Driver UUID"
-// @Param name formData string true "Driver name"
-// @Param region formData string true "Driver region"
-// @Param latitude formData string true "Driver latitude"
-// @Param longitude formData string true "Driver longitude"
+// @Param driver body entity.DetailDriver true "Driver driver"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
 // @Failure 401 {object} response.errorOutput
@@ -106,7 +102,7 @@ func (s *Drivers) UpdateDriver(c *gin.Context) {
 		return
 	}
 
-	UUID := c.Param("uuid")
+	UUID := driverEntity.UUID
 	_, err := s.us.GetDriver(UUID)
 	if err != nil {
 		if errors.Is(err, exception.ErrorTextDriverNotFound) {
@@ -249,4 +245,112 @@ func (s *Drivers) GetDriver(c *gin.Context) {
 
 	response.NewSuccess(c, driver.DetailDriver(), success.DriverSuccessfullyGetDriverDetail).
 		JSON()
+}
+
+// @Summary Add vehicle to a driver
+// @Description Add vehicle to a driver.
+// @Tags drivers
+// @Accept json
+// @Produce json
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
+// @Param Set-Request-Id header string false "Request id"
+// @Security BasicAuth
+// @Security JWTAuth
+// @Param driver body entity.DetailDriver true "Driver driver"
+// @Success 201 {object} response.successOutput
+// @Failure 400 {object} response.errorOutput
+// @Failure 401 {object} response.errorOutput
+// @Failure 403 {object} response.errorOutput
+// @Failure 404 {object} response.errorOutput
+// @Failure 500 {object} response.errorOutput
+// @Router /api/v1/external/driver/vehicle_add [post]
+// SaveDriver is a function driver to handle create a new driver.
+func (s *Drivers) AddDriverVehicle(c *gin.Context) {
+	var driverEntity entity.Driver
+	if err := c.ShouldBindJSON(&driverEntity); err != nil {
+		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
+		return
+	}
+
+	_, err := s.us.GetDriver(driverEntity.UUID)
+	if err != nil {
+		if errors.Is(err, exception.ErrorTextDriverNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextDriverNotFound)
+			return
+		}
+		_ = c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	_, errDesc, errException := s.us.AddDriverVehicle(&driverEntity)
+	if errException != nil {
+		c.Set("data", errDesc)
+		if errors.Is(errException, exception.ErrorTextDriverNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, errException)
+			return
+		}
+		if errors.Is(errException, exception.ErrorTextUnprocessableEntity) {
+			_ = c.AbortWithError(http.StatusUnprocessableEntity, errException)
+			return
+		}
+		_ = c.AbortWithError(http.StatusInternalServerError, exception.ErrorTextInternalServerError)
+		return
+	}
+	driver, err := s.us.GetDriver(driverEntity.UUID)
+	c.Status(http.StatusOK)
+	response.NewSuccess(c, driver.DetailDriver(), success.DriverSuccessfullyAddDriverVehicle).JSON()
+}
+
+// @Summary Delete vehicle to a driver
+// @Description Delete vehicle to a driver.
+// @Tags drivers
+// @Accept json
+// @Produce json
+// @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
+// @Param Set-Request-Id header string false "Request id"
+// @Security BasicAuth
+// @Security JWTAuth
+// @Param driver body entity.DetailDriver true "Driver driver"
+// @Success 201 {object} response.successOutput
+// @Failure 400 {object} response.errorOutput
+// @Failure 401 {object} response.errorOutput
+// @Failure 403 {object} response.errorOutput
+// @Failure 404 {object} response.errorOutput
+// @Failure 500 {object} response.errorOutput
+// @Router /api/v1/external/driver/vehicle_del [post]
+// SaveDriver is a function driver to handle create a new driver.
+func (s *Drivers) DeleteDriverVehicle(c *gin.Context) {
+	var driverEntity entity.Driver
+	if err := c.ShouldBindJSON(&driverEntity); err != nil {
+		_ = c.AbortWithError(http.StatusUnprocessableEntity, exception.ErrorTextUnprocessableEntity)
+		return
+	}
+
+	_, err := s.us.GetDriver(driverEntity.UUID)
+	if err != nil {
+		if errors.Is(err, exception.ErrorTextDriverNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, exception.ErrorTextDriverNotFound)
+			return
+		}
+		_ = c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	_, errDesc, errException := s.us.DeleteDriverVehicle(&driverEntity)
+	if errException != nil {
+		c.Set("data", errDesc)
+		if errors.Is(errException, exception.ErrorTextDriverNotFound) {
+			_ = c.AbortWithError(http.StatusNotFound, errException)
+			return
+		}
+		if errors.Is(errException, exception.ErrorTextUnprocessableEntity) {
+			_ = c.AbortWithError(http.StatusUnprocessableEntity, errException)
+			return
+		}
+		_ = c.AbortWithError(http.StatusInternalServerError, exception.ErrorTextInternalServerError)
+		return
+	}
+	driver, err := s.us.GetDriver(driverEntity.UUID)
+	c.Status(http.StatusOK)
+	response.NewSuccess(c, driver.DetailDriver(), success.DriverSuccessfullyDeleteDriverVehicle).JSON()
 }

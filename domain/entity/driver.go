@@ -39,7 +39,7 @@ type Drivers []*Driver
 // DetailDriver represent format of detail Driver.
 type DetailDriver struct {
 	DriverFieldsForDetail
-	Vehicle []interface{} `json:"vehicle,omitempty"`
+	Vehicle []interface{} `json:"vehicles,omitempty"`
 }
 
 // DetailDriverList represent format of DetailDriver for Driver list.

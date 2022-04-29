@@ -124,11 +124,13 @@ const (
 	OrderStatusTypeSuccessfullyDeleteOrderStatusType    = "api.msg.success.order_status_type.successfully_delete_order_status_type"
 )
 
-// Success message for driver.
+// Success message for route.
 const (
-	DriverSuccessfullyGetDriverList   = "api.msg.success.driver.successfully_get_driver_list"
-	DriverSuccessfullyGetDriverDetail = "api.msg.success.driver.successfully_get_driver_detail"
-	DriverSuccessfullyCreateDriver    = "api.msg.success.driver.successfully_create_driver"
-	DriverSuccessfullyUpdateDriver    = "api.msg.success.driver.successfully_update_driver"
-	DriverSuccessfullyDeleteDriver    = "api.msg.success.driver.successfully_delete_driver"
+	RouteSuccessfullyGetRouteList     = "api.msg.success.route.successfully_get_route_list"
+	RouteSuccessfullyGetRouteDetail   = "api.msg.success.route.successfully_get_route_detail"
+	RouteSuccessfullyCreateRoute      = "api.msg.success.route.successfully_create_route"
+	RouteSuccessfullyUpdateRoute      = "api.msg.success.route.successfully_update_route"
+	RouteSuccessfullyDeleteRoute      = "api.msg.success.route.successfully_delete_route"
+	RouteSuccessfullyAddRoutePrice    = "api.msg.success.route.successfully_add_route_vehicle"
+	RouteSuccessfullyDeleteRoutePrice = "api.msg.success.route.successfully_delete_route_vehicle"
 )

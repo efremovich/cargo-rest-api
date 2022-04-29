@@ -5,7 +5,6 @@ import (
 	"cargo-rest-api/domain/repository"
 	"cargo-rest-api/infrastructure/message/exception"
 	"errors"
-	"strings"
 
 	"gorm.io/gorm"
 )
@@ -24,26 +23,24 @@ func NewDriverRepository(db *gorm.DB) *DriverRepo {
 var _ repository.DriverRepository = &DriverRepo{}
 
 // SaveDriver will create a new driver.
-func (r DriverRepo) SaveDriver(
-	Driver *entity.Driver,
-) (*entity.Driver, map[string]string, error) {
+func (r DriverRepo) SaveDriver(Driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 	errDesc := map[string]string{}
-	err := r.db.Create(&Driver).Error
+	err := r.db.Model(&Driver).Association("Vehicles").Error
+	err = r.db.Create(&Driver).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}
 	return Driver, nil, nil
 }
 
-func (r DriverRepo) UpdateDriver(
-	uuid string,
-	driver *entity.Driver,
-) (*entity.Driver, map[string]string, error) {
+func (r DriverRepo) UpdateDriver(uuid string, driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 	errDesc := map[string]string{}
 	dirverData := &entity.Driver{
 		Name:     driver.Name,
 		UserUUID: driver.UserUUID,
+		Vehicles: driver.Vehicles,
 	}
+	r.db.Model(driver).Association("Vehicles")
 
 	err := r.db.First(&driver, "uuid = ?", uuid).Updates(dirverData).Error
 	if err != nil {
@@ -51,11 +48,6 @@ func (r DriverRepo) UpdateDriver(
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			errDesc["uuid"] = exception.ErrorTextDriverInvalidUUID.Error()
 			return nil, errDesc, exception.ErrorTextDriverNotFound
-		}
-		//If the email is already taken
-		if strings.Contains(err.Error(), "duplicate") || strings.Contains(err.Error(), "Duplicate") {
-			errDesc["type"] = exception.ErrorTextUserEmailAlreadyTaken.Error()
-			return nil, errDesc, exception.ErrorTextUnprocessableEntity
 		}
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}
@@ -101,4 +93,26 @@ func (r DriverRepo) GetDrivers(p *repository.Parameters) ([]*entity.Driver, *rep
 	}
 	meta := repository.NewMeta(p, total)
 	return drivers, meta, nil
+}
+
+// AddDriverVehicle implements repository.DriverRepository
+func (r DriverRepo) AddDriverVehicle(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
+	errDesc := map[string]string{}
+
+	err := r.db.Model(driver).Association("Vehicles").Append(driver.Vehicles)
+	if err != nil {
+		return nil, errDesc, exception.ErrorTextAnErrorOccurred
+	}
+	return driver, nil, nil
+}
+
+// AddDriverVehicle implements repository.DriverRepository
+func (r DriverRepo) DeleteDriverVehicle(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
+	errDesc := map[string]string{}
+
+	errDelete := r.db.Model(driver).Association("Vehicles").Delete(driver.Vehicles)
+	if errDelete != nil {
+		return nil, errDesc, exception.ErrorTextAnErrorOccurred
+	}
+	return driver, nil, nil
 }

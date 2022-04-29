@@ -12,20 +12,18 @@ type DriverAppInterface struct {
 	DeleteDriverFn func(UUID string) error
 	GetDriversFn   func(params *repository.Parameters) ([]*entity.Driver, *repository.Meta, error)
 	GetDriverFn    func(UUID string) (*entity.Driver, error)
+
+	AddDriverVehicleFn    func(*entity.Driver) (*entity.Driver, map[string]string, error)
+	DeleteDriverVehicleFn func(*entity.Driver) (*entity.Driver, map[string]string, error)
 }
 
 // SaveDriver calls the SaveDriverFn.
-func (u *DriverAppInterface) SaveDriver(
-	driver *entity.Driver,
-) (*entity.Driver, map[string]string, error) {
+func (u *DriverAppInterface) SaveDriver(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 	return u.SaveDriverFn(driver)
 }
 
 // UpdateDriver calls the UpdateDriverFn.
-func (u *DriverAppInterface) UpdateDriver(
-	uuid string,
-	driver *entity.Driver,
-) (*entity.Driver, map[string]string, error) {
+func (u *DriverAppInterface) UpdateDriver(uuid string, driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 	return u.UpdateDriverFn(uuid, driver)
 }
 
@@ -44,4 +42,14 @@ func (u *DriverAppInterface) GetDrivers(
 // GetDriver calls the GetDriverFn.
 func (u *DriverAppInterface) GetDriver(uuid string) (*entity.Driver, error) {
 	return u.GetDriverFn(uuid)
+}
+
+// AddDriverVehicle calls the AddDriverVehicleFn.
+func (u *DriverAppInterface) AddDriverVehicle(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
+	return u.AddDriverVehicleFn(driver)
+}
+
+// DeleteDriverVehicle calls the DeleteDriverVehicleFn.
+func (u *DriverAppInterface) DeleteDriverVehicle(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
+	return u.DeleteDriverVehicleFn(driver)
 }

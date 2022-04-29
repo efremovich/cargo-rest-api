@@ -77,6 +77,8 @@ api:
         not_found: "Passenger Not Found"
       documetn_type:
         not_found: "Document Type Not Found"
+      driver:
+        not_found: "Driver Not Found"
     success:
       common:
         ok: "OK"
@@ -160,6 +162,8 @@ api:
         successfully_create_driver: "Successfully Create Driver"
         successfully_update_driver: "Successfully Update Driver"
         successfully_delete_driver: "Successfully Delete Driver"
+        successfully_add_driver_vehicle: "Successfully Add Driver Vehicle"
+        successfully_delete_driver_vehicle: "Successfully Delete Driver Vehicle"
 attributes:
   name: "Name"
   email: "Email"

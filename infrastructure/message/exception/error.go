@@ -201,3 +201,12 @@ var (
 	// ErrorTextDriverInvalidUUID is an error representing UUID not found in database.
 	ErrorTextDriverInvalidUUID = errors.New("api.msg.error.driver.invalid_uuid")
 )
+
+// Errors for route.
+var (
+	// ErrorTextRouteNotFound is an error representing regularity not found in database.
+	ErrorTextRouteNotFound = errors.New("api.msg.error.route.not_found")
+
+	// ErrorTextRouteInvalidUUID is an error representing UUID not found in database.
+	ErrorTextRouteInvalidUUID = errors.New("api.msg.error.route.invalid_uuid")
+)

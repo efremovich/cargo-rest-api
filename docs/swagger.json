@@ -689,44 +689,196 @@
                         "in": "header"
                     },
                     {
-                        "type": "string",
-                        "description": "Driver UUID",
-                        "name": "uuid",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Driver name",
-                        "name": "name",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Driver region",
-                        "name": "region",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Driver latitude",
-                        "name": "latitude",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Driver longitude",
-                        "name": "longitude",
-                        "in": "formData",
-                        "required": true
+                        "description": "Driver driver",
+                        "name": "driver",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DetailDriver"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/driver/vehicle_add": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Add vehicle to a driver.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Add vehicle to a driver",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "description": "Driver driver",
+                        "name": "driver",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DetailDriver"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.successOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.errorOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/external/driver/vehicle_del": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    },
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "description": "Delete vehicle to a driver.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drivers"
+                ],
+                "summary": "Delete vehicle to a driver",
+                "parameters": [
+                    {
+                        "enum": [
+                            "en",
+                            "ru"
+                        ],
+                        "type": "string",
+                        "default": "en",
+                        "description": "Language code",
+                        "name": "Accept-Language",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Request id",
+                        "name": "Set-Request-Id",
+                        "in": "header"
+                    },
+                    {
+                        "description": "Driver driver",
+                        "name": "driver",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DetailDriver"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/response.successOutput"
                         }
@@ -5364,7 +5516,7 @@
                 "uuid": {
                     "type": "string"
                 },
-                "vehicles": {
+                "vehicle": {
                     "type": "array",
                     "items": {}
                 }

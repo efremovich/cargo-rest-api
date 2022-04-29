@@ -15,11 +15,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/joho/godotenv"
-
-	"github.com/google/uuid"
-
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -37,7 +35,7 @@ func TestSaveDriver_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/drivers", driverHandler.SaveDriver)
+	v1.POST("/driver", driverHandler.SaveDriver)
 
 	driverApp.SaveDriverFn = func(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 		return &entity.Driver{
@@ -50,7 +48,7 @@ func TestSaveDriver_Success(t *testing.T) {
 	var err error
 	c.Request, err = http.NewRequest(
 		http.MethodPost,
-		"/api/v1/external/drivers",
+		"/api/v1/external/driver",
 		bytes.NewBufferString(driverJSON),
 	)
 	c.Request.Header.Add("Content-Type", "application/json")
@@ -93,10 +91,10 @@ func TestSaveDriver_InvalidData(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, r := gin.CreateTestContext(w)
 		v1 := r.Group("/api/v1/external/")
-		v1.POST("/drivers", driverHandler.SaveDriver)
+		v1.POST("/driver", driverHandler.SaveDriver)
 
 		var err error
-		c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/drivers", bytes.NewBufferString(v.inputJSON))
+		c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/driver", bytes.NewBufferString(v.inputJSON))
 		if err != nil {
 			t.Errorf("this is the error: %v\n", err)
 		}
@@ -121,13 +119,13 @@ func TestUpdateDriver_Success(t *testing.T) {
 	driverHandler := NewDrivers(&driverApp)
 	UUID := uuid.New().String()
 	UserUUID := uuid.New().String()
-	driverJSON := `{"name": "Мамука", "user_uuid": "` + UserUUID + `"}`
+	driverJSON := `{"uuid": "` + UUID + `", "name": "Мамука", "user_uuid": "` + UserUUID + `"}`
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.PUT("/drivers/:uuid", driverHandler.UpdateDriver)
+	v1.PUT("/driver/:uuid", driverHandler.UpdateDriver)
 
 	driverApp.UpdateDriverFn = func(UUID string, driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 		return &entity.Driver{
@@ -148,7 +146,7 @@ func TestUpdateDriver_Success(t *testing.T) {
 	var err error
 	c.Request, err = http.NewRequest(
 		http.MethodPut,
-		"/api/v1/external/drivers/"+UUID,
+		"/api/v1/external/driver/"+UUID,
 		bytes.NewBufferString(driverJSON),
 	)
 	if err != nil {
@@ -184,7 +182,7 @@ func TestGetDriver_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.GET("/drivers/:uuid", driverHandler.GetDriver)
+	v1.GET("/driver/:uuid", driverHandler.GetDriver)
 
 	driverApp.GetDriverFn = func(string) (*entity.Driver, error) {
 		return &entity.Driver{
@@ -195,7 +193,7 @@ func TestGetDriver_Success(t *testing.T) {
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodGet, "/api/v1/external/drivers/"+UUID, nil)
+	c.Request, err = http.NewRequest(http.MethodGet, "/api/v1/external/driver/"+UUID, nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -274,14 +272,14 @@ func TestDeleteDriver_Success(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.DELETE("/drivers/:uuid", driverHandler.DeleteDriver)
+	v1.DELETE("/driver/:uuid", driverHandler.DeleteDriver)
 
 	driverApp.DeleteDriverFn = func(UUID string) error {
 		return nil
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodDelete, "/api/v1/external/drivers/"+UUID, nil)
+	c.Request, err = http.NewRequest(http.MethodDelete, "/api/v1/external/driver/"+UUID, nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
@@ -300,18 +298,120 @@ func TestDeleteDriver_Failed_DriverNotFound(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.DELETE("/drivers/:uuid", driverHandler.DeleteDriver)
+	v1.DELETE("/driver/:uuid", driverHandler.DeleteDriver)
 
 	driverApp.DeleteDriverFn = func(UUID string) error {
 		return exception.ErrorTextDriverNotFound
 	}
 
 	var err error
-	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/drivers/"+UUID, nil)
+	c.Request, err = http.NewRequest(http.MethodPost, "/api/v1/external/driver/"+UUID, nil)
 	if err != nil {
 		t.Errorf("this is the error: %v\n", err)
 	}
 	r.ServeHTTP(w, c.Request)
 
 	assert.Equal(t, w.Code, http.StatusNotFound)
+}
+
+func TestDrivers_AddDriverVehicle(t *testing.T) {
+	var driverData entity.Driver
+	var driverApp mock.DriverAppInterface
+	driverHandler := NewDrivers(&driverApp)
+
+	UUID := uuid.New().String()
+	vehicleUUID := uuid.New().String()
+
+	driverJSON := `{"UUID":"` + UUID + `", "vehicles":[{"uuid":"` + vehicleUUID + `"}]}`
+
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+	c, r := gin.CreateTestContext(w)
+	v1 := r.Group("/api/v1/external/")
+	v1.POST("/driver/vehicle_add/", driverHandler.AddDriverVehicle)
+
+	driverApp.AddDriverVehicleFn = func(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
+		return &entity.Driver{
+			UUID:     UUID,
+			Vehicles: []*entity.Vehicle{{UUID: vehicleUUID}},
+		}, nil, nil
+	}
+
+	driverApp.GetDriverFn = func(string) (*entity.Driver, error) {
+		return &entity.Driver{
+			UUID:     UUID,
+			Vehicles: []*entity.Vehicle{{UUID: vehicleUUID}},
+		}, nil
+	}
+	var err error
+
+	c.Request, err = http.NewRequest(
+		http.MethodPost,
+		"/api/v1/external/driver/vehicle_add/",
+		bytes.NewBufferString(driverJSON),
+	)
+	if err != nil {
+		t.Errorf("this is the error: %v\n", err)
+	}
+	r.ServeHTTP(w, c.Request)
+
+	response := encoder.ResponseDecoder(w.Body)
+	data, _ := json.Marshal(response["data"])
+
+	_ = json.Unmarshal(data, &driverData)
+
+	assert.Equal(t, w.Code, http.StatusOK)
+	assert.EqualValues(t, driverData.UUID, UUID)
+
+}
+
+func TestDrivers_DeleteDriverVehicle(t *testing.T) {
+	var driverData entity.Driver
+	var driverApp mock.DriverAppInterface
+	driverHandler := NewDrivers(&driverApp)
+
+	UUID := uuid.New().String()
+	vehicleUUID := uuid.New().String()
+
+	driverJSON := `{"UUID":"` + UUID + `", "vehicles":[{"uuid":"` + vehicleUUID + `"}]}`
+
+	gin.SetMode(gin.TestMode)
+	w := httptest.NewRecorder()
+	c, r := gin.CreateTestContext(w)
+	v1 := r.Group("/api/v1/external/")
+	v1.POST("/driver/vehicle_del/", driverHandler.DeleteDriverVehicle)
+
+	driverApp.DeleteDriverVehicleFn = func(driver *entity.Driver) (*entity.Driver, map[string]string, error) {
+		return &entity.Driver{
+			UUID:     UUID,
+			Vehicles: []*entity.Vehicle{{UUID: vehicleUUID}},
+		}, nil, nil
+	}
+
+	driverApp.GetDriverFn = func(string) (*entity.Driver, error) {
+		return &entity.Driver{
+			UUID:     UUID,
+			Vehicles: []*entity.Vehicle{{UUID: vehicleUUID}},
+		}, nil
+	}
+	var err error
+
+	c.Request, err = http.NewRequest(
+		http.MethodPost,
+		"/api/v1/external/driver/vehicle_del/",
+		bytes.NewBufferString(driverJSON),
+	)
+	if err != nil {
+		t.Errorf("this is the error: %v\n", err)
+	}
+	r.ServeHTTP(w, c.Request)
+
+	response := encoder.ResponseDecoder(w.Body)
+	data, _ := json.Marshal(response["data"])
+
+	_ = json.Unmarshal(data, &driverData)
+
+	assert.Equal(t, w.Code, http.StatusOK)
+	assert.EqualValues(t, driverData.UUID, UUID)
+
 }
