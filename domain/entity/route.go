@@ -18,11 +18,11 @@ type Route struct {
 
 	SityFrom Sity   `json:"sity_from"      gorm:"foreignKey:FromUUID"`
 	SityTo   Sity   `json:"sity_to"        gorm:"foreignKey:ToUUID"`
-	FromUUID string `json:"from,omitempty"                            form:"from"`
-	ToUUID   string `json:"to,omitempty"                              form:"to"`
+	FromUUID string `json:"from_uuid,omitempty"                            form:"from"`
+	ToUUID   string `json:"to_uuid,omitempty"                              form:"to"`
 
-	Distance     int       `json:"distance,omitempty"      form:"distance"`
-	DistanceTime time.Time `json:"distance_time,omitempty" form:"distance_time"`
+	Distance     int `json:"distance,omitempty"      form:"distance"`
+	DistanceTime int `json:"distance_time,omitempty" form:"distance_time"`
 
 	Prices []*Price `json:"prices" gorm:"many2many:route_prices;"`
 
@@ -33,12 +33,12 @@ type Route struct {
 
 // RouteFaker represent content when generate fake data of route.
 type RouteFaker struct {
-	UUID         string    `faker:"uid_hyphenated"`
-	FromUUID     string    `faker:"from_uuid"`
-	ToUUID       string    `faker:"to_uuid"`
-	Distance     int       `faker:"distance"`
-	DistanceTime time.Time `faker:"distance_time"`
-	Prices       []*Price  `faker:"prices"`
+	UUID         string   `faker:"uid_hyphenated"`
+	FromUUID     string   `faker:"from_uuid"`
+	ToUUID       string   `faker:"to_uuid"`
+	Distance     int      `faker:"distance"`
+	DistanceTime int      `faker:"distance_time"`
+	Prices       []*Price `faker:"prices"`
 }
 
 // Routes represent multiple Route.
@@ -58,11 +58,11 @@ type DetailRouteList struct {
 
 // RouteFieldsForDetail represent fields of detail Route.
 type RouteFieldsForDetail struct {
-	UUID         string    `json:"uuid"`
-	FromUUID     string    `json:"from_uuid"`
-	ToUUID       string    `json:"to_uuid"`
-	Distance     int       `json:"distance"`
-	DistanceTime time.Time `json:"distance_time"`
+	UUID         string `json:"uuid"`
+	FromUUID     string `json:"from_uuid"`
+	ToUUID       string `json:"to_uuid"`
+	Distance     int    `json:"distance"`
+	DistanceTime int    `json:"distance_time"`
 }
 
 // RouteFieldsForList represent fields of detail Route for Route list.
@@ -139,33 +139,23 @@ func (u *Route) DetailRouteList() interface{} {
 // ValidateSaveRoute will validate create a new route request.
 func (u *Route) ValidateSaveRoute() []response.ErrorForm {
 	validation := validator.New()
-	validation.
-		Set(
-			"from_uuid",
-			u.FromUUID,
-			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
-		).
-		Set(
-			"to_uuid",
-			u.ToUUID,
-			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
-		)
+	// validation.
+	// 	Set(
+	// 		"from",
+	// 		u.FromUUID,
+	// 		validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
+	// 	)
 	return validation.Validate()
 }
 
 // ValidateUpdateRoute will validate update a new route request.
 func (u *Route) ValidateUpdateRoute() []response.ErrorForm {
 	validation := validator.New()
-	validation.
-		Set(
-			"from_uuid",
-			u.FromUUID,
-			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
-		).
-		Set(
-			"to_uuid",
-			u.ToUUID,
-			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
-		)
+	// validation.
+	// 	Set(
+	// 		"from",
+	// 		u.FromUUID,
+	// 		validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
+	// 	)
 	return validation.Validate()
 }

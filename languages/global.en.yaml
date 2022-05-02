@@ -164,6 +164,14 @@ api:
         successfully_delete_driver: "Successfully Delete Driver"
         successfully_add_driver_vehicle: "Successfully Add Driver Vehicle"
         successfully_delete_driver_vehicle: "Successfully Delete Driver Vehicle"
+      route:
+        successfully_get_route_list: "Successfully Get Route List"
+        successfully_get_route_detail: "Successfully Get Route Detail"
+        successfully_create_route: "Successfully Create Route"
+        successfully_update_route: "Successfully Update Route"
+        successfully_delete_route: "Successfully Delete Route"
+        successfully_add_route_price: "Successfully Add Route Price"
+        successfully_delete_route_price: "Successfully Delete Route Price"
 attributes:
   name: "Name"
   email: "Email"
@@ -200,4 +208,9 @@ attributes:
   order_status_type_uuid: "Order Status Type ID"
   driver: "Driver"
   driver_uuid: "Driver ID"
+  from_uuid: "From ID"
+  to_uuid: "To ID"
+  distance: "Distance"
+  distance_time: "Distance Time"
+  
 

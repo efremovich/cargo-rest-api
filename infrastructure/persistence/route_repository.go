@@ -25,7 +25,7 @@ var _ repository.RouteRepository = &RouteRepo{}
 // SaveRoute will create a new route.
 func (r RouteRepo) SaveRoute(Route *entity.Route) (*entity.Route, map[string]string, error) {
 	errDesc := map[string]string{}
-	err := r.db.Model(&Route).Association("Vehicles").Error
+	err := r.db.Model(&Route).Association("Prices").Error
 	err = r.db.Create(&Route).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
@@ -41,7 +41,7 @@ func (r RouteRepo) UpdateRoute(uuid string, route *entity.Route) (*entity.Route,
 		Distance:     route.Distance,
 		DistanceTime: route.DistanceTime,
 	}
-	r.db.Model(route).Association("Vehicles")
+	r.db.Model(route).Association("Prices")
 
 	err := r.db.First(&route, "uuid = ?", uuid).Updates(dirverData).Error
 	if err != nil {

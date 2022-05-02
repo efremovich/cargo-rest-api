@@ -120,5 +120,6 @@ func (r *Router) Init() *gin.Engine {
 	regularityTypeRoutes(e, r, rg)
 	orderStatusTypeRoutes(e, r, rg)
 	driverRoutes(e, r, rg)
+	routeRoutes(e, r, rg)
 	return e
 }

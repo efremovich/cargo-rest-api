@@ -42,6 +42,7 @@ type Repositories struct {
 	RegularityType     repository.RegularityTypeRepository
 	OrderStatusType    repository.OrderStatusTypeRepository
 	Driver             repository.DriverRepository
+	Route              repository.RouteRepository
 	DB                 *gorm.DB
 }
 
@@ -131,6 +132,7 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		RegularityType:     NewRegularityTypeRepository(db),
 		OrderStatusType:    NewOrderStatusTypeRepository(db),
 		Driver:             NewDriverRepository(db),
+		Route:               NewRouteRepository(db),
 		DB:                 db,
 	}, nil
 }
