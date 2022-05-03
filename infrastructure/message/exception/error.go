@@ -210,3 +210,30 @@ var (
 	// ErrorTextRouteInvalidUUID is an error representing UUID not found in database.
 	ErrorTextRouteInvalidUUID = errors.New("api.msg.error.route.invalid_uuid")
 )
+
+// Errors for trip.
+var (
+	// ErrorTextTripNotFound is an error representing regularity not found in database.
+	ErrorTextTripNotFound = errors.New("api.msg.error.trip.not_found")
+
+	// ErrorTextTripInvalidUUID is an error representing UUID not found in database.
+	ErrorTextTripInvalidUUID = errors.New("api.msg.error.trip.invalid_uuid")
+)
+
+// Errors for order.
+var (
+	// ErrorTextOrderNotFound is an error representing regularity not found in database.
+	ErrorTextOrderNotFound = errors.New("api.msg.error.order.not_found")
+
+	// ErrorTextOrderInvalidUUID is an error representing UUID not found in database.
+	ErrorTextOrderInvalidUUID = errors.New("api.msg.error.order.invalid_uuid")
+)
+
+// Errors for payment.
+var (
+	// ErrorTextPaymentNotFound is an error representing regularity not found in database.
+	ErrorTextPaymentNotFound = errors.New("api.msg.error.payment.not_found")
+
+	// ErrorTextPaymentInvalidUUID is an error representing UUID not found in database.
+	ErrorTextPaymentInvalidUUID = errors.New("api.msg.error.payment.invalid_uuid")
+)

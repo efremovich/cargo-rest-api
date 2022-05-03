@@ -79,6 +79,12 @@ api:
         not_found: "Document Type Not Found"
       driver:
         not_found: "Driver Not Found"
+      route:
+        not_found: "Route Not Found"
+      trip:
+        not_found: "Trip Not Found"
+      order:
+        not_found: "Order Not Found"
     success:
       common:
         ok: "OK"
@@ -172,6 +178,26 @@ api:
         successfully_delete_route: "Successfully Delete Route"
         successfully_add_route_price: "Successfully Add Route Price"
         successfully_delete_route_price: "Successfully Delete Route Price"
+      trip:
+        successfully_get_trip_list: "Successfully Get Trip List"
+        successfully_get_trip_detail: "Successfully Get Trip Detail"
+        successfully_create_trip: "Successfully Create Trip"
+        successfully_update_trip: "Successfully Update Trip"
+        successfully_delete_trip: "Successfully Delete Trip"
+      order:
+        successfully_get_order_list: "Successfully Get Order List"
+        successfully_get_order_detail: "Successfully Get Order Detail"
+        successfully_create_order: "Successfully Create Order"
+        successfully_update_order: "Successfully Update Order"
+        successfully_delete_order: "Successfully Delete Order"
+      payment:
+        successfully_get_payment_list: "Successfully Get Payment List"
+        successfully_get_payment_detail: "Successfully Get Payment Detail"
+        successfully_create_payment: "Successfully Create Payment"
+        successfully_update_payment: "Successfully Update Payment"
+        successfully_delete_payment: "Successfully Delete Payment"
+        successfully_add_order_payment: "Successfully Add Order Payment"
+        successfully_delete_order_payment: "Successfully Delete Order Payment"
 attributes:
   name: "Name"
   email: "Email"
@@ -212,5 +238,15 @@ attributes:
   to_uuid: "To ID"
   distance: "Distance"
   distance_time: "Distance Time"
-  
+  route_uuid: "Route ID"
+  route: "Route"
+  vehicle_uuid: "Vehicel ID"
+  vehicle: "Vehicle"
+  departure_time: "Depalture Time"
+  arravial_time: "Arravial Time"
+  seat: "Seat"
+  order_date: "Order Date"
+  payment_date: "Payment Date"
+  amount: "Amount"
+  external_uuid: "External ID"
 

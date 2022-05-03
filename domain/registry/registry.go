@@ -39,6 +39,9 @@ func CollectEntities() []entities {
 		{Entity: entity.OrderStatusType{}},
 		{Entity: entity.Driver{}},
 		{Entity: entity.Route{}},
+		{Entity: entity.Trip{}},
+		{Entity: entity.Order{}},
+		{Entity: entity.Payment{}},
 	}
 }
 
@@ -70,6 +73,9 @@ func CollectTableNames() []table {
 	var orderStatusType entity.OrderStatusType
 	var driver entity.Driver
 	var route entity.Route
+	var trip entity.Trip
+	var order entity.Order
+	var payment entity.Payment
 
 	return []table{
 		{Name: application.TableName()},
@@ -99,5 +105,8 @@ func CollectTableNames() []table {
 		{Name: orderStatusType.TableName()},
 		{Name: driver.TableName()},
 		{Name: route.TableName()},
+		{Name: trip.TableName()},
+		{Name: order.TableName()},
+		{Name: payment.TableName()},
 	}
 }

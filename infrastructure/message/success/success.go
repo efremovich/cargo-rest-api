@@ -145,3 +145,32 @@ const (
 	RouteSuccessfullyAddRoutePrice    = "api.msg.success.route.successfully_add_route_price"
 	RouteSuccessfullyDeleteRoutePrice = "api.msg.success.route.successfully_delete_route_price"
 )
+
+// Success message for trip.
+const (
+	TripSuccessfullyGetTripList   = "api.msg.success.trip.successfully_get_trip_list"
+	TripSuccessfullyGetTripDetail = "api.msg.success.trip.successfully_get_trip_detail"
+	TripSuccessfullyCreateTrip    = "api.msg.success.trip.successfully_create_trip"
+	TripSuccessfullyUpdateTrip    = "api.msg.success.trip.successfully_update_trip"
+	TripSuccessfullyDeleteTrip    = "api.msg.success.trip.successfully_delete_trip"
+)
+
+// Success message for order.
+const (
+	OrderSuccessfullyGetOrderList   = "api.msg.success.order.successfully_get_order_list"
+	OrderSuccessfullyGetOrderDetail = "api.msg.success.order.successfully_get_order_detail"
+	OrderSuccessfullyCreateOrder    = "api.msg.success.order.successfully_create_order"
+	OrderSuccessfullyUpdateOrder    = "api.msg.success.order.successfully_update_order"
+	OrderSuccessfullyDeleteOrder    = "api.msg.success.order.successfully_delete_order"
+)
+
+// Success message for payment.
+const (
+	PaymentSuccessfullyGetPaymentList     = "api.msg.success.payment.successfully_get_payment_list"
+	PaymentSuccessfullyGetPaymentDetail   = "api.msg.success.payment.successfully_get_payment_detail"
+	PaymentSuccessfullyCreatePayment      = "api.msg.success.payment.successfully_create_payment"
+	PaymentSuccessfullyUpdatePayment      = "api.msg.success.payment.successfully_update_payment"
+	PaymentSuccessfullyDeletePayment      = "api.msg.success.payment.successfully_delete_payment"
+	PaymentSuccessfullyAddOrderPayment    = "api.msg.success.route.successfully_add_order_payment"
+	PaymentSuccessfullyDeleteOrderPayment = "api.msg.success.route.successfully_delete_order_payment"
+)

@@ -96,6 +96,30 @@ var (
 		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "delete"},
 		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "bulk_delete"},
 		{UUID: uuid.New().String(), ModuleKey: "driver", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "route", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "route", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "route", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "route", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "route", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "route", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "trip", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "trip", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "trip", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "trip", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "trip", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "trip", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "order", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "order", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "order", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "order", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "order", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "order", PermissionKey: "detail"},
+		{UUID: uuid.New().String(), ModuleKey: "payment", PermissionKey: "read"},
+		{UUID: uuid.New().String(), ModuleKey: "payment", PermissionKey: "create"},
+		{UUID: uuid.New().String(), ModuleKey: "payment", PermissionKey: "update"},
+		{UUID: uuid.New().String(), ModuleKey: "payment", PermissionKey: "delete"},
+		{UUID: uuid.New().String(), ModuleKey: "payment", PermissionKey: "bulk_delete"},
+		{UUID: uuid.New().String(), ModuleKey: "payment", PermissionKey: "detail"},
 	}
 	userRole = &entity.UserRole{
 		UUID:     uuid.New().String(),
@@ -258,15 +282,126 @@ var (
 	}
 	orderStatusTypes = []*entity.OrderStatusType{
 		{UUID: "04e9be9e-064b-4a13-8bab-074b14ae465d", Type: "Оплачен"},
-		{UUID: "12888dsd-78be-40ca-a85a-61cc3ab7fb1e", Type: "Резерв"},
 		{UUID: "1c888sfd-78ie-40ca-a85a-61cc3ab7fb1e", Type: "Не оплачен"},
 		{UUID: "7f3ebl8e-98bd-4f5b-8a8c-34aaed1c7ffd", Type: "Отменен"},
 	}
 	drivers = []*entity.Driver{
-		{UUID: uuid.New().String(), Name: "Мамука Тбилиский", UserUUID: user.UUID, Vehicles: []*entity.Vehicle{{UUID: vehicles[0].UUID}}},
+		{
+			UUID:     uuid.New().String(),
+			Name:     "Мамука Тбилиский",
+			UserUUID: user.UUID,
+			Vehicles: []*entity.Vehicle{{UUID: vehicles[0].UUID}},
+		},
 		{UUID: uuid.New().String(), Name: "Гагик Анпский", UserUUID: user.UUID},
 		{UUID: uuid.New().String(), Name: "Арам Хачитурян", UserUUID: user.UUID},
 		{UUID: uuid.New().String(), Name: "Кирил Радионов", UserUUID: user.UUID},
+	}
+	routes = []*entity.Route{
+		{
+			UUID:         uuid.New().String(),
+			FromUUID:     sities[0].UUID,
+			ToUUID:       sities[1].UUID,
+			Distance:     500000,
+			DistanceTime: 500,
+			Prices:       prices,
+		},
+		{
+			UUID:         uuid.New().String(),
+			FromUUID:     sities[1].UUID,
+			ToUUID:       sities[1].UUID,
+			Distance:     500000,
+			DistanceTime: 500,
+			Prices:       prices,
+		},
+		{
+			UUID:         uuid.New().String(),
+			FromUUID:     sities[2].UUID,
+			ToUUID:       sities[3].UUID,
+			Distance:     300000,
+			DistanceTime: 360,
+			Prices:       prices,
+		},
+		{
+			UUID:         uuid.New().String(),
+			FromUUID:     sities[3].UUID,
+			ToUUID:       sities[2].UUID,
+			Distance:     300000,
+			DistanceTime: 360,
+			Prices:       prices,
+		},
+	}
+	trips = []*entity.Trip{
+		{
+			UUID:               uuid.New().String(),
+			RouteUUID:          routes[0].UUID,
+			VehicleUUID:        vehicles[0].UUID,
+			DepartureTime:      time.Date(2022, time.May, 25, 11, 0, 0, 0, time.UTC),
+			ArravialTive:       time.Date(2022, time.May, 25, 19, 30, 0, 0, time.UTC),
+			RegularityTypeUUID: regularityTypes[0].UUID,
+			DriverUUID:         drivers[0].UUID,
+		},
+		{
+			UUID:               uuid.New().String(),
+			RouteUUID:          routes[1].UUID,
+			VehicleUUID:        vehicles[0].UUID,
+			DepartureTime:      time.Date(2022, time.May, 26, 11, 0, 0, 0, time.UTC),
+			ArravialTive:       time.Date(2022, time.May, 26, 19, 30, 0, 0, time.UTC),
+			RegularityTypeUUID: regularityTypes[0].UUID,
+			DriverUUID:         drivers[1].UUID,
+		},
+		{
+			UUID:               uuid.New().String(),
+			RouteUUID:          routes[2].UUID,
+			VehicleUUID:        vehicles[1].UUID,
+			DepartureTime:      time.Date(2022, time.May, 28, 11, 0, 0, 0, time.UTC),
+			ArravialTive:       time.Date(2022, time.May, 28, 19, 30, 0, 0, time.UTC),
+			RegularityTypeUUID: regularityTypes[0].UUID,
+			DriverUUID:         drivers[2].UUID,
+		},
+		{
+			UUID:               uuid.New().String(),
+			RouteUUID:          routes[3].UUID,
+			VehicleUUID:        vehicles[1].UUID,
+			DepartureTime:      time.Date(2022, time.May, 28, 11, 0, 0, 0, time.UTC),
+			ArravialTive:       time.Date(2022, time.May, 28, 19, 30, 0, 0, time.UTC),
+			RegularityTypeUUID: regularityTypes[0].UUID,
+			DriverUUID:         drivers[3].UUID,
+		},
+	}
+	orders = []*entity.Order{
+		{
+			UUID:        uuid.New().String(),
+			OrdrDate:    time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
+			PaymentDate: time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
+			TripUUID:    trips[0].UUID,
+			Seat:        "Без места",
+			StatusUUID:  orderStatusTypes[0].UUID, // оплачен
+		},
+		{
+			UUID:       uuid.New().String(),
+			OrdrDate:   time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
+			TripUUID:   trips[1].UUID,
+			Seat:       "1 (У окна)",
+			StatusUUID: orderStatusTypes[1].UUID, // не оплачен, бронирование
+		},
+	}
+	payments = []*entity.Payment{
+		{
+			UUID:         uuid.New().String(),
+			PaymentDate:  time.Now(),
+			UserUUID:     user.UUID,
+			TripUUID:     trips[0].UUID,
+			Orders:       orders[:0],
+			ExternalUUID: uuid.New().String(),
+		},
+		{
+			UUID:         uuid.New().String(),
+			PaymentDate:  time.Now(),
+			UserUUID:     user.UUID,
+			TripUUID:     trips[0].UUID,
+			Orders:       orders[:1],
+			ExternalUUID: uuid.New().String(),
+		},
 	}
 )
 
@@ -548,6 +683,62 @@ func (is *InitFactory) generateDriver() *InitFactory {
 	return is
 }
 
+func (is *InitFactory) generateRoute() *InitFactory {
+	for _, st := range routes {
+		route := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial route",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createRoute(db, route)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
+func (is *InitFactory) generateTrip() *InitFactory {
+	for _, st := range trips {
+		trip := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial trip",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createTrip(db, trip)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
+func (is *InitFactory) generateOrder() *InitFactory {
+	for _, st := range orders {
+		order := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial order",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createOrder(db, order)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
+func (is *InitFactory) generatePayment() *InitFactory {
+	for _, st := range payments {
+		payment := st
+		is.seeders = append(is.seeders, Seed{
+			Name: "Create initial payment",
+			Run: func(db *gorm.DB) error {
+				_, errDB := createPayment(db, payment)
+				return errDB
+			},
+		})
+	}
+	return is
+}
+
 func initFactory() []Seed {
 	initialSeeds := newInitFactory()
 	initialSeeds.generateUserSeeder()
@@ -570,5 +761,9 @@ func initFactory() []Seed {
 	initialSeeds.generateRegularityType()
 	initialSeeds.generateOrderStatusType()
 	initialSeeds.generateDriver()
+	initialSeeds.generateRoute()
+	initialSeeds.generateTrip()
+	initialSeeds.generateOrder()
+	initialSeeds.generatePayment()
 	return initialSeeds.seeders
 }

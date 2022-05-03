@@ -117,7 +117,7 @@ func (u *PassengerType) ValidateSavePassengerType() []response.ErrorForm {
 		Set(
 			"type",
 			u.Type,
-			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
+			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().MaxLength(100).Apply(),
 		)
 	return validation.Validate()
 }
@@ -129,7 +129,7 @@ func (u *PassengerType) ValidateUpdatePassengerType() []response.ErrorForm {
 		Set(
 			"type",
 			u.Type,
-			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().Length(3, 64).Apply(),
+			validation.AddRule().Required().IsAlphaNumericSpaceAndSpecialCharacter().MaxLength(100).Apply(),
 		)
 	return validation.Validate()
 }

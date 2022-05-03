@@ -16,16 +16,16 @@ import (
 type Trip struct {
 	UUID string `json:"uuid,omitempty" gorm:"size:36;not null;uniqueIndex;primary_key;"`
 
-	RouteUUID      string         `json:"route_uuid"`
-	Route          Route          `json:"route"           gorm:"foreignKey:RouteUUID"`
-	VehicleUUID    string         `json:"vehicle_uuid"`
-	Vehicle        Vehicle        `json:"vehicle"         gorm:"foreignKey:VehicleUUID"`
-	DepartureTime  time.Time      `json:"departure_time"`
-	ArravialTive   time.Time      `json:"arravial_tive"`
-	RegularityUUID string         `json:"regularity_uuid"`
-	Regularity     RegularityType `json:"regularity"      gorm:"foreignKey:RegularityUUID"`
-	DriverUUID     string         `json:"driver_uuid"`
-	Driver         Driver         `json:"driver"          gorm:"foreignKey:DriverUUID"`
+	RouteUUID          string         `json:"route_uuid"`
+	Route              Route          `json:"route"                gorm:"foreignKey:RouteUUID"`
+	VehicleUUID        string         `json:"vehicle_uuid"`
+	Vehicle            Vehicle        `json:"vehicle"              gorm:"foreignKey:VehicleUUID"`
+	DepartureTime      time.Time      `json:"departure_time"                                            from:"departure_time"`
+	ArravialTive       time.Time      `json:"arravial_tive"                                             from:"arravial_tive"`
+	RegularityTypeUUID string         `json:"regularity_type_uuid"`
+	RegularityType     RegularityType `json:"regularity_type"      gorm:"foreignKey:RegularityTypeUUID"`
+	DriverUUID         string         `json:"driver_uuid"`
+	Driver             Driver         `json:"driver"               gorm:"foreignKey:DriverUUID"`
 
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
@@ -34,13 +34,13 @@ type Trip struct {
 
 // TripFaker represent content when generate fake data of trip.
 type TripFaker struct {
-	UUID           string    `faker:"uid_hyphenated"`
-	RouteUUID      string    `faker:"route_uuid"`
-	VehicleUUID    string    `faker:"vehicle_uuid"`
-	DepartureTime  time.Time `faker:"departure_time"`
-	ArravialTive   time.Time `faker:"arravial_tive"`
-	RegularityUUID string    `faker:"regularity_uuid"`
-	DriverUUID     string    `faker:"driver_uuid"`
+	UUID               string    `faker:"uid_hyphenated"`
+	RouteUUID          string    `faker:"route_uuid"`
+	VehicleUUID        string    `faker:"vehicle_uuid"`
+	DepartureTime      time.Time `faker:"departure_time"`
+	ArravialTive       time.Time `faker:"arravial_tive"`
+	RegularityTypeUUID string    `faker:"regularity_type_uuid"`
+	DriverUUID         string    `faker:"driver_uuid"`
 }
 
 // Trips represent multiple Trip.
@@ -49,7 +49,6 @@ type Trips []*Trip
 // DetailTrip represent format of detail Trip.
 type DetailTrip struct {
 	TripFieldsForDetail
-	Prices []interface{} `json:"prices,omitempty`
 }
 
 // DetailTripList represent format of DetailTrip for Trip list.
@@ -62,12 +61,12 @@ type DetailTripList struct {
 type TripFieldsForDetail struct {
 	UUID string `json:"uuid"`
 
-	RouteUUID      string    `json:"route_uuid"`
-	VehicleUUID    string    `json:"vehicle_uuid"`
-	DepartureTime  time.Time `json:"departure_time"`
-	ArravialTive   time.Time `json:"arravial_tive"`
-	RegularityUUID string    `json:"regularity_uuid"`
-	DriverUUID     string    `json:"driver_uuid"`
+	RouteUUID          string    `json:"route_uuid"`
+	VehicleUUID        string    `json:"vehicle_uuid"`
+	DepartureTime      time.Time `json:"departure_time"`
+	ArravialTive       time.Time `json:"arravial_tive"`
+	RegularityTypeUUID string    `json:"regularity_type_uuid"`
+	DriverUUID         string    `json:"driver_uuid"`
 }
 
 // TripFieldsForList represent fields of detail Trip for Trip list.
@@ -88,7 +87,7 @@ func (u *Trip) FilterableFields() []interface{} {
 		"vehicle_uuid",
 		"departure_time",
 		"arravial_tive",
-		"regularity_uuid",
+		"regularity_type_uuid",
 		"driver_uuid",
 	}
 }
@@ -98,7 +97,7 @@ func (u *Trip) Prepare() {
 	u.UUID = html.EscapeString(strings.TrimSpace(u.UUID))
 	u.RouteUUID = html.EscapeString(strings.TrimSpace(u.RouteUUID))
 	u.VehicleUUID = html.EscapeString(strings.TrimSpace(u.VehicleUUID))
-	u.RegularityUUID = html.EscapeString(strings.TrimSpace(u.RegularityUUID))
+	u.RegularityTypeUUID = html.EscapeString(strings.TrimSpace(u.RegularityTypeUUID))
 	u.DriverUUID = html.EscapeString(strings.TrimSpace(u.DriverUUID))
 	u.CreatedAt = time.Now()
 	u.UpdatedAt = time.Now()
@@ -126,11 +125,13 @@ func (trip Trips) DetailTrips() []interface{} {
 func (u *Trip) DetailTrip() interface{} {
 	return &DetailTrip{
 		TripFieldsForDetail: TripFieldsForDetail{
-			UUID:         u.UUID,
-			FromUUID:     u.FromUUID,
-			ToUUID:       u.ToUUID,
-			Distance:     u.Distance,
-			DistanceTime: u.DistanceTime,
+			UUID:               u.UUID,
+			DepartureTime:      u.DepartureTime,
+			ArravialTive:       u.ArravialTive,
+			RouteUUID:          u.RouteUUID,
+			VehicleUUID:        u.VehicleUUID,
+			RegularityTypeUUID: u.RegularityTypeUUID,
+			DriverUUID:         u.DriverUUID,
 		},
 	}
 }
@@ -139,11 +140,13 @@ func (u *Trip) DetailTrip() interface{} {
 func (u *Trip) DetailTripList() interface{} {
 	return &DetailTripList{
 		TripFieldsForDetail: TripFieldsForDetail{
-			UUID:         u.UUID,
-			FromUUID:     u.FromUUID,
-			ToUUID:       u.ToUUID,
-			Distance:     u.Distance,
-			DistanceTime: u.DistanceTime,
+			UUID:               u.UUID,
+			DepartureTime:      u.DepartureTime,
+			ArravialTive:       u.ArravialTive,
+			RouteUUID:          u.RouteUUID,
+			VehicleUUID:        u.VehicleUUID,
+			RegularityTypeUUID: u.RegularityTypeUUID,
+			DriverUUID:         u.DriverUUID,
 		},
 		TripFieldsForList: TripFieldsForList{
 			CreatedAt: u.CreatedAt,

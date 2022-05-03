@@ -121,5 +121,10 @@ func (r *Router) Init() *gin.Engine {
 	orderStatusTypeRoutes(e, r, rg)
 	driverRoutes(e, r, rg)
 	routeRoutes(e, r, rg)
+	tripRoutes(e, r, rg)
+	orderRoutes(e, r, rg)
+	paymentRoutes(e, r, rg)
+
 	return e
+
 }
