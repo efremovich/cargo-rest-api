@@ -30,14 +30,14 @@ func TestSaveOrder_Success(t *testing.T) {
 	UUID := uuid.New().String()
 
 	orderDate := time.Now()
-	paymentDate := time.Now()
+	paymentUUID := uuid.New().String()
 	tripUUID := uuid.New().String()
 	externalUUID := uuid.New().String()
 	statusUUID := uuid.New().String()
 
 	orderJSON := `{
   "order_date": "` + orderDate.String() + `",
-    "payment_date":"` + paymentDate.String() + `",
+    "payment_date":"` + paymentUUID + `",
     "trip_uuid":"` + tripUUID + `",
     "external_uuid":"` + externalUUID + `",
     "seat":"2s",
@@ -53,7 +53,7 @@ func TestSaveOrder_Success(t *testing.T) {
 		return &entity.Order{
 			UUID:         UUID,
 			OrdrDate:     orderDate,
-			PaymentDate:  paymentDate,
+			PaymentUUID:  paymentUUID,
 			TripUUID:     tripUUID,
 			ExternalUUID: externalUUID,
 			Seat:         "2s",
@@ -81,7 +81,7 @@ func TestSaveOrder_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, orderData.UUID, UUID)
 	assert.EqualValues(t, orderData.OrdrDate, orderDate)
-	assert.EqualValues(t, orderData.PaymentDate, paymentDate)
+	assert.EqualValues(t, orderData.UUID, paymentUUID)
 	assert.EqualValues(t, orderData.TripUUID, tripUUID)
 	assert.EqualValues(t, orderData.Seat, "2c")
 	assert.EqualValues(t, orderData.StatusUUID, statusUUID)
@@ -140,7 +140,7 @@ func TestUpdateOrder_Success(t *testing.T) {
 	UUID := uuid.New().String()
 
 	orderDate := time.Now()
-	paymentDate := time.Now()
+	paymentUUID := uuid.New().String()
 	tripUUID := uuid.New().String()
 	externalUUID := uuid.New().String()
 	statusUUID := uuid.New().String()
@@ -148,7 +148,7 @@ func TestUpdateOrder_Success(t *testing.T) {
 	orderJSON := `{
 		"uuid":"` + UUID + `",
     "order_date": "` + orderDate.String() + `",
-    "payment_date":"` + paymentDate.String() + `",
+    "payment_uuid":"` + paymentUUID + `",
     "trip_uuid":"` + tripUUID + `",
     "external_uuid":"` + externalUUID + `",
     "seat":"2s",
@@ -165,7 +165,7 @@ func TestUpdateOrder_Success(t *testing.T) {
 		return &entity.Order{
 			UUID:         UUID,
 			OrdrDate:     orderDate,
-			PaymentDate:  paymentDate,
+			PaymentUUID:  paymentUUID,
 			TripUUID:     tripUUID,
 			ExternalUUID: externalUUID,
 			Seat:         "2s",
@@ -177,7 +177,7 @@ func TestUpdateOrder_Success(t *testing.T) {
 		return &entity.Order{
 			UUID:         UUID,
 			OrdrDate:     orderDate,
-			PaymentDate:  paymentDate,
+			PaymentUUID:  paymentUUID,
 			TripUUID:     tripUUID,
 			ExternalUUID: externalUUID,
 			Seat:         "2s",
@@ -204,7 +204,7 @@ func TestUpdateOrder_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, orderData.UUID, UUID)
 	assert.EqualValues(t, orderData.OrdrDate, orderDate)
-	assert.EqualValues(t, orderData.PaymentDate, paymentDate)
+	assert.EqualValues(t, orderData.PaymentUUID, paymentUUID)
 	assert.EqualValues(t, orderData.TripUUID, tripUUID)
 	assert.EqualValues(t, orderData.Seat, "2c")
 	assert.EqualValues(t, orderData.StatusUUID, statusUUID)
@@ -223,7 +223,7 @@ func TestGetOrder_Success(t *testing.T) {
 	UUID := uuid.New().String()
 
 	orderDate := time.Now()
-	paymentDate := time.Now()
+	paymentUUID := uuid.New().String()
 	tripUUID := uuid.New().String()
 	externalUUID := uuid.New().String()
 	statusUUID := uuid.New().String()
@@ -238,7 +238,7 @@ func TestGetOrder_Success(t *testing.T) {
 		return &entity.Order{
 			UUID:         UUID,
 			OrdrDate:     orderDate,
-			PaymentDate:  paymentDate,
+			PaymentUUID:  paymentUUID,
 			TripUUID:     tripUUID,
 			ExternalUUID: externalUUID,
 			Seat:         "2s",
@@ -261,7 +261,7 @@ func TestGetOrder_Success(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, orderData.UUID, UUID)
 	assert.EqualValues(t, orderData.OrdrDate, orderDate)
-	assert.EqualValues(t, orderData.PaymentDate, paymentDate)
+	assert.EqualValues(t, orderData.PaymentUUID, paymentUUID)
 	assert.EqualValues(t, orderData.TripUUID, tripUUID)
 	assert.EqualValues(t, orderData.Seat, "2c")
 	assert.EqualValues(t, orderData.StatusUUID, statusUUID)
@@ -285,7 +285,7 @@ func TestGetOrders_Success(t *testing.T) {
 			{
 				UUID:         UUID,
 				OrdrDate:     time.Now(),
-				PaymentDate:  time.Now(),
+				PaymentUUID:  uuid.New().String(),
 				TripUUID:     uuid.New().String(),
 				ExternalUUID: uuid.New().String(),
 				Seat:         "2s",
@@ -294,7 +294,7 @@ func TestGetOrders_Success(t *testing.T) {
 			{
 				UUID:         UUID,
 				OrdrDate:     time.Now(),
-				PaymentDate:  time.Now(),
+				PaymentUUID:  uuid.New().String(),
 				TripUUID:     uuid.New().String(),
 				ExternalUUID: uuid.New().String(),
 				Seat:         "2s",

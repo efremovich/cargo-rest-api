@@ -16,7 +16,8 @@ import (
 type Order struct {
 	UUID        string          `json:"uuid,omitempty"         gorm:"size:36;not null;uniqueIndex;primary_key;"`
 	OrdrDate    time.Time       `json:"ordr_date"`
-	PaymentDate time.Time       `json:"payment_date"`
+	PaymentUUID string          `json:"payment_uuid"`
+	Payment     Payment         `json:"payments"               gorm:"foreignKey:PaymentUUID"`
 	TripUUID    string          `json:"trip_uuid"`
 	Trip        Trip            `json:"trip"                   gorm:"foreignKey:TripUUID"`
 	Seat        string          `json:"seat"`
@@ -34,7 +35,7 @@ type Order struct {
 type OrderFaker struct {
 	UUID        string    `faker:"uid_hyphenated" json:"uuid"`
 	OrderDate   time.Time `faker:"order_date"`
-	PaymentDate time.Time `faker:"payment_date"`
+	PaymentUUID string    `faker:"payment_uuid"`
 	TripUUID    string    `faker:"trip_uuid"`
 	Seat        string    `faker:"seat"`
 	StatusUUID  string    `faker:"status_uuid"`
@@ -61,7 +62,7 @@ type OrderFieldsForDetail struct {
 	UUID string `json:"uuid"`
 
 	OrderDate   time.Time `json:"order_date"`
-	PaymentDate time.Time `json:"payment_date"`
+	PaymentUUID string    `json:"payment_uuid"`
 	TripUUID    string    `json:"trip_uuid"`
 	Seat        string    `json:"seat"`
 	StatusUUID  string    `json:"status_uuid"`
@@ -84,7 +85,7 @@ func (u *Order) FilterableFields() []interface{} {
 	return []interface{}{
 		"uuid",
 		"order_date",
-		"payment_date",
+		"payment_uuid",
 		"trip_uuid",
 		"seat",
 		"status_uuid",
@@ -95,6 +96,7 @@ func (u *Order) FilterableFields() []interface{} {
 // Prepare will prepare submitted data of order.
 func (u *Order) Prepare() {
 	u.UUID = html.EscapeString(strings.TrimSpace(u.UUID))
+	u.PaymentUUID = html.EscapeString(strings.TrimSpace(u.PaymentUUID))
 	u.TripUUID = html.EscapeString(strings.TrimSpace(u.TripUUID))
 	u.Seat = html.EscapeString(strings.TrimSpace(u.Seat))
 	u.ExternalUUID = html.EscapeString(strings.TrimSpace(u.ExternalUUID))
@@ -127,7 +129,7 @@ func (u *Order) DetailOrder() interface{} {
 		OrderFieldsForDetail: OrderFieldsForDetail{
 			UUID:         u.UUID,
 			OrderDate:    u.OrdrDate,
-			PaymentDate:  u.PaymentDate,
+			PaymentUUID:  u.PaymentUUID,
 			TripUUID:     u.TripUUID,
 			Seat:         u.Seat,
 			StatusUUID:   u.StatusUUID,
@@ -142,7 +144,7 @@ func (u *Order) DetailOrderList() interface{} {
 		OrderFieldsForDetail: OrderFieldsForDetail{
 			UUID:         u.UUID,
 			OrderDate:    u.OrdrDate,
-			PaymentDate:  u.PaymentDate,
+			PaymentUUID:  u.PaymentUUID,
 			TripUUID:     u.TripUUID,
 			Seat:         u.Seat,
 			StatusUUID:   u.StatusUUID,

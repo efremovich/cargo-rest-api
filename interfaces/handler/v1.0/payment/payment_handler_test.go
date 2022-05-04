@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -26,20 +27,23 @@ func TestSavePayment_Success(t *testing.T) {
 	var paymentData entity.Payment
 	var paymentApp mock.PaymentAppInterface
 	paymentHandler := NewPayments(&paymentApp)
+
 	UUID := uuid.New().String()
-	FromUUID := uuid.New().String()
-	ToUUID := uuid.New().String()
-	PriceUUID := uuid.New().String()
-	PassengerTypeUUID := uuid.New().String()
+	paymentDate := time.Now()
+	userUUID := uuid.New().String()
+	orderUUID := uuid.New().String()
+	tripUUID := uuid.New().String()
+	externalUUID := uuid.New().String()
 
 	paymentJSON := `{
-		"frome_uuid": "` + FromUUID + `",
-    "to_uuid":"` + ToUUID + `",
-    "distance":124,
-    "distance_time":134,
-    "price":[
-       {"uuid": "` + PriceUUID + `", "passenger_type_uuid": "` + PassengerTypeUUID + `", "price":1}
-    ]
+		"payment_date": "` + paymentDate.String() + `",
+		"amount":2485.57,
+		"user_uuid":"` + userUUID + `",
+		"trip_uuid":"` + tripUUID + `",
+		"externalUUID":"` + externalUUID + `",
+		"orders":[
+		   {"order_uuid": "` + orderUUID + `", "payment_uuid": "` + UUID + `"}
+		]
 	}`
 
 	gin.SetMode(gin.TestMode)
@@ -51,10 +55,11 @@ func TestSavePayment_Success(t *testing.T) {
 	paymentApp.SavePaymentFn = func(payment *entity.Payment) (*entity.Payment, map[string]string, error) {
 		return &entity.Payment{
 			UUID:         UUID,
-			FromUUID:     FromUUID,
-			ToUUID:       ToUUID,
-			Distance:     124,
-			DistanceTime: 134,
+			PaymentDate:  paymentDate,
+			Amount:       2485.57,
+			UserUUID:     userUUID,
+			TripUUID:     tripUUID,
+			ExternalUUID: externalUUID,
 		}, nil, nil
 	}
 
@@ -77,10 +82,11 @@ func TestSavePayment_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, paymentData.UUID, UUID)
-	assert.EqualValues(t, paymentData.FromUUID, FromUUID)
-	assert.EqualValues(t, paymentData.ToUUID, ToUUID)
-	assert.EqualValues(t, paymentData.Distance, 124)
-	assert.EqualValues(t, paymentData.DistanceTime, 134)
+	assert.EqualValues(t, paymentData.PaymentDate, paymentDate)
+	assert.EqualValues(t, paymentData.Amount, 2485.57)
+	assert.EqualValues(t, paymentData.UserUUID, userUUID)
+	assert.EqualValues(t, paymentData.TripUUID, tripUUID)
+	assert.EqualValues(t, paymentData.ExternalUUID, externalUUID)
 }
 
 func TestSavePayment_InvalidData(t *testing.T) {
@@ -134,20 +140,22 @@ func TestUpdatePayment_Success(t *testing.T) {
 	paymentHandler := NewPayments(&paymentApp)
 
 	UUID := uuid.New().String()
-	FromUUID := uuid.New().String()
-	ToUUID := uuid.New().String()
-	PriceUUID := uuid.New().String()
-	PassengerTypeUUID := uuid.New().String()
+	paymentDate := time.Now()
+	userUUID := uuid.New().String()
+	orderUUID := uuid.New().String()
+	tripUUID := uuid.New().String()
+	externalUUID := uuid.New().String()
 
 	paymentJSON := `{
-		"uuid":"` + UUID + `",
-		"frome_uuid": "` + FromUUID + `",
-    "to_uuid":"` + ToUUID + `",
-    "distance":124,
-    "distance_time":134,
-    "price":[
-       {"uuid": "` + PriceUUID + `", "passenger_type_uuid": "` + PassengerTypeUUID + `", "price":1}
-    ]
+    "uuid":"` + UUID + `,
+		"payment_date": "` + paymentDate.String() + `",
+		"amount":2485.57,
+		"user_uuid":"` + userUUID + `",
+		"trip_uuid":"` + tripUUID + `",
+		"externalUUID":"` + externalUUID + `",
+		"orders":[
+		   {"order_uuid": "` + orderUUID + `", "payment_uuid": "` + UUID + `"}
+		]
 	}`
 
 	gin.SetMode(gin.TestMode)
@@ -159,20 +167,22 @@ func TestUpdatePayment_Success(t *testing.T) {
 	paymentApp.UpdatePaymentFn = func(UUID string, payment *entity.Payment) (*entity.Payment, map[string]string, error) {
 		return &entity.Payment{
 			UUID:         UUID,
-			FromUUID:     FromUUID,
-			ToUUID:       ToUUID,
-			Distance:     124,
-			DistanceTime: 134,
+			PaymentDate:  paymentDate,
+			Amount:       2485.57,
+			UserUUID:     userUUID,
+			TripUUID:     tripUUID,
+			ExternalUUID: externalUUID,
 		}, nil, nil
 	}
 
 	paymentApp.GetPaymentFn = func(string) (*entity.Payment, error) {
 		return &entity.Payment{
 			UUID:         UUID,
-			FromUUID:     FromUUID,
-			ToUUID:       ToUUID,
-			Distance:     124,
-			DistanceTime: 134,
+			PaymentDate:  paymentDate,
+			Amount:       2485.57,
+			UserUUID:     userUUID,
+			TripUUID:     tripUUID,
+			ExternalUUID: externalUUID,
 		}, nil
 	}
 
@@ -194,10 +204,11 @@ func TestUpdatePayment_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, paymentData.UUID, UUID)
-	assert.EqualValues(t, paymentData.FromUUID, FromUUID)
-	assert.EqualValues(t, paymentData.ToUUID, ToUUID)
-	assert.EqualValues(t, paymentData.Distance, 124)
-	assert.EqualValues(t, paymentData.DistanceTime, 134)
+	assert.EqualValues(t, paymentData.PaymentDate, paymentDate)
+	assert.EqualValues(t, paymentData.Amount, 2485.57)
+	assert.EqualValues(t, paymentData.UserUUID, userUUID)
+	assert.EqualValues(t, paymentData.TripUUID, tripUUID)
+	assert.EqualValues(t, paymentData.ExternalUUID, externalUUID)
 }
 
 // TestGetPayment_Success Test.
@@ -211,8 +222,10 @@ func TestGetPayment_Success(t *testing.T) {
 
 	paymentHandler := NewPayments(&paymentApp)
 	UUID := uuid.New().String()
-	FromUUID := uuid.New().String()
-	ToUUID := uuid.New().String()
+	paymentDate := time.Now()
+	userUUID := uuid.New().String()
+	tripUUID := uuid.New().String()
+	externalUUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
@@ -223,10 +236,11 @@ func TestGetPayment_Success(t *testing.T) {
 	paymentApp.GetPaymentFn = func(string) (*entity.Payment, error) {
 		return &entity.Payment{
 			UUID:         UUID,
-			FromUUID:     FromUUID,
-			ToUUID:       ToUUID,
-			Distance:     124,
-			DistanceTime: 134,
+			PaymentDate:  paymentDate,
+			Amount:       2485.57,
+			UserUUID:     userUUID,
+			TripUUID:     tripUUID,
+			ExternalUUID: externalUUID,
 		}, nil
 	}
 
@@ -244,10 +258,11 @@ func TestGetPayment_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, paymentData.UUID, UUID)
-	assert.EqualValues(t, paymentData.FromUUID, FromUUID)
-	assert.EqualValues(t, paymentData.ToUUID, ToUUID)
-	assert.EqualValues(t, paymentData.Distance, 124)
-	assert.EqualValues(t, paymentData.DistanceTime, 134)
+	assert.EqualValues(t, paymentData.PaymentDate, paymentDate)
+	assert.EqualValues(t, paymentData.Amount, 2485.57)
+	assert.EqualValues(t, paymentData.UserUUID, userUUID)
+	assert.EqualValues(t, paymentData.TripUUID, tripUUID)
+	assert.EqualValues(t, paymentData.ExternalUUID, externalUUID)
 }
 
 // TestGetPayments_Success Test.
@@ -256,9 +271,11 @@ func TestGetPayments_Success(t *testing.T) {
 	var paymentsData []entity.Payment
 	var metaData repository.Meta
 	paymentHandler := NewPayments(&paymentApp)
-	UUID := uuid.New().String()
-	FromUUID := uuid.New().String()
-	ToUUID := uuid.New().String()
+
+	paymentDate := time.Now()
+	userUUID := uuid.New().String()
+	tripUUID := uuid.New().String()
+	externalUUID := uuid.New().String()
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
@@ -268,18 +285,20 @@ func TestGetPayments_Success(t *testing.T) {
 	paymentApp.GetPaymentsFn = func(params *repository.Parameters) ([]*entity.Payment, *repository.Meta, error) {
 		payments := []*entity.Payment{
 			{
-				UUID:         UUID,
-				FromUUID:     FromUUID,
-				ToUUID:       ToUUID,
-				Distance:     124,
-				DistanceTime: 134,
+				UUID:         uuid.New().String(),
+				PaymentDate:  paymentDate,
+				Amount:       2485.57,
+				UserUUID:     userUUID,
+				TripUUID:     tripUUID,
+				ExternalUUID: externalUUID,
 			},
 			{
-				UUID:         UUID,
-				FromUUID:     FromUUID,
-				ToUUID:       ToUUID,
-				Distance:     124,
-				DistanceTime: 134,
+				UUID:         uuid.New().String(),
+				PaymentDate:  paymentDate,
+				Amount:       2485.57,
+				UserUUID:     userUUID,
+				TripUUID:     tripUUID,
+				ExternalUUID: externalUUID,
 			},
 		}
 		meta := repository.NewMeta(params, int64(len(payments)))
@@ -359,40 +378,40 @@ func TestDeletePayment_Failed_PaymentNotFound(t *testing.T) {
 	assert.Equal(t, w.Code, http.StatusNotFound)
 }
 
-func TestPayments_AddPaymentPrice(t *testing.T) {
+func TestPayments_AddOrderPayment(t *testing.T) {
 	var paymentData entity.Payment
 	var paymentApp mock.PaymentAppInterface
 	paymentHandler := NewPayments(&paymentApp)
 
 	UUID := uuid.New().String()
-	priceUUID := uuid.New().String()
+	orderUUID := uuid.New().String()
 
-	paymentJSON := `{"UUID":"` + UUID + `", "prices":[{"uuid":"` + priceUUID + `"}]}`
+	paymentJSON := `{"UUID":"` + UUID + `", "orders":[{"uuid":"` + orderUUID + `"}]}`
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/payment/price_add/", paymentHandler.AddPaymentPrice)
+	v1.POST("/payment/order_add/", paymentHandler.AddOrderPayment)
 
-	paymentApp.AddPaymentPriceFn = func(payment *entity.Payment) (*entity.Payment, map[string]string, error) {
+	paymentApp.AddOrderPaymentFn = func(payment *entity.Payment) (*entity.Payment, map[string]string, error) {
 		return &entity.Payment{
 			UUID:   UUID,
-			Prices: []*entity.Price{{UUID: priceUUID}},
+			Orders: []*entity.Order{{UUID: orderUUID}},
 		}, nil, nil
 	}
 
 	paymentApp.GetPaymentFn = func(string) (*entity.Payment, error) {
 		return &entity.Payment{
 			UUID:   UUID,
-			Prices: []*entity.Price{{UUID: priceUUID}},
+			Orders: []*entity.Order{{UUID: orderUUID}},
 		}, nil
 	}
 	var err error
 
 	c.Request, err = http.NewRequest(
 		http.MethodPost,
-		"/api/v1/external/payment/price_add/",
+		"/api/v1/external/payment/order_add/",
 		bytes.NewBufferString(paymentJSON),
 	)
 	if err != nil {
@@ -410,33 +429,33 @@ func TestPayments_AddPaymentPrice(t *testing.T) {
 
 }
 
-func TestPayments_DeletePaymentPrice(t *testing.T) {
+func TestPayments_DeleteOrderPayment(t *testing.T) {
 	var paymentData entity.Payment
 	var paymentApp mock.PaymentAppInterface
 	paymentHandler := NewPayments(&paymentApp)
 
 	UUID := uuid.New().String()
-	priceUUID := uuid.New().String()
+	orderUUID := uuid.New().String()
 
-	paymentJSON := `{"UUID":"` + UUID + `", "prices":[{"uuid":"` + priceUUID + `"}]}`
+	paymentJSON := `{"UUID":"` + UUID + `", "orders":[{"uuid":"` + orderUUID + `"}]}`
 
 	gin.SetMode(gin.TestMode)
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 	v1 := r.Group("/api/v1/external/")
-	v1.POST("/payment/price_del/", paymentHandler.DeletePaymentPrice)
+	v1.POST("/payment/order_del/", paymentHandler.DeleteOrderPayment)
 
-	paymentApp.DeletePaymentPriceFn = func(payment *entity.Payment) (*entity.Payment, map[string]string, error) {
+	paymentApp.DeleteOrderPaymentFn = func(payment *entity.Payment) (*entity.Payment, map[string]string, error) {
 		return &entity.Payment{
 			UUID:   UUID,
-			Prices: []*entity.Price{{UUID: priceUUID}},
+			Orders: []*entity.Order{{UUID: orderUUID}},
 		}, nil, nil
 	}
 
 	paymentApp.GetPaymentFn = func(string) (*entity.Payment, error) {
 		return &entity.Payment{
 			UUID:   UUID,
-			Prices: []*entity.Price{{UUID: priceUUID}},
+			Orders: []*entity.Order{{UUID: orderUUID}},
 		}, nil
 	}
 	var err error

@@ -36,7 +36,7 @@ func (r OrderRepo) UpdateOrder(uuid string, order *entity.Order) (*entity.Order,
 	errDesc := map[string]string{}
 	dirverData := &entity.Order{
 		OrdrDate:     order.OrdrDate,
-		PaymentDate:  order.PaymentDate,
+		PaymentUUID:  order.PaymentUUID,
 		TripUUID:     order.TripUUID,
 		ExternalUUID: order.ExternalUUID,
 		Seat:         order.Seat,

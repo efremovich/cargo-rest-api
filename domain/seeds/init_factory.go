@@ -372,7 +372,7 @@ var (
 		{
 			UUID:        uuid.New().String(),
 			OrdrDate:    time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
-			PaymentDate: time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
+			PaymentUUID: uuid.New().String(),
 			TripUUID:    trips[0].UUID,
 			Seat:        "Без места",
 			StatusUUID:  orderStatusTypes[0].UUID, // оплачен

@@ -45,6 +45,7 @@ type Repositories struct {
 	Route              repository.RouteRepository
 	Trip               repository.TripRepository
 	Order              repository.OrderRepository
+	Payment            repository.PaymentRepository
 	DB                 *gorm.DB
 }
 
@@ -137,6 +138,7 @@ func NewDBService(config config.DBConfig) (*Repositories, error) {
 		Route:              NewRouteRepository(db),
 		Trip:               NewTripRepository(db),
 		Order:              NewOrderRepository(db),
+		Payment:            NewPaymentRepository(db),
 		DB:                 db,
 	}, nil
 }

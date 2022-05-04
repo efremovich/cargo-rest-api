@@ -24,7 +24,7 @@ func orderFactory() []Seed {
 		order := &entity.Order{
 			UUID:         a.UUID,
 			OrdrDate:     a.OrderDate,
-			PaymentDate:  a.PaymentDate,
+			PaymentUUID:  a.PaymentUUID,
 			TripUUID:     a.TripUUID,
 			Seat:         a.Seat,
 			StatusUUID:   a.StatusUUID,
