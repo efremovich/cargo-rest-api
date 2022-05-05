@@ -23,8 +23,7 @@ func orderFactory() []Seed {
 
 		order := &entity.Order{
 			UUID:         a.UUID,
-			OrdrDate:     a.OrderDate,
-			PaymentUUID:  a.PaymentUUID,
+			OrderDate:    a.OrderDate,
 			TripUUID:     a.TripUUID,
 			Seat:         a.Seat,
 			StatusUUID:   a.StatusUUID,
@@ -45,7 +44,7 @@ func orderFactory() []Seed {
 // createOrder will create fake order and insert into DB.
 func createOrder(db *gorm.DB, order *entity.Order) (*entity.Order, error) {
 	var orderExists entity.Order
-	err := db.Where("external_uuid like %?%", order.ExternalUUID).Take(&orderExists).Error
+	err := db.Where("external_uuid like ?", order.ExternalUUID).Take(&orderExists).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			err := db.Create(order).Error

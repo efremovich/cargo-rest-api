@@ -25,8 +25,10 @@ var _ repository.PaymentRepository = &PaymentRepo{}
 // SavePayment will create a new payment.
 func (r PaymentRepo) SavePayment(Payment *entity.Payment) (*entity.Payment, map[string]string, error) {
 	errDesc := map[string]string{}
-	err := r.db.Model(&Payment).Association("Orders").Error
-	err = r.db.Create(&Payment).Error
+
+	r.db.Model(&Payment).Association("Orders")
+
+	err := r.db.Create(&Payment).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}
@@ -42,6 +44,7 @@ func (r PaymentRepo) UpdatePayment(uuid string, payment *entity.Payment) (*entit
 		Orders:       payment.Orders,
 		ExternalUUID: payment.ExternalUUID,
 	}
+
 	r.db.Model(payment).Association("Orders")
 
 	err := r.db.First(&payment, "uuid = ?", uuid).Updates(dirverData).Error
@@ -70,7 +73,7 @@ func (r PaymentRepo) DeletePayment(uuid string) error {
 
 func (r PaymentRepo) GetPayment(uuid string) (*entity.Payment, error) {
 	var payment entity.Payment
-	err := r.db.Preload("Orders").Where("uuid = ?", uuid).Take(&payment).Error
+	err := r.db.Preload("Orders").Preload("User").Preload("Trip").Where("uuid = ?", uuid).Take(&payment).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, exception.ErrorTextPaymentNotFound

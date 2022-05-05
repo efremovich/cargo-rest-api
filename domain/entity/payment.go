@@ -47,6 +47,9 @@ type Payments []*Payment
 // DetailPayment represent format of detail Payment.
 type DetailPayment struct {
 	PaymentFieldsForDetail
+	Orders []interface{} `json:"orders"`
+	User   interface{}   `json:"user"`
+	Trip   interface{}   `json:"trip"`
 }
 
 // DetailPaymentList represent format of DetailPayment for Payment list.
@@ -60,8 +63,8 @@ type PaymentFieldsForDetail struct {
 	UUID        string    `json:"uuid"`
 	PaymentDate time.Time `json:"payment_date"`
 	Amount      float64   `json:"amount"`
-	UserUUID    string    `json:"user_uuid"`
-	TripUUID    string    `json:"trip_uuid"`
+	UserUUID    string    `json:"user_uuid,omitempty"`
+	TripUUID    string    `json:"trip_uuid,omitempty"`
 
 	ExternalUUID string `json:"external_uuid"`
 }
@@ -122,10 +125,11 @@ func (u *Payment) DetailPayment() interface{} {
 			UUID:         u.UUID,
 			PaymentDate:  u.PaymentDate,
 			Amount:       u.Amount,
-			UserUUID:     u.UserUUID,
-			TripUUID:     u.TripUUID,
 			ExternalUUID: u.ExternalUUID,
 		},
+		Orders: Orders.DetailOrders(u.Orders),
+		User:   u.User.DetailUser(),
+		Trip:   u.Trip.DetailTrip(),
 	}
 }
 

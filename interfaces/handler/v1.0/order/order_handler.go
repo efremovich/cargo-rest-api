@@ -41,7 +41,7 @@ func NewOrders(us application.OrderAppInterface) *Orders {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Orderr /api/v1/external/order [post]
+// @Router /api/v1/external/order [post]
 // SaveOrder is a function order to handle create a new order.
 func (s *Orders) SaveOrder(c *gin.Context) {
 	var orderEntity entity.Order
@@ -88,7 +88,7 @@ func (s *Orders) SaveOrder(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Orderr /api/v1/external/order/uuid [put]
+// @Router /api/v1/external/order/uuid [put]
 // UpdateOrder is a function uses to handle update order by UUID.
 func (s *Orders) UpdateOrder(c *gin.Context) {
 	var orderEntity entity.Order
@@ -147,7 +147,7 @@ func (s *Orders) UpdateOrder(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Orderr /api/v1/external/order/{uuid} [delete]
+// @Router /api/v1/external/order/{uuid} [delete]
 // DeleteOrder is a function uses to handle delete order by UUID.
 func (s *Orders) DeleteOrder(c *gin.Context) {
 	var orderEntity entity.Order
@@ -183,7 +183,7 @@ func (s *Orders) DeleteOrder(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Orderr /api/v1/external/orders [get]
+// @Router /api/v1/external/orders [get]
 // GetOrders is a function uses to handle get order list.
 func (s *Orders) GetOrders(c *gin.Context) {
 	var order entity.Order
@@ -223,7 +223,7 @@ func (s *Orders) GetOrders(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Orderr /api/v1/external/order/{uuid} [get]
+// @Router /api/v1/external/order/{uuid} [get]
 // GetOrder is a function uses to handle get order detail by UUID.
 func (s *Orders) GetOrder(c *gin.Context) {
 	var orderEntity entity.Order

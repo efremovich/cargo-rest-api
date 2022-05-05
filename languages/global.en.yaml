@@ -85,6 +85,8 @@ api:
         not_found: "Trip Not Found"
       order:
         not_found: "Order Not Found"
+      payment:
+        not_found: "Payment Not Found"
     success:
       common:
         ok: "OK"
@@ -190,6 +192,8 @@ api:
         successfully_create_order: "Successfully Create Order"
         successfully_update_order: "Successfully Update Order"
         successfully_delete_order: "Successfully Delete Order"
+        successfully_add_order_payment: "Successfully Add Order Payment"
+        successfully_delete_order_payment: "Successfully Delete Order Payment"
       payment:
         successfully_get_payment_list: "Successfully Get Payment List"
         successfully_get_payment_detail: "Successfully Get Payment Detail"
@@ -220,6 +224,7 @@ attributes:
   passenger_type: "Passenger Type"
   price: "Price"
   passenger_type_uuid: "Passenger Type ID"
+  type: "Type"
   first_name: "First Name"
   last_name: "Last name"
   patronomic: "Patronomic"

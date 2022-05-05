@@ -25,8 +25,10 @@ var _ repository.DriverRepository = &DriverRepo{}
 // SaveDriver will create a new driver.
 func (r DriverRepo) SaveDriver(Driver *entity.Driver) (*entity.Driver, map[string]string, error) {
 	errDesc := map[string]string{}
-	err := r.db.Model(&Driver).Association("Vehicles").Error
-	err = r.db.Create(&Driver).Error
+
+	r.db.Model(&Driver).Association("Vehicles")
+
+	err := r.db.Create(&Driver).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
 	}

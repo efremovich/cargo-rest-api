@@ -41,7 +41,7 @@ func NewPayments(us application.PaymentAppInterface) *Payments {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payment [post]
+// @Router /api/v1/external/payment [post]
 // SavePayment is a function payment to handle create a new payment.
 func (s *Payments) SavePayment(c *gin.Context) {
 	var paymentEntity entity.Payment
@@ -88,7 +88,7 @@ func (s *Payments) SavePayment(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payment/uuid [put]
+// @Router /api/v1/external/payment/uuid [put]
 // UpdatePayment is a function uses to handle update payment by UUID.
 func (s *Payments) UpdatePayment(c *gin.Context) {
 	var paymentEntity entity.Payment
@@ -147,7 +147,7 @@ func (s *Payments) UpdatePayment(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payment/{uuid} [delete]
+// @Router /api/v1/external/payment/{uuid} [delete]
 // DeletePayment is a function uses to handle delete payment by UUID.
 func (s *Payments) DeletePayment(c *gin.Context) {
 	var paymentEntity entity.Payment
@@ -183,7 +183,7 @@ func (s *Payments) DeletePayment(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payments [get]
+// @Router /api/v1/external/payments [get]
 // GetPayments is a function uses to handle get payment list.
 func (s *Payments) GetPayments(c *gin.Context) {
 	var payment entity.Payment
@@ -223,7 +223,7 @@ func (s *Payments) GetPayments(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payment/{uuid} [get]
+// @Router /api/v1/external/payment/{uuid} [get]
 // GetPayment is a function uses to handle get payment detail by UUID.
 func (s *Payments) GetPayment(c *gin.Context) {
 	var paymentEntity entity.Payment
@@ -263,7 +263,7 @@ func (s *Payments) GetPayment(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payment/order_add [post]
+// @Router /api/v1/external/payment/order_add [post]
 // SavePayment is a function payment to handle create a new payment.
 func (s *Payments) AddOrderPayment(c *gin.Context) {
 	var paymentEntity entity.Payment
@@ -317,7 +317,7 @@ func (s *Payments) AddOrderPayment(c *gin.Context) {
 // @Failure 403 {object} response.errorOutput
 // @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
-// @Paymentr /api/v1/external/payment/price_del [post]
+// @Router /api/v1/external/payment/order_del [post]
 // SavePayment is a function payment to handle create a new payment.
 func (s *Payments) DeleteOrderPayment(c *gin.Context) {
 	var paymentEntity entity.Payment

@@ -14,15 +14,14 @@ import (
 
 // Order represent schema of table order.
 type Order struct {
-	UUID        string          `json:"uuid,omitempty"         gorm:"size:36;not null;uniqueIndex;primary_key;"`
-	OrdrDate    time.Time       `json:"ordr_date"`
-	PaymentUUID string          `json:"payment_uuid"`
-	Payment     Payment         `json:"payments"               gorm:"foreignKey:PaymentUUID"`
-	TripUUID    string          `json:"trip_uuid"`
-	Trip        Trip            `json:"trip"                   gorm:"foreignKey:TripUUID"`
-	Seat        string          `json:"seat"`
-	StatusUUID  string          `json:"order_status_type_uuid"`
-	Status      OrderStatusType `json:"order_status_type"      gorm:"foreignKey:StatusUUID"`
+	UUID       string          `json:"uuid,omitempty" gorm:"size:36;not null;uniqueIndex;primary_key;"`
+	OrderDate  time.Time       `json:"order_date"`
+	Passengers []*Passenger    `json:"passengers"     gorm:"many2many:order_passengers;"`
+	TripUUID   string          `json:"trip_uuid"`
+	Trip       Trip            `json:"trip"           gorm:"foreignKey:TripUUID"`
+	Seat       string          `json:"seat"`
+	StatusUUID string          `json:"status_uuid"`
+	Status     OrderStatusType `json:"status"         gorm:"foreignKey:StatusUUID"`
 
 	ExternalUUID string `json:"external_uuid"`
 
@@ -33,12 +32,11 @@ type Order struct {
 
 // OrderFaker represent content when generate fake data of order.
 type OrderFaker struct {
-	UUID        string    `faker:"uid_hyphenated" json:"uuid"`
-	OrderDate   time.Time `faker:"order_date"`
-	PaymentUUID string    `faker:"payment_uuid"`
-	TripUUID    string    `faker:"trip_uuid"`
-	Seat        string    `faker:"seat"`
-	StatusUUID  string    `faker:"status_uuid"`
+	UUID       string    `faker:"uid_hyphenated" json:"uuid"`
+	OrderDate  time.Time `faker:"order_date"`
+	TripUUID   string    `faker:"trip_uuid"`
+	Seat       string    `faker:"seat"`
+	StatusUUID string    `faker:"status_uuid"`
 
 	ExternalUUID string `faker:"external_uuid"`
 }
@@ -49,6 +47,10 @@ type Orders []*Order
 // DetailOrder represent format of detail Order.
 type DetailOrder struct {
 	OrderFieldsForDetail
+	Passengers []interface{} `json:"passengers,omitempty"`
+	Status     interface{}   `json:"status,omitempty"`
+	Payment    interface{}   `json:"payment,omitempty"`
+	Trip       interface{}   `json:"trip,omitempty"`
 }
 
 // DetailOrderList represent format of DetailOrder for Order list.
@@ -61,13 +63,12 @@ type DetailOrderList struct {
 type OrderFieldsForDetail struct {
 	UUID string `json:"uuid"`
 
-	OrderDate   time.Time `json:"order_date"`
-	PaymentUUID string    `json:"payment_uuid"`
-	TripUUID    string    `json:"trip_uuid"`
-	Seat        string    `json:"seat"`
-	StatusUUID  string    `json:"status_uuid"`
+	OrderDate  time.Time `json:"order_date"`
+	TripUUID   string    `json:"trip_uuid,omitempty"`
+	Seat       string    `json:"seat"`
+	StatusUUID string    `json:"status_uuid,omitempty"`
 
-	ExternalUUID string `json:"external_uuid"`
+	ExternalUUID string `json:"external_uuid,omitempty"`
 }
 
 // OrderFieldsForList represent fields of detail Order for Order list.
@@ -85,7 +86,6 @@ func (u *Order) FilterableFields() []interface{} {
 	return []interface{}{
 		"uuid",
 		"order_date",
-		"payment_uuid",
 		"trip_uuid",
 		"seat",
 		"status_uuid",
@@ -96,7 +96,6 @@ func (u *Order) FilterableFields() []interface{} {
 // Prepare will prepare submitted data of order.
 func (u *Order) Prepare() {
 	u.UUID = html.EscapeString(strings.TrimSpace(u.UUID))
-	u.PaymentUUID = html.EscapeString(strings.TrimSpace(u.PaymentUUID))
 	u.TripUUID = html.EscapeString(strings.TrimSpace(u.TripUUID))
 	u.Seat = html.EscapeString(strings.TrimSpace(u.Seat))
 	u.ExternalUUID = html.EscapeString(strings.TrimSpace(u.ExternalUUID))
@@ -128,13 +127,13 @@ func (u *Order) DetailOrder() interface{} {
 	return &DetailOrder{
 		OrderFieldsForDetail: OrderFieldsForDetail{
 			UUID:         u.UUID,
-			OrderDate:    u.OrdrDate,
-			PaymentUUID:  u.PaymentUUID,
-			TripUUID:     u.TripUUID,
+			OrderDate:    u.OrderDate,
 			Seat:         u.Seat,
-			StatusUUID:   u.StatusUUID,
 			ExternalUUID: u.ExternalUUID,
 		},
+		Passengers: Passengers.DetailPassengers(u.Passengers),
+		Status:     u.Status.DetailOrderStatusType(),
+		Trip:       u.Trip.DetailTrip(),
 	}
 }
 
@@ -143,8 +142,7 @@ func (u *Order) DetailOrderList() interface{} {
 	return &DetailOrderList{
 		OrderFieldsForDetail: OrderFieldsForDetail{
 			UUID:         u.UUID,
-			OrderDate:    u.OrdrDate,
-			PaymentUUID:  u.PaymentUUID,
+			OrderDate:    u.OrderDate,
 			TripUUID:     u.TripUUID,
 			Seat:         u.Seat,
 			StatusUUID:   u.StatusUUID,

@@ -36,11 +36,11 @@ func TestSavePayment_Success(t *testing.T) {
 	externalUUID := uuid.New().String()
 
 	paymentJSON := `{
-		"payment_date": "` + paymentDate.String() + `",
+		"payment_date": "` + paymentDate.Format(time.RFC3339) + `",
 		"amount":2485.57,
 		"user_uuid":"` + userUUID + `",
 		"trip_uuid":"` + tripUUID + `",
-		"externalUUID":"` + externalUUID + `",
+		"external_uuid":"` + externalUUID + `",
 		"orders":[
 		   {"order_uuid": "` + orderUUID + `", "payment_uuid": "` + UUID + `"}
 		]
@@ -82,7 +82,7 @@ func TestSavePayment_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusCreated)
 	assert.EqualValues(t, paymentData.UUID, UUID)
-	assert.EqualValues(t, paymentData.PaymentDate, paymentDate)
+	assert.EqualValues(t, paymentData.PaymentDate.Format(time.RFC3339), paymentDate.Format(time.RFC3339))
 	assert.EqualValues(t, paymentData.Amount, 2485.57)
 	assert.EqualValues(t, paymentData.UserUUID, userUUID)
 	assert.EqualValues(t, paymentData.TripUUID, tripUUID)
@@ -147,12 +147,12 @@ func TestUpdatePayment_Success(t *testing.T) {
 	externalUUID := uuid.New().String()
 
 	paymentJSON := `{
-    "uuid":"` + UUID + `,
-		"payment_date": "` + paymentDate.String() + `",
+    "uuid":"` + UUID + `",
+		"payment_date": "` + paymentDate.Format(time.RFC3339) + `",
 		"amount":2485.57,
 		"user_uuid":"` + userUUID + `",
 		"trip_uuid":"` + tripUUID + `",
-		"externalUUID":"` + externalUUID + `",
+		"external_uuid":"` + externalUUID + `",
 		"orders":[
 		   {"order_uuid": "` + orderUUID + `", "payment_uuid": "` + UUID + `"}
 		]
@@ -204,7 +204,7 @@ func TestUpdatePayment_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, paymentData.UUID, UUID)
-	assert.EqualValues(t, paymentData.PaymentDate, paymentDate)
+	assert.EqualValues(t, paymentData.PaymentDate.Format(time.RFC3339), paymentDate.Format(time.RFC3339))
 	assert.EqualValues(t, paymentData.Amount, 2485.57)
 	assert.EqualValues(t, paymentData.UserUUID, userUUID)
 	assert.EqualValues(t, paymentData.TripUUID, tripUUID)
@@ -258,7 +258,7 @@ func TestGetPayment_Success(t *testing.T) {
 
 	assert.Equal(t, w.Code, http.StatusOK)
 	assert.EqualValues(t, paymentData.UUID, UUID)
-	assert.EqualValues(t, paymentData.PaymentDate, paymentDate)
+	assert.EqualValues(t, paymentData.PaymentDate.Format(time.RFC3339), paymentDate.Format(time.RFC3339))
 	assert.EqualValues(t, paymentData.Amount, 2485.57)
 	assert.EqualValues(t, paymentData.UserUUID, userUUID)
 	assert.EqualValues(t, paymentData.TripUUID, tripUUID)
@@ -462,7 +462,7 @@ func TestPayments_DeleteOrderPayment(t *testing.T) {
 
 	c.Request, err = http.NewRequest(
 		http.MethodPost,
-		"/api/v1/external/payment/price_del/",
+		"/api/v1/external/payment/order_del/",
 		bytes.NewBufferString(paymentJSON),
 	)
 	if err != nil {

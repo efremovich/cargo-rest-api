@@ -368,27 +368,11 @@ var (
 			DriverUUID:         drivers[3].UUID,
 		},
 	}
-	orders = []*entity.Order{
-		{
-			UUID:        uuid.New().String(),
-			OrdrDate:    time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
-			PaymentUUID: uuid.New().String(),
-			TripUUID:    trips[0].UUID,
-			Seat:        "Без места",
-			StatusUUID:  orderStatusTypes[0].UUID, // оплачен
-		},
-		{
-			UUID:       uuid.New().String(),
-			OrdrDate:   time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
-			TripUUID:   trips[1].UUID,
-			Seat:       "1 (У окна)",
-			StatusUUID: orderStatusTypes[1].UUID, // не оплачен, бронирование
-		},
-	}
 	payments = []*entity.Payment{
 		{
 			UUID:         uuid.New().String(),
 			PaymentDate:  time.Now(),
+			Amount:       3000.50,
 			UserUUID:     user.UUID,
 			TripUUID:     trips[0].UUID,
 			Orders:       orders[:0],
@@ -397,10 +381,29 @@ var (
 		{
 			UUID:         uuid.New().String(),
 			PaymentDate:  time.Now(),
+			Amount:       2000.50,
 			UserUUID:     user.UUID,
 			TripUUID:     trips[0].UUID,
 			Orders:       orders[:1],
 			ExternalUUID: uuid.New().String(),
+		},
+	}
+	orders = []*entity.Order{
+		{
+			UUID:       uuid.New().String(),
+			OrderDate:  time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
+			TripUUID:   trips[0].UUID,
+			Seat:       "Без места",
+			StatusUUID: orderStatusTypes[0].UUID, // оплачен
+			Passengers: passengers[:1],
+		},
+		{
+			UUID:       uuid.New().String(),
+			OrderDate:  time.Date(2022, time.May, 9, 9, 0, 0, 0, time.UTC),
+			TripUUID:   trips[1].UUID,
+			Seat:       "1 (У окна)",
+			StatusUUID: orderStatusTypes[1].UUID, // не оплачен, бронирование
+			Passengers: passengers[1:],
 		},
 	}
 )

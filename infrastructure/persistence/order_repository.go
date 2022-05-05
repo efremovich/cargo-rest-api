@@ -25,6 +25,9 @@ var _ repository.OrderRepository = &OrderRepo{}
 // SaveOrder will create a new order.
 func (r OrderRepo) SaveOrder(Order *entity.Order) (*entity.Order, map[string]string, error) {
 	errDesc := map[string]string{}
+
+	r.db.Model(&Order).Association("Passengers")
+
 	err := r.db.Create(&Order).Error
 	if err != nil {
 		return nil, errDesc, exception.ErrorTextAnErrorOccurred
@@ -35,13 +38,14 @@ func (r OrderRepo) SaveOrder(Order *entity.Order) (*entity.Order, map[string]str
 func (r OrderRepo) UpdateOrder(uuid string, order *entity.Order) (*entity.Order, map[string]string, error) {
 	errDesc := map[string]string{}
 	dirverData := &entity.Order{
-		OrdrDate:     order.OrdrDate,
-		PaymentUUID:  order.PaymentUUID,
+		OrderDate:    order.OrderDate,
 		TripUUID:     order.TripUUID,
 		ExternalUUID: order.ExternalUUID,
 		Seat:         order.Seat,
 		StatusUUID:   order.StatusUUID,
+		Passengers:   order.Passengers,
 	}
+	r.db.Model(order).Association("Passengers")
 
 	err := r.db.First(&order, "uuid = ?", uuid).Updates(dirverData).Error
 	if err != nil {
@@ -69,9 +73,7 @@ func (r OrderRepo) DeleteOrder(uuid string) error {
 
 func (r OrderRepo) GetOrder(uuid string) (*entity.Order, error) {
 	var order entity.Order
-	err := r.db.Preload("Trip").
-		Preload("OrderStatusType").
-		Preload("RegularityType").
+	err := r.db.Preload("Trip").Preload("Passengers").Preload("Status").
 		Where("uuid = ?", uuid).
 		Take(&order).
 		Error

@@ -171,6 +171,6 @@ const (
 	PaymentSuccessfullyCreatePayment      = "api.msg.success.payment.successfully_create_payment"
 	PaymentSuccessfullyUpdatePayment      = "api.msg.success.payment.successfully_update_payment"
 	PaymentSuccessfullyDeletePayment      = "api.msg.success.payment.successfully_delete_payment"
-	PaymentSuccessfullyAddOrderPayment    = "api.msg.success.route.successfully_add_order_payment"
-	PaymentSuccessfullyDeleteOrderPayment = "api.msg.success.route.successfully_delete_order_payment"
+	PaymentSuccessfullyAddOrderPayment    = "api.msg.success.payment.successfully_add_order_payment"
+	PaymentSuccessfullyDeleteOrderPayment = "api.msg.success.payment.successfully_delete_order_payment"
 )
