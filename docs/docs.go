@@ -7149,7 +7149,6 @@ const docTemplate = `{
         "entity.DetailOrder": {
             "type": "object",
             "properties": {
-                "Trip": {},
                 "external_uuid": {
                     "type": "string"
                 },
@@ -7161,9 +7160,6 @@ const docTemplate = `{
                     "items": {}
                 },
                 "payment": {},
-                "payment_uuid": {
-                    "type": "string"
-                },
                 "seat": {
                     "type": "string"
                 },
@@ -7171,6 +7167,7 @@ const docTemplate = `{
                 "status_uuid": {
                     "type": "string"
                 },
+                "trip": {},
                 "trip_uuid": {
                     "type": "string"
                 },
@@ -7442,8 +7439,8 @@ const docTemplate = `{
         "Oauth2AccessCode": {
             "type": "oauth2",
             "flow": "accessCode",
-            "authorizationUrl": "http://localhost:8888/oauth/authorize",
-            "tokenUrl": "http://localhost:8888/oauth/token",
+            "authorizationUrl": "http://api.cargo.re-base.ru:8888/oauth/authorize",
+            "tokenUrl": "http://api.cargo.re-base.ru:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
@@ -7451,7 +7448,7 @@ const docTemplate = `{
         "Oauth2Password": {
             "type": "oauth2",
             "flow": "password",
-            "tokenUrl": "http://localhost:8888/oauth/token",
+            "tokenUrl": "http://api.cargo.re-base.ru:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
@@ -7462,7 +7459,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8888",
+	Host:             "api.cargo.re-base.ru:8888",
 	BasePath:         "",
 	Schemes:          []string{"http"},
 	Title:            "cargo-rest-api",

@@ -20,7 +20,6 @@ definitions:
     type: object
   entity.DetailOrder:
     properties:
-      Trip: {}
       external_uuid:
         type: string
       order_date:
@@ -29,13 +28,12 @@ definitions:
         items: {}
         type: array
       payment: {}
-      payment_uuid:
-        type: string
       seat:
         type: string
       status: {}
       status_uuid:
         type: string
+      trip: {}
       trip_uuid:
         type: string
       uuid:
@@ -203,7 +201,7 @@ definitions:
         type: string
       meta: {}
     type: object
-host: localhost:8888
+host: api.cargo.re-base.ru:8888
 info:
   contact:
     email: sasha.fima@gmail.com
@@ -4809,16 +4807,16 @@ securityDefinitions:
     name: Authorization
     type: apiKey
   Oauth2AccessCode:
-    authorizationUrl: http://localhost:8888/oauth/authorize
+    authorizationUrl: http://api.cargo.re-base.ru:8888/oauth/authorize
     flow: accessCode
     scopes:
       all: ' Grants all access'
-    tokenUrl: http://localhost:8888/oauth/token
+    tokenUrl: http://api.cargo.re-base.ru:8888/oauth/token
     type: oauth2
   Oauth2Password:
     flow: password
     scopes:
       all: ' Grants all access'
-    tokenUrl: http://localhost:8888/oauth/token
+    tokenUrl: http://api.cargo.re-base.ru:8888/oauth/token
     type: oauth2
 swagger: "2.0"

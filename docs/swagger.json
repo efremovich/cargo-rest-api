@@ -16,7 +16,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8888",
+    "host": "api.cargo.re-base.ru:8888",
     "paths": {
         "/api/ping": {
             "get": {
@@ -7144,7 +7144,6 @@
         "entity.DetailOrder": {
             "type": "object",
             "properties": {
-                "Trip": {},
                 "external_uuid": {
                     "type": "string"
                 },
@@ -7156,9 +7155,6 @@
                     "items": {}
                 },
                 "payment": {},
-                "payment_uuid": {
-                    "type": "string"
-                },
                 "seat": {
                     "type": "string"
                 },
@@ -7166,6 +7162,7 @@
                 "status_uuid": {
                     "type": "string"
                 },
+                "trip": {},
                 "trip_uuid": {
                     "type": "string"
                 },
@@ -7437,8 +7434,8 @@
         "Oauth2AccessCode": {
             "type": "oauth2",
             "flow": "accessCode",
-            "authorizationUrl": "http://localhost:8888/oauth/authorize",
-            "tokenUrl": "http://localhost:8888/oauth/token",
+            "authorizationUrl": "http://api.cargo.re-base.ru:8888/oauth/authorize",
+            "tokenUrl": "http://api.cargo.re-base.ru:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
@@ -7446,7 +7443,7 @@
         "Oauth2Password": {
             "type": "oauth2",
             "flow": "password",
-            "tokenUrl": "http://localhost:8888/oauth/token",
+            "tokenUrl": "http://api.cargo.re-base.ru:8888/oauth/token",
             "scopes": {
                 "all": " Grants all access"
             }
