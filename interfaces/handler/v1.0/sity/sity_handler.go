@@ -174,13 +174,8 @@ func (s *Sities) DeleteSity(c *gin.Context) {
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
-// @Security BasicAuth
-// @Security JWTAuth
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
-// @Failure 401 {object} response.errorOutput
-// @Failure 403 {object} response.errorOutput
-// @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
 // @Router /api/v1/external/sities [get]
 // GetSities is a function uses to handle get sity list.
@@ -211,14 +206,9 @@ func (s *Sities) GetSities(c *gin.Context) {
 // @Produce json
 // @Param Accept-Language header string false "Language code" Enums(en, ru) default(en)
 // @Param Set-Request-Id header string false "Request id"
-// @Security BasicAuth
-// @Security JWTAuth
 // @Param uuid path string true "Sity UUID"
 // @Success 200 {object} response.successOutput
 // @Failure 400 {object} response.errorOutput
-// @Failure 401 {object} response.errorOutput
-// @Failure 403 {object} response.errorOutput
-// @Failure 404 {object} response.errorOutput
 // @Failure 500 {object} response.errorOutput
 // @Router /api/v1/external/sity/{uuid} [get]
 // GetSity is a function uses to handle get sity detail by UUID.
