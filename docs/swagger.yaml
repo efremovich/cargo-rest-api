@@ -3898,25 +3898,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
       summary: Get sities
       tags:
       - sity
@@ -4062,25 +4047,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/response.errorOutput'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/response.errorOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/response.errorOutput'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/response.errorOutput'
-      security:
-      - BasicAuth: []
-      - JWTAuth: []
       summary: Get sity
       tags:
       - sity

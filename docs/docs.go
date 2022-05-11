@@ -5690,14 +5690,6 @@ const docTemplate = `{
         },
         "/api/v1/external/sities": {
             "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
                 "description": "Get list of existing sities.",
                 "produces": [
                     "application/json"
@@ -5734,24 +5726,6 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/response.errorOutput"
                         }
@@ -5945,14 +5919,6 @@ const docTemplate = `{
         },
         "/api/v1/external/sity/{uuid}": {
             "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
                 "description": "Get detail of existing sity.",
                 "produces": [
                     "application/json"
@@ -5996,24 +5962,6 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/response.errorOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/response.errorOutput"
                         }
