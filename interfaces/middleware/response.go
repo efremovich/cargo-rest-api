@@ -32,7 +32,7 @@ func NewResponse(o ResponseOptions) *ResponseOptions {
 // Handler will handle any error response.
 func (r *ResponseOptions) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("Content-Type", "application/json; charset: utf-8")
+		c.Header("Content-Type", "application/json; charset=utf-8")
 		c.Next()
 
 		if c.Errors.Last() == nil {

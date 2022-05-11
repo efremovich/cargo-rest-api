@@ -95,11 +95,11 @@ func (o *Oauth) Auth(c *gin.Context) {
 
 	UUID, _ := sessionStore.Get("LoggedInUserID")
 	if UUID == nil {
-		c.Header("Content-Type", "text/html; charset: utf-8")
+		c.Header("Content-Type", "text/html; charset=utf-8")
 		c.HTML(http.StatusOK, "oauth_login.html", gin.H{})
 		return
 	}
 
-	c.Header("Content-Type", "text/html; charset: utf-8")
+	c.Header("Content-Type", "text/html; charset=utf-8")
 	c.HTML(http.StatusOK, "oauth_authorize.html", gin.H{})
 }

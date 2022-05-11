@@ -122,7 +122,7 @@ func defaultHandler(c *gin.Context) {
 }
 
 func loginHandler(c *gin.Context) {
-	c.Header("Content-Type", "text/html; charset: utf-8")
+	c.Header("Content-Type", "text/html; charset=utf-8")
 	c.HTML(http.StatusOK, "oauth_login.html", gin.H{})
 }
 
