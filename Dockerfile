@@ -46,4 +46,4 @@ EXPOSE 8888
 CMD ["./main"]
 
 # Health check
-HEALTHCHECK --interval=60s CMD wget -qO- localhost:8888/ping
+HEALTHCHECK --interval=60s CMD wget -qO- localhost:8888/api/ping
