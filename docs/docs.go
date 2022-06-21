@@ -7407,7 +7407,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "api.cargo.re-base.ru:8888",
+	Host:             "localhost:8888",
 	BasePath:         "",
 	Schemes:          []string{"http"},
 	Title:            "cargo-rest-api",

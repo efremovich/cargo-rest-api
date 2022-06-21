@@ -49,7 +49,7 @@ import (
 // @authorizationUrl http://api.cargo.re-base.ru:8888/oauth/authorize
 // @scope.all Grants all access
 
-// @host api.cargo.re-base.ru:8888
+// @host localhost:8888
 // @schemes http
 // main init the cargo-rest-api.
 func main() {

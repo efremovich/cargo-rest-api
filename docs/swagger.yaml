@@ -201,7 +201,7 @@ definitions:
         type: string
       meta: {}
     type: object
-host: api.cargo.re-base.ru:8888
+host: localhost:8888
 info:
   contact:
     email: sasha.fima@gmail.com

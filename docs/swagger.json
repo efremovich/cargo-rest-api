@@ -16,7 +16,7 @@
         },
         "version": "1.0"
     },
-    "host": "api.cargo.re-base.ru:8888",
+    "host": "localhost:8888",
     "paths": {
         "/api/ping": {
             "get": {
