@@ -3,3 +3,4 @@ air
 .idea
 coverage.out
 .env
+.vscode
